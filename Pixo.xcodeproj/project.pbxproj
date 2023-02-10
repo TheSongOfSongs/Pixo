@@ -18,6 +18,11 @@
 		76FC37632995F99100033A4B /* PixoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37622995F99100033A4B /* PixoUITests.swift */; };
 		76FC37652995F99100033A4B /* PixoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */; };
 		76FC37732996079500033A4B /* SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37722996079500033A4B /* SettingUpView.swift */; };
+		76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */; };
+		76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC377E29960A4500033A4B /* UIView+Extension.swift */; };
+		76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3782299616AF00033A4B /* UIFont+Extension.swift */; };
+		76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37842996193C00033A4B /* UIColor+Extension.swift */; };
+		76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */; };
 		C9DB2BD72BC2E979F9E5A6AF /* Pods_Pixo_PixoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +60,11 @@
 		76FC37622995F99100033A4B /* PixoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITests.swift; sourceTree = "<group>"; };
 		76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		76FC37722996079500033A4B /* SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUpView.swift; sourceTree = "<group>"; };
+		76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerTitleView.swift; sourceTree = "<group>"; };
+		76FC377E29960A4500033A4B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		76FC3782299616AF00033A4B /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		76FC37842996193C00033A4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerTitleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixoTests.release.xcconfig"; path = "Target Support Files/Pods-PixoTests/Pods-PixoTests.release.xcconfig"; sourceTree = "<group>"; };
 		B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D49AD4D81B2AA7FE9B2B894F /* Pods-Pixo-PixoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.release.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,7 +149,9 @@
 		76FC37402995F99000033A4B /* Pixo */ = {
 			isa = PBXGroup;
 			children = (
+				76FC377B29960A2000033A4B /* Extensions */,
 				76FC37712996078C00033A4B /* Protocols */,
+				76FC37742996098300033A4B /* UIViews */,
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
 				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
@@ -173,6 +185,25 @@
 				76FC37722996079500033A4B /* SettingUpView.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		76FC37742996098300033A4B /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */,
+				76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */,
+			);
+			path = UIViews;
+			sourceTree = "<group>";
+		};
+		76FC377B29960A2000033A4B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37842996193C00033A4B /* UIColor+Extension.swift */,
+				76FC3782299616AF00033A4B /* UIFont+Extension.swift */,
+				76FC377E29960A4500033A4B /* UIView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,9 +444,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */,
 				76FC37732996079500033A4B /* SettingUpView.swift in Sources */,
+				76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */,
 				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
+				76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */,
+				76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */,
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,
+				76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
