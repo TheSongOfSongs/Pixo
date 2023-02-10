@@ -17,6 +17,7 @@
 		76FC37592995F99100033A4B /* PixoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37582995F99100033A4B /* PixoTests.swift */; };
 		76FC37632995F99100033A4B /* PixoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37622995F99100033A4B /* PixoUITests.swift */; };
 		76FC37652995F99100033A4B /* PixoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */; };
+		76FC37732996079500033A4B /* SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37722996079500033A4B /* SettingUpView.swift */; };
 		C9DB2BD72BC2E979F9E5A6AF /* Pods_Pixo_PixoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		76FC375E2995F99100033A4B /* PixoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37622995F99100033A4B /* PixoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITests.swift; sourceTree = "<group>"; };
 		76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		76FC37722996079500033A4B /* SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUpView.swift; sourceTree = "<group>"; };
 		8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixoTests.release.xcconfig"; path = "Target Support Files/Pods-PixoTests/Pods-PixoTests.release.xcconfig"; sourceTree = "<group>"; };
 		B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D49AD4D81B2AA7FE9B2B894F /* Pods-Pixo-PixoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.release.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		76FC37402995F99000033A4B /* Pixo */ = {
 			isa = PBXGroup;
 			children = (
+				76FC37712996078C00033A4B /* Protocols */,
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
 				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
@@ -162,6 +165,14 @@
 				76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */,
 			);
 			path = PixoUITests;
+			sourceTree = "<group>";
+		};
+		76FC37712996078C00033A4B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37722996079500033A4B /* SettingUpView.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76FC37732996079500033A4B /* SettingUpView.swift in Sources */,
 				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
