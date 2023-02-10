@@ -9,6 +9,7 @@ target 'Pixo' do
   pod 'RxCocoa', '6.5.0'
   pod 'RxSwift', '6.5.0'
   pod 'SnapKit', '~> 5.6.0'
+  pod 'Then'
 
   target 'PixoTests' do
     inherit! :search_paths
