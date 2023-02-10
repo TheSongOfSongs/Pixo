@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 extension PhotoPickerViewController: SettingUpView {
-    func setupView() {
+    func addSubviews() {
         view.addSubview(titleView)
     }
     

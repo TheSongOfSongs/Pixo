@@ -10,14 +10,14 @@ import UIKit
 protocol SettingUpView {
     func setupLayout()
     /// UIView Element를 추가해주는 함수
-    func setupView()
+    func addSubviews()
     /// UIView Element의 AutoLayout을 잡아주는 함수
     func setupConstriants()
 }
 
 extension SettingUpView {
     func setupLayout() {
-        setupView()
+        addSubviews()
         setupConstriants()
     }
 }

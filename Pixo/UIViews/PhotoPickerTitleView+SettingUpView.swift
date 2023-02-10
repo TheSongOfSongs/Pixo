@@ -8,7 +8,7 @@
 import UIKit
 
 extension PhotoPickerTitleView: SettingUpView {
-    func setupView() {
+    func addSubviews() {
         addSubview(titleLabel)
         addSubview(arrowImageView)
         addSubview(grayBottomBorderView)
