@@ -11,8 +11,7 @@
 		427519DADD3CA485C3132C25 /* Pods_PixoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */; };
 		76FC37422995F99000033A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37412995F99000033A4B /* AppDelegate.swift */; };
 		76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37432995F99000033A4B /* SceneDelegate.swift */; };
-		76FC37462995F99000033A4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37452995F99000033A4B /* ViewController.swift */; };
-		76FC37492995F99000033A4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC37472995F99000033A4B /* Main.storyboard */; };
+		76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37452995F99000033A4B /* PhotoPickerViewController.swift */; };
 		76FC374B2995F99100033A4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76FC374A2995F99100033A4B /* Assets.xcassets */; };
 		76FC374E2995F99100033A4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC374C2995F99100033A4B /* LaunchScreen.storyboard */; };
 		76FC37592995F99100033A4B /* PixoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37582995F99100033A4B /* PixoTests.swift */; };
@@ -45,8 +44,7 @@
 		76FC373E2995F99000033A4B /* Pixo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37412995F99000033A4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76FC37432995F99000033A4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		76FC37452995F99000033A4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		76FC37482995F99000033A4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		76FC37452995F99000033A4B /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
 		76FC374A2995F99100033A4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76FC374D2995F99100033A4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76FC374F2995F99100033A4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 				FBBD31B629AECB07A4835A6C /* Pods-PixoTests.debug.xcconfig */,
 				8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -142,8 +139,7 @@
 			children = (
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
-				76FC37452995F99000033A4B /* ViewController.swift */,
-				76FC37472995F99000033A4B /* Main.storyboard */,
+				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
 				76FC374C2995F99100033A4B /* LaunchScreen.storyboard */,
 				76FC374F2995F99100033A4B /* Info.plist */,
@@ -279,7 +275,6 @@
 			files = (
 				76FC374E2995F99100033A4B /* LaunchScreen.storyboard in Resources */,
 				76FC374B2995F99100033A4B /* Assets.xcassets in Resources */,
-				76FC37492995F99000033A4B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76FC37462995F99000033A4B /* ViewController.swift in Sources */,
+				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
 			);
@@ -446,14 +441,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		76FC37472995F99000033A4B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76FC37482995F99000033A4B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		76FC374C2995F99100033A4B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -592,7 +579,6 @@
 				INFOPLIST_FILE = Pixo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -622,7 +608,6 @@
 				INFOPLIST_FILE = Pixo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
