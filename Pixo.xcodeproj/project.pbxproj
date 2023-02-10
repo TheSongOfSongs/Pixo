@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3606292130FE851F90EFEA0E /* Pods_Pixo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA9E96816F5318EEAC9CE3 /* Pods_Pixo.framework */; };
+		427519DADD3CA485C3132C25 /* Pods_PixoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */; };
 		76FC37422995F99000033A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37412995F99000033A4B /* AppDelegate.swift */; };
 		76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37432995F99000033A4B /* SceneDelegate.swift */; };
 		76FC37462995F99000033A4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37452995F99000033A4B /* ViewController.swift */; };
@@ -16,6 +18,7 @@
 		76FC37592995F99100033A4B /* PixoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37582995F99100033A4B /* PixoTests.swift */; };
 		76FC37632995F99100033A4B /* PixoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37622995F99100033A4B /* PixoUITests.swift */; };
 		76FC37652995F99100033A4B /* PixoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */; };
+		C9DB2BD72BC2E979F9E5A6AF /* Pods_Pixo_PixoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		292E687105E3FC1CC228B4ED /* Pods-Pixo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo.release.xcconfig"; path = "Target Support Files/Pods-Pixo/Pods-Pixo.release.xcconfig"; sourceTree = "<group>"; };
+		4C4E7E375DBBAC584C7DBDFC /* Pods-Pixo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo.debug.xcconfig"; path = "Target Support Files/Pods-Pixo/Pods-Pixo.debug.xcconfig"; sourceTree = "<group>"; };
 		76FC373E2995F99000033A4B /* Pixo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37412995F99000033A4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76FC37432995F99000033A4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +55,12 @@
 		76FC375E2995F99100033A4B /* PixoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37622995F99100033A4B /* PixoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITests.swift; sourceTree = "<group>"; };
 		76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixoTests.release.xcconfig"; path = "Target Support Files/Pods-PixoTests/Pods-PixoTests.release.xcconfig"; sourceTree = "<group>"; };
+		B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D49AD4D81B2AA7FE9B2B894F /* Pods-Pixo-PixoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.release.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EDFA9E96816F5318EEAC9CE3 /* Pods_Pixo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pixo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pixo_PixoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBBD31B629AECB07A4835A6C /* Pods-PixoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixoTests.debug.xcconfig"; path = "Target Support Files/Pods-PixoTests/Pods-PixoTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3606292130FE851F90EFEA0E /* Pods_Pixo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				427519DADD3CA485C3132C25 /* Pods_PixoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +84,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9DB2BD72BC2E979F9E5A6AF /* Pods_Pixo_PixoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B657D593E8D8A4BEE97557A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4C4E7E375DBBAC584C7DBDFC /* Pods-Pixo.debug.xcconfig */,
+				292E687105E3FC1CC228B4ED /* Pods-Pixo.release.xcconfig */,
+				B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */,
+				D49AD4D81B2AA7FE9B2B894F /* Pods-Pixo-PixoUITests.release.xcconfig */,
+				FBBD31B629AECB07A4835A6C /* Pods-PixoTests.debug.xcconfig */,
+				8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		4B1DB7CFA8C16BD7D9BA78B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDFA9E96816F5318EEAC9CE3 /* Pods_Pixo.framework */,
+				F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */,
+				23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		76FC37352995F99000033A4B = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +122,8 @@
 				76FC37572995F99100033A4B /* PixoTests */,
 				76FC37612995F99100033A4B /* PixoUITests */,
 				76FC373F2995F99000033A4B /* Products */,
+				3B657D593E8D8A4BEE97557A /* Pods */,
+				4B1DB7CFA8C16BD7D9BA78B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76FC37682995F99100033A4B /* Build configuration list for PBXNativeTarget "Pixo" */;
 			buildPhases = (
+				003F7CA8E5F7604B12727BF4 /* [CP] Check Pods Manifest.lock */,
 				76FC373A2995F99000033A4B /* Sources */,
 				76FC373B2995F99000033A4B /* Frameworks */,
 				76FC373C2995F99000033A4B /* Resources */,
+				F0A09D89FEF8E70CD9EE39A8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76FC376B2995F99100033A4B /* Build configuration list for PBXNativeTarget "PixoTests" */;
 			buildPhases = (
+				9D14B060198019773CCA2660 /* [CP] Check Pods Manifest.lock */,
 				76FC37502995F99100033A4B /* Sources */,
 				76FC37512995F99100033A4B /* Frameworks */,
 				76FC37522995F99100033A4B /* Resources */,
@@ -169,9 +213,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 76FC376E2995F99100033A4B /* Build configuration list for PBXNativeTarget "PixoUITests" */;
 			buildPhases = (
+				75D7DDC59B0C1F270719B8A9 /* [CP] Check Pods Manifest.lock */,
 				76FC375A2995F99100033A4B /* Sources */,
 				76FC375B2995F99100033A4B /* Frameworks */,
 				76FC375C2995F99100033A4B /* Resources */,
+				65F6E5B3566AFCB953F622AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -207,7 +253,7 @@
 				};
 			};
 			buildConfigurationList = 76FC37392995F99000033A4B /* Build configuration list for PBXProject "Pixo" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -252,6 +298,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		003F7CA8E5F7604B12727BF4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pixo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		65F6E5B3566AFCB953F622AA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75D7DDC59B0C1F270719B8A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pixo-PixoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D14B060198019773CCA2660 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PixoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0A09D89FEF8E70CD9EE39A8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pixo/Pods-Pixo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pixo/Pods-Pixo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pixo/Pods-Pixo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		76FC373A2995F99000033A4B /* Sources */ = {
@@ -432,6 +581,7 @@
 		};
 		76FC37692995F99100033A4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C4E7E375DBBAC584C7DBDFC /* Pods-Pixo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -461,6 +611,7 @@
 		};
 		76FC376A2995F99100033A4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 292E687105E3FC1CC228B4ED /* Pods-Pixo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -490,6 +641,7 @@
 		};
 		76FC376C2995F99100033A4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBBD31B629AECB07A4835A6C /* Pods-PixoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -510,6 +662,7 @@
 		};
 		76FC376D2995F99100033A4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -530,6 +683,7 @@
 		};
 		76FC376F2995F99100033A4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -548,6 +702,7 @@
 		};
 		76FC37702995F99100033A4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D49AD4D81B2AA7FE9B2B894F /* Pods-Pixo-PixoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
