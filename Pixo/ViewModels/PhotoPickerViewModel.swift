@@ -17,18 +17,14 @@ class PhotoPickerViewModel: ViewModel {
     }
     
     struct Output {
-        var allPhotos: Observable<Album>
-        var smartAlbums: Observable<[Album]>
-        var userCollections: Observable<[Album]>
+        var albums: Observable<[AlbumSection]>
     }
     
     // MARK: properties
     var disposeBag = DisposeBag()
     
     private let photosManager = PhotosManager()
-    private let allPhotosRelay = PublishRelay<Album>()
-    private let smartAlbumsRelay = PublishRelay<[Album]>()
-    private let userCollectionsRelay = PublishRelay<[Album]>()
+    private let albumsRelay = PublishRelay<[Album]>()
     
     
     // MARK: -
@@ -39,29 +35,20 @@ class PhotoPickerViewModel: ViewModel {
             })
             .disposed(by: disposeBag)
         
-        return Output(allPhotos: allPhotosRelay.asObservable(),
-                      smartAlbums: smartAlbumsRelay.asObservable(),
-                      userCollections: userCollectionsRelay.asObservable())
+        let albums = albumsRelay
+            .map {
+                return [AlbumSection(header: "", items: $0)]
+            }
+        
+        return Output(albums: albums)
     }
     
+    /// PhotosManager를 통해 앨범 리스트를 가져옵니다
     func fetchAlbums() {
-        fetchAllPhotos()
-        fetchSmartAlbums()
-        fetchUserCollectionAlbums()
-    }
-    
-    func fetchAllPhotos()  {
-        let result = photosManager.fetchAllPhotosAlbum()
-        allPhotosRelay.accept(result)
-    }
-    
-    func fetchSmartAlbums() {
-        let result = photosManager.fetchSmartAlbums()
-        smartAlbumsRelay.accept(result)
-    }
-    
-    func fetchUserCollectionAlbums() {
-        let result = photosManager.fetchUserCollectionAlbums()
-        userCollectionsRelay.accept(result)
+        let albums = [photosManager.fetchAllPhotosAlbum()]
+        + photosManager.fetchSmartAlbums()
+        + photosManager.fetchUserCollectionAlbums()
+        
+        albumsRelay.accept(albums)
     }
 }

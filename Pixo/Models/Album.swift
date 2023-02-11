@@ -9,7 +9,7 @@ import Foundation
 import Photos
 
 struct Album {
-    var type: AlbumSection
+    var type: AlbumType
     var phAssetCollection: PHAssetCollection?
     var phFetchResult: PHFetchResult<PHAsset>
     var title: String
