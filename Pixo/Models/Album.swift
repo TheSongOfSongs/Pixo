@@ -13,4 +13,8 @@ struct Album {
     var phAssetCollection: PHAssetCollection?
     var phFetchResult: PHFetchResult<PHAsset>
     var title: String
+    
+    var previewPHAsset: PHAsset? {
+        return phFetchResult.firstObject
+    }
 }

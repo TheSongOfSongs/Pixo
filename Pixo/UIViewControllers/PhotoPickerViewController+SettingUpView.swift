@@ -11,6 +11,7 @@ import SnapKit
 extension PhotoPickerViewController: SettingUpView {
     func addSubviews() {
         view.addSubview(titleView)
+        view.addSubview(tableView)
     }
     
     func setupConstriants() {
@@ -18,6 +19,11 @@ extension PhotoPickerViewController: SettingUpView {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(80)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(titleView.snp.bottom)
+            make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
