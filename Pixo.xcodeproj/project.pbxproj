@@ -26,6 +26,7 @@
 		76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */; };
 		76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */; };
 		76FC3793299649AF00033A4B /* PhotosManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3792299649AF00033A4B /* PhotosManager.swift */; };
+		76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */; };
 		76FC37D4299658E000033A4B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37D3299658E000033A4B /* ViewModel.swift */; };
 		C9DB2BD72BC2E979F9E5A6AF /* Pods_Pixo_PixoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerTitleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerViewController+SettingUpView.swift"; sourceTree = "<group>"; };
 		76FC3792299649AF00033A4B /* PhotosManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosManager.swift; sourceTree = "<group>"; };
+		76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
 		76FC37D3299658E000033A4B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixoTests.release.xcconfig"; path = "Target Support Files/Pods-PixoTests/Pods-PixoTests.release.xcconfig"; sourceTree = "<group>"; };
 		B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				76FC3791299647E000033A4B /* Utils */,
 				76FC37742996098300033A4B /* UIViews */,
 				76FC37882996430D00033A4B /* UIViewControllers */,
+				76FC37D02996577D00033A4B /* ViewModels */,
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
@@ -201,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				76FC37722996079500033A4B /* SettingUpView.swift */,
+				76FC37D3299658E000033A4B /* ViewModel.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -239,6 +243,14 @@
 				76FC3792299649AF00033A4B /* PhotosManager.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		76FC37D02996577D00033A4B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -490,6 +502,7 @@
 				76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */,
 				76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
+				76FC37D4299658E000033A4B /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
