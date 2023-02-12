@@ -10,14 +10,18 @@ import SnapKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - UI
+    // MARK: properties
+    var representedAssetIdentifier: String = ""
+    
+    // MARK: properties UI
     let imageView = UIImageView().then {
         $0.makeCornerRounded(radius: 16)
         $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "photo")
     }
     
     
-    // MARK: - init
+    // MARK: - life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -25,6 +29,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = UIImage(named: "photo")
     }
 }
 

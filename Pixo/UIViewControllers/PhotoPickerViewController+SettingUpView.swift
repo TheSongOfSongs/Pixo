@@ -12,6 +12,7 @@ extension PhotoPickerViewController: SettingUpView {
     func addSubviews() {
         view.addSubview(titleView)
         view.addSubview(tableView)
+        view.addSubview(photoCollectionView)
     }
     
     func setupConstriants() {
@@ -22,6 +23,11 @@ extension PhotoPickerViewController: SettingUpView {
         }
         
         tableView.snp.makeConstraints { make in
+            make.top.equalTo(titleView.snp.bottom)
+            make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        photoCollectionView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom)
             make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
         }

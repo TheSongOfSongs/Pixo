@@ -17,15 +17,30 @@ class PhotoPickerViewController: UIViewController {
     // MARK: Properties
     let disposeBag = DisposeBag()
     let viewModel = PhotoPickerViewModel()
-    var fetchAlbumsSubject = PublishSubject<Void>()
+    
+    // tableView
+    let fetchAlbumsSubject = PublishSubject<Void>()
     var allPhotos: Album?
     var smartAlbums: [Album] = []
     var userCollections: [Album] = []
     var albums: [Album] = []
-    
-    // cell previewImage
     let imageManager = PHCachingImageManager()
     let previewSize = CGSize(width: 64, height: 64)
+    
+    // collectionView
+    private let selectedAlbumRelay = BehaviorRelay<PHFetchResult<PHAsset>>(value: PHFetchResult())
+    var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
+        return selectedAlbumRelay.value
+    }
+    let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    let padding: CGFloat = 8
+    let itemsPerRow: CGFloat = 3
+    var photoPreviewSize: CGSize {
+        let paddingSpace = sectionInsets.left * 2 + padding * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let width = availableWidth / itemsPerRow
+        return CGSize(width: width, height: width)
+    }
     
     
     // MARK: Properties - UI
@@ -37,12 +52,23 @@ class PhotoPickerViewController: UIViewController {
         $0.separatorStyle = .none
     }
     
+    lazy var photoCollectionView: UICollectionView = {
+        var layout = UICollectionViewFlowLayout()
+        layout.sectionInset = self.sectionInsets
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+            $0.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+            $0.isHidden = true
+        }
+        return collectionView
+    }()
+    
     
     // MARK: - view lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
+        setupCollectionView()
         bind()
         fetchAlbumsSubject.onNext(())
     }
@@ -57,19 +83,41 @@ class PhotoPickerViewController: UIViewController {
     
     
     // MARK: -
+    func setupCollectionView() {
+        photoCollectionView.dataSource = self
+        photoCollectionView.delegate = self
+    }
+    
     func bind() {
         // titleView
-        titleView.photoPickerObservable
-            .bind(with: self, onNext: { owner, photoPicker in
-                // TODO: 사진/앨범 리스트 보여주기
-                print("💖 \(photoPicker)")
+        titleView.photoPickerDriver
+            .drive(with: self, onNext: { owner, photoPicker in
+                switch photoPicker {
+                case .photos:
+                    owner.tableView.setHiddenWithAnimation(true)
+                    owner.photoCollectionView.setHiddenWithAnimation(false)
+                case .albums:
+                    owner.tableView.setHiddenWithAnimation(false)
+                    owner.photoCollectionView.setHiddenWithAnimation(true)
+                }
             })
             .disposed(by: disposeBag)
         
         // tableView
-        Observable.zip(tableView.rx.modelSelected(Album.self), tableView.rx.modelSelected(Album.self))
+        Observable.zip(tableView.rx.modelSelected(Album.self), tableView.rx.itemSelected)
+            .map({ $0.0 })
+            .bind(with: self, onNext: { owner, album in
+                owner.selectedAlbumRelay.accept(album.phFetchResult)
+                owner.titleView.titleLabel.text = album.title
+                owner.titleView.photoPickerRelay.accept(.photos)
+            })
+            .disposed(by: disposeBag)
+        
+        // collectionView
+        selectedAlbumRelay
+            .skip(1)
             .bind(with: self, onNext: { owner, result in
-                print("🔥", result)
+                owner.photoCollectionView.reloadData()
             })
             .disposed(by: disposeBag)
         

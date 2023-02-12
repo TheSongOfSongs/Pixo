@@ -33,6 +33,7 @@ class AlbumTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         previewImageView.image = UIImage(named: "photo")
     }
 }

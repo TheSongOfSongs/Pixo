@@ -21,4 +21,22 @@ extension UIView {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
     }
+    
+    func setHiddenWithAnimation(_ isHidden: Bool) {
+        switch isHidden {
+        case true: // 숨김
+            UIView.animate(withDuration: 0.2) {
+                self.alpha = 0
+            } completion: { _ in
+                self.isHidden = true
+                self.alpha = 1
+            }
+        case false: // 보여줌
+            alpha = 0
+            self.isHidden = false
+            UIView.animate(withDuration: 0.2) {
+                self.alpha = 1
+            }
+        }
+    }
 }
