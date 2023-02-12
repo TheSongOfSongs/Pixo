@@ -43,7 +43,6 @@ final class PhotosManager {
 
             smartAlbums.append(
                 Album(type: .smartAlbums,
-                      phAssetCollection: collection,
                       phFetchResult: phFetchResult,
                       title: collection.localizedTitle ?? "")
             )
@@ -67,7 +66,6 @@ final class PhotosManager {
 
             userCollections.append(
                 Album(type: .smartAlbums,
-                      phAssetCollection: collection,
                       phFetchResult: phFetchResult,
                       title: collection.localizedTitle ?? "")
             )

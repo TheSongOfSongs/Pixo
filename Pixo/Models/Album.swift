@@ -10,7 +10,6 @@ import Photos
 
 struct Album {
     var type: AlbumType
-    var phAssetCollection: PHAssetCollection?
     var phFetchResult: PHFetchResult<PHAsset>
     var title: String
     

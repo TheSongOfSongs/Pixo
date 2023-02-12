@@ -24,9 +24,11 @@ class PhotoPickerViewController: UIViewController {
     let previewSize = CGSize(width: 64, height: 64)
     
     // collectionView
-    private let selectedAlbumRelay = BehaviorRelay<PHFetchResult<PHAsset>>(value: PHFetchResult())
+    private let selectedAlbumRelay = BehaviorRelay<Album>(value: Album(type: .allPhotos,
+                                                                       phFetchResult: PHFetchResult(),
+                                                                        title: ""))
     var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
-        return selectedAlbumRelay.value
+        return selectedAlbumRelay.value.phFetchResult
     }
     let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     let padding: CGFloat = 8
@@ -103,17 +105,18 @@ class PhotoPickerViewController: UIViewController {
         Observable.zip(tableView.rx.modelSelected(Album.self), tableView.rx.itemSelected)
             .map({ $0.0 })
             .bind(with: self, onNext: { owner, album in
-                owner.selectedAlbumRelay.accept(album.phFetchResult)
-                owner.titleView.titleLabel.text = album.title
+                owner.selectedAlbumRelay.accept(album)
                 owner.titleView.photoPickerRelay.accept(.photos)
             })
             .disposed(by: disposeBag)
         
         // collectionView
+        // BehaviorRelay 초기값 허수로 지정했기 때문에 skip
         selectedAlbumRelay
             .skip(1)
-            .bind(with: self, onNext: { owner, result in
+            .bind(with: self, onNext: { owner, album in
                 owner.photoCollectionView.reloadData()
+                owner.titleView.titleLabel.text = album.title
             })
             .disposed(by: disposeBag)
         
@@ -128,14 +131,13 @@ class PhotoPickerViewController: UIViewController {
             .bind(to: tableView.rx.items(dataSource: tableViewDataSource()))
             .disposed(by: disposeBag)
         
-        /// collection view의 default 아이템을 위해 위해 앨범 리스트 중 가장 첫번째 것을 선택하여 보여줌
-        /// 1회만 실행
+        // collection view의 default 아이템을 위해 위해 앨범 리스트 중 가장 첫번째 것을 선택하여 보여줌
+        // 1회만 실행
         albums
             .take(1)
             .compactMap({ $0.first?.items.first })
             .bind(with: self, onNext: { owner, album in
-                owner.selectedAlbumRelay.accept(album.phFetchResult)
-                owner.titleView.titleLabel.text = album.title
+                owner.selectedAlbumRelay.accept(album)
             })
             .disposed(by: disposeBag)
     }
