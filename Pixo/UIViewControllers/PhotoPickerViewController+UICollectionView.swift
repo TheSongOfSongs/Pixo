@@ -26,8 +26,6 @@ extension PhotoPickerViewController: UICollectionViewDataSource {
             }
         }
         
-        cell.imageView.backgroundColor = .orange
-        
         return cell
     }
 }

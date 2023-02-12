@@ -17,7 +17,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView().then {
         $0.makeCornerRounded(radius: 16)
         $0.contentMode = .scaleAspectFill
-        $0.image = UIImage(named: "photo")
+        $0.image = UIImage.photo
     }
     
     
@@ -33,7 +33,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = UIImage(named: "photo")
+        imageView.image = UIImage.photo
     }
 }
 

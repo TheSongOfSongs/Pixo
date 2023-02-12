@@ -20,10 +20,6 @@ class PhotoPickerViewController: UIViewController {
     
     // tableView
     let fetchAlbumsSubject = PublishSubject<Void>()
-    var allPhotos: Album?
-    var smartAlbums: [Album] = []
-    var userCollections: [Album] = []
-    var albums: [Album] = []
     let imageManager = PHCachingImageManager()
     let previewSize = CGSize(width: 64, height: 64)
     

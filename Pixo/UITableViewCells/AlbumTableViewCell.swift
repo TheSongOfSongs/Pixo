@@ -14,7 +14,7 @@ class AlbumTableViewCell: UITableViewCell {
     lazy var previewImageView = UIImageView().then {
         $0.makeCornerRounded(radius: 8)
         $0.contentMode = .scaleAspectFill
-        $0.image = UIImage(named: "photo")
+        $0.image = UIImage.photo
     }
     
     let titleLabel = UILabel().then {
@@ -34,7 +34,7 @@ class AlbumTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        previewImageView.image = UIImage(named: "photo")
+        previewImageView.image = UIImage.photo
     }
 }
 
