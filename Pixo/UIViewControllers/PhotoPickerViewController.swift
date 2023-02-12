@@ -46,6 +46,7 @@ class PhotoPickerViewController: UIViewController {
         $0.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.identifier)
         $0.rowHeight = 85
         $0.separatorStyle = .none
+        $0.isHidden = true
     }
     
     lazy var photoCollectionView: UICollectionView = {
@@ -53,7 +54,6 @@ class PhotoPickerViewController: UIViewController {
         layout.sectionInset = self.sectionInsets
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
             $0.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
-            $0.isHidden = true
         }
         return collectionView
     }()
@@ -121,8 +121,22 @@ class PhotoPickerViewController: UIViewController {
         let output = viewModel.transform(input: input)
         
         // output
-        output.albums
+        let albums = output.albums
+            .share()
+        
+        albums
             .bind(to: tableView.rx.items(dataSource: tableViewDataSource()))
+            .disposed(by: disposeBag)
+        
+        /// collection view의 default 아이템을 위해 위해 앨범 리스트 중 가장 첫번째 것을 선택하여 보여줌
+        /// 1회만 실행
+        albums
+            .take(1)
+            .compactMap({ $0.first?.items.first })
+            .bind(with: self, onNext: { owner, album in
+                owner.selectedAlbumRelay.accept(album.phFetchResult)
+                owner.titleView.titleLabel.text = album.title
+            })
             .disposed(by: disposeBag)
     }
     

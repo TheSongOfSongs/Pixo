@@ -30,14 +30,13 @@ class PhotoPickerTitleView: UIView {
     }
     
     /// 현재 화면에 앨범 리스트를 띄우는지, 사진 리스트를 띄우는지 상태를 정해주는 프로퍼티
-    var photoPickerRelay = BehaviorRelay<PhotoPicker>(value: PhotoPicker.albums)
+    var photoPickerRelay = BehaviorRelay<PhotoPicker>(value: PhotoPicker.photos)
     
     lazy var photoPickerDriver = photoPickerRelay.asDriver()
     
     // MARK: - UI
     let titleLabel = UILabel().then {
         $0.font = .title
-        $0.text = "Albums"
     }
     
     lazy var arrowImageView = UIImageView().then {
