@@ -14,6 +14,9 @@ class OverlayImageViewController: UIViewController {
     
     // MARK: Properties
     let disposeBag = DisposeBag()
+    let sectionInsets = UIEdgeInsets(top: 32, left: 40, bottom: 39, right: 40)
+    let padding: CGFloat = 16
+    let itemsPerColumn: CGFloat = 1
     
     // MARK: Properties - UI
     let topView = UIView()
@@ -29,6 +32,19 @@ class OverlayImageViewController: UIViewController {
         $0.backgroundColor = .black
         $0.setTitle("Overlay", for: .normal)
     }
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout().then {
+            $0.sectionInset = self.sectionInsets
+            $0.scrollDirection = .horizontal
+        }
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+            $0.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+            $0.showsHorizontalScrollIndicator = false
+        }
+        return collectionView
+    }()
     
     // MARK: - view lifecyle
     override func viewDidLoad() {

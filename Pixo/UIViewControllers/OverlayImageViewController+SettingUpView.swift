@@ -12,6 +12,7 @@ extension OverlayImageViewController: SettingUpView {
         view.addSubview(topView)
         topView.addSubview(closeButton)
         topView.addSubview(overlayButton)
+        view.addSubview(collectionView)
     }
     
     func setupConstriants() {
@@ -31,6 +32,11 @@ extension OverlayImageViewController: SettingUpView {
             make.width.equalTo(103)
             make.height.equalTo(33)
             make.trailing.equalToSuperview().inset(19)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(151)
         }
     }
 }

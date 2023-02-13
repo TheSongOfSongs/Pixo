@@ -14,6 +14,7 @@
 		76090BA42998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */; };
 		76090BAA299A0B1000F204B6 /* OverlayImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BA9299A0B1000F204B6 /* OverlayImageViewController.swift */; };
 		76090BAC299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BAB299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift */; };
+		76090BB0299A21C700F204B6 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BAF299A21C700F204B6 /* ImageCollectionViewCell.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -66,6 +67,7 @@
 		76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift"; sourceTree = "<group>"; };
 		76090BA9299A0B1000F204B6 /* OverlayImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayImageViewController.swift; sourceTree = "<group>"; };
 		76090BAB299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OverlayImageViewController+SettingUpView.swift"; sourceTree = "<group>"; };
+		76090BAF299A21C700F204B6 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 		76FC37DA29972C3E00033A4B /* UICollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				76090BAF299A21C700F204B6 /* ImageCollectionViewCell.swift */,
 				76FC37DB29972C5200033A4B /* PhotoCollectionViewCell.swift */,
 			);
 			path = UICollectionViewCells;
@@ -543,6 +546,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76090BA02997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift in Sources */,
+				76090BB0299A21C700F204B6 /* ImageCollectionViewCell.swift in Sources */,
 				76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */,
 				76FC37732996079500033A4B /* SettingUpView.swift in Sources */,
 				76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */,
