@@ -34,7 +34,8 @@ extension PhotoPickerViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension PhotoPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let overlayImageVC = OverlayImageViewController()
+        navigationController?.pushViewController(overlayImageVC, animated: false)
     }
 }
 
