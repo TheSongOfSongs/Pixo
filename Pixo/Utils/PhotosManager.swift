@@ -8,11 +8,8 @@
 import UIKit
 import Photos
 
+/// 앨범에서 사진을 가져오는 기능을 하기 위해 만들어진 클래스입니다
 final class PhotosManager {
-    
-    typealias Albums = (allPhotos: PHFetchResult<PHAsset>,
-                        smartAlbums: PHFetchResult<PHAssetCollection>,
-                        userCollections: PHFetchResult<PHCollection>)
     
     // 최신순으로 사진만 가져오는 옵션
     let imageFetchingOptions = PHFetchOptions().then {
