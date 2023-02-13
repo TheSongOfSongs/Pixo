@@ -28,6 +28,10 @@ class PhotoPickerViewController: UIViewController {
     let fetchAlbumsSubject = PublishSubject<Void>()
     let imageManager = PHCachingImageManager()
     let previewSize = CGSize(width: 64, height: 64)
+    let albumSectionsRelay = BehaviorRelay<[AlbumSection]>(value: [])
+    var albumSections: [AlbumSection] {
+        return albumSectionsRelay.value
+    }
     
     // collectionView
     let selectedAlbumRelay = BehaviorRelay<(Album, Bool)>(value: (Album(type: .allPhotos,
@@ -35,8 +39,11 @@ class PhotoPickerViewController: UIViewController {
                                                                       title: ""),
                                                                 false)
     )
+    var selectedAlbum: Album {
+        return selectedAlbumRelay.value.0
+    }
     var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
-        return selectedAlbumRelay.value.0.phFetchResult
+        return selectedAlbum.phFetchResult
     }
     let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     let padding: CGFloat = 8
@@ -160,15 +167,15 @@ class PhotoPickerViewController: UIViewController {
                     .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
                         return UITableViewCell()
                     }
-            
+
             cell.titleLabel.text = album.title
-            
+
             if let previewAsset = album.previewPHAsset {
                 self.imageManager.requestImage(for: previewAsset, targetSize: self.previewSize, contentMode: .aspectFill, options: nil) { image, _ in
                     cell.previewImageView.image = image
                 }
             }
-            
+
             return cell
         })
     }

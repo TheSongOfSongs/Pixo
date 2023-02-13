@@ -21,57 +21,18 @@ final class PhotosManager {
     }
     
     // MARK: -
-    func fetchAllPhotosAlbum() -> Album {
-        let allPhotos = PHAsset.fetchAssets(with: imageFetchingOptions)
-        return Album(type: .allPhotos,
-                     phFetchResult: allPhotos,
-                     title: "All Photos")
+    func fetchAllPhotos() -> PHFetchResult<PHAsset> {
+        return PHAsset.fetchAssets(with: imageFetchingOptions)
     }
     
-    func fetchSmartAlbums() -> [Album] {
-        let fetchingResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum,
-                                                                     subtype: .albumRegular,
-                                                                     options: nil)
-        
-        var smartAlbums: [Album] = []
-        fetchingResult.enumerateObjects { collection, index, _ in
-            let phFetchResult = PHAsset.fetchAssets(in: collection, options: self.imageFetchingOptions)
-            
-            if phFetchResult.count == 0 {
-                return
-            }
-
-            smartAlbums.append(
-                Album(type: .smartAlbums,
-                      phFetchResult: phFetchResult,
-                      title: collection.localizedTitle ?? "")
-            )
-        }
-        
-        return smartAlbums
+    func fetchAlbums(with type: PHAssetCollectionType) -> PHFetchResult<PHAssetCollection> {
+        return PHAssetCollection.fetchAssetCollections(with: type,
+                                                       subtype: .albumRegular,
+                                                       options: nil)
     }
     
-    func fetchUserCollectionAlbums() -> [Album] {
-        let fetchingResult = PHAssetCollection.fetchAssetCollections(with: .album,
-                                                                     subtype: .albumRegular,
-                                                                     options: nil)
-        
-        var userCollections: [Album] = []
-        fetchingResult.enumerateObjects { collection, index, _ in
-            let phFetchResult = PHAsset.fetchAssets(in: collection, options: self.imageFetchingOptions)
-            
-            if phFetchResult.count == 0 {
-                return
-            }
-
-            userCollections.append(
-                Album(type: .smartAlbums,
-                      phFetchResult: phFetchResult,
-                      title: collection.localizedTitle ?? "")
-            )
-        }
-        
-        return userCollections
+    func fetchPhotos(in collection: PHAssetCollection) -> PHFetchResult<PHAsset> {
+        return PHAsset.fetchAssets(in: collection, options: imageFetchingOptions)
     }
 }
 

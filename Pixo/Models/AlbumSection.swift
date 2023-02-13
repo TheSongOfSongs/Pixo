@@ -8,15 +8,20 @@
 import RxDataSources
 
 struct AlbumSection {
-  var header: String
-  var items: [Item]
+    var type: AlbumType
+    var items: [Item]
+    
+    init(type: AlbumType, items: [Item]) {
+        self.type = type
+        self.items = items
+    }
 }
 
 extension AlbumSection: SectionModelType {
-  typealias Item = Album
-
-   init(original: AlbumSection, items: [Item]) {
-    self = original
-    self.items = items
-  }
+    typealias Item = Album
+    
+    init(original: AlbumSection, items: [Item]) {
+        self = original
+        self.items = items
+    }
 }

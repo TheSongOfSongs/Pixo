@@ -10,18 +10,18 @@ import Photos
 
 extension PhotoPickerViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let changes = changeInstance.changeDetails(for: selectedAlbumPHAsset) else {
-            return
+        if let changes = changeInstance.changeDetails(for: selectedAlbumPHAsset) {
+            DispatchQueue.main.sync {
+                updateCollectionView(changes: changes)
+            }
         }
         
-        DispatchQueue.main.sync {
-            updateCollectionView(changes: changes)
-        }
+        viewModel.updateAlbums(with: changeInstance)
     }
     
     func updateCollectionView(changes: PHFetchResultChangeDetails<PHAsset>) {
         let album: Album = {
-            var album = selectedAlbumRelay.value.0
+            var album = selectedAlbum
             album.phFetchResult = changes.fetchResultAfterChanges
             return album
         }()
