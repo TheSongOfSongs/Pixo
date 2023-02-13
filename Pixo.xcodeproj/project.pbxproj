@@ -9,15 +9,32 @@
 /* Begin PBXBuildFile section */
 		3606292130FE851F90EFEA0E /* Pods_Pixo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA9E96816F5318EEAC9CE3 /* Pods_Pixo.framework */; };
 		427519DADD3CA485C3132C25 /* Pods_PixoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */; };
+		76090BA02997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090B9F2997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift */; };
+		76090BA22998F3B700F204B6 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BA12998F3B700F204B6 /* UIImage+Extension.swift */; };
+		76090BA42998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */; };
+		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
+		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
+		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
 		76FC37422995F99000033A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37412995F99000033A4B /* AppDelegate.swift */; };
 		76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37432995F99000033A4B /* SceneDelegate.swift */; };
-		76FC37462995F99000033A4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37452995F99000033A4B /* ViewController.swift */; };
-		76FC37492995F99000033A4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC37472995F99000033A4B /* Main.storyboard */; };
+		76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37452995F99000033A4B /* PhotoPickerViewController.swift */; };
 		76FC374B2995F99100033A4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76FC374A2995F99100033A4B /* Assets.xcassets */; };
 		76FC374E2995F99100033A4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC374C2995F99100033A4B /* LaunchScreen.storyboard */; };
 		76FC37592995F99100033A4B /* PixoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37582995F99100033A4B /* PixoTests.swift */; };
 		76FC37632995F99100033A4B /* PixoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37622995F99100033A4B /* PixoUITests.swift */; };
 		76FC37652995F99100033A4B /* PixoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */; };
+		76FC37732996079500033A4B /* SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37722996079500033A4B /* SettingUpView.swift */; };
+		76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */; };
+		76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC377E29960A4500033A4B /* UIView+Extension.swift */; };
+		76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3782299616AF00033A4B /* UIFont+Extension.swift */; };
+		76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37842996193C00033A4B /* UIColor+Extension.swift */; };
+		76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */; };
+		76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */; };
+		76FC3793299649AF00033A4B /* PhotosManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3792299649AF00033A4B /* PhotosManager.swift */; };
+		76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */; };
+		76FC37D4299658E000033A4B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37D3299658E000033A4B /* ViewModel.swift */; };
+		76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37DB29972C5200033A4B /* PhotoCollectionViewCell.swift */; };
+		76FC37DF29972C7400033A4B /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37DE29972C7400033A4B /* AlbumTableViewCell.swift */; };
 		C9DB2BD72BC2E979F9E5A6AF /* Pods_Pixo_PixoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7905AE47400F199C9CCDE75 /* Pods_Pixo_PixoUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,11 +59,16 @@
 		23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		292E687105E3FC1CC228B4ED /* Pods-Pixo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo.release.xcconfig"; path = "Target Support Files/Pods-Pixo/Pods-Pixo.release.xcconfig"; sourceTree = "<group>"; };
 		4C4E7E375DBBAC584C7DBDFC /* Pods-Pixo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo.debug.xcconfig"; path = "Target Support Files/Pods-Pixo/Pods-Pixo.debug.xcconfig"; sourceTree = "<group>"; };
+		76090B9F2997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerViewController+UICollectionView.swift"; sourceTree = "<group>"; };
+		76090BA12998F3B700F204B6 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift"; sourceTree = "<group>"; };
+		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
+		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
 		76FC373E2995F99000033A4B /* Pixo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37412995F99000033A4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76FC37432995F99000033A4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		76FC37452995F99000033A4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		76FC37482995F99000033A4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		76FC37452995F99000033A4B /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
 		76FC374A2995F99100033A4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76FC374D2995F99100033A4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76FC374F2995F99100033A4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,6 +77,18 @@
 		76FC375E2995F99100033A4B /* PixoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37622995F99100033A4B /* PixoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITests.swift; sourceTree = "<group>"; };
 		76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		76FC37722996079500033A4B /* SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUpView.swift; sourceTree = "<group>"; };
+		76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerTitleView.swift; sourceTree = "<group>"; };
+		76FC377E29960A4500033A4B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		76FC3782299616AF00033A4B /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		76FC37842996193C00033A4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerTitleView+SettingUpView.swift"; sourceTree = "<group>"; };
+		76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerViewController+SettingUpView.swift"; sourceTree = "<group>"; };
+		76FC3792299649AF00033A4B /* PhotosManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosManager.swift; sourceTree = "<group>"; };
+		76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
+		76FC37D3299658E000033A4B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		76FC37DB29972C5200033A4B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		76FC37DE29972C7400033A4B /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
 		8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixoTests.release.xcconfig"; path = "Target Support Files/Pods-PixoTests/Pods-PixoTests.release.xcconfig"; sourceTree = "<group>"; };
 		B144D7B4D816C2F2BE7E04C0 /* Pods-Pixo-PixoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D49AD4D81B2AA7FE9B2B894F /* Pods-Pixo-PixoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pixo-PixoUITests.release.xcconfig"; path = "Target Support Files/Pods-Pixo-PixoUITests/Pods-Pixo-PixoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,7 +135,6 @@
 				FBBD31B629AECB07A4835A6C /* Pods-PixoTests.debug.xcconfig */,
 				8E87385C36037EEEE50CFC27 /* Pods-PixoTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -113,6 +146,15 @@
 				23068D4603D51C4CB2EF7561 /* Pods_PixoTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76A4952929977A0100923CF9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				76A4952A29977A1200923CF9 /* Album.swift */,
+				76A4952E2997B24800923CF9 /* AlbumSection.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		76FC37352995F99000033A4B = {
@@ -140,10 +182,18 @@
 		76FC37402995F99000033A4B /* Pixo */ = {
 			isa = PBXGroup;
 			children = (
+				76FC37D729972B5200033A4B /* Enums */,
+				76FC377B29960A2000033A4B /* Extensions */,
+				76A4952929977A0100923CF9 /* Models */,
+				76FC37712996078C00033A4B /* Protocols */,
+				76FC3791299647E000033A4B /* Utils */,
+				76FC37DA29972C3E00033A4B /* UICollectionViewCells */,
+				76FC37DD29972C6100033A4B /* UITableViewCells */,
+				76FC37742996098300033A4B /* UIViews */,
+				76FC37882996430D00033A4B /* UIViewControllers */,
+				76FC37D02996577D00033A4B /* ViewModels */,
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
-				76FC37452995F99000033A4B /* ViewController.swift */,
-				76FC37472995F99000033A4B /* Main.storyboard */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
 				76FC374C2995F99100033A4B /* LaunchScreen.storyboard */,
 				76FC374F2995F99100033A4B /* Info.plist */,
@@ -166,6 +216,86 @@
 				76FC37642995F99100033A4B /* PixoUITestsLaunchTests.swift */,
 			);
 			path = PixoUITests;
+			sourceTree = "<group>";
+		};
+		76FC37712996078C00033A4B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37722996079500033A4B /* SettingUpView.swift */,
+				76FC37D3299658E000033A4B /* ViewModel.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		76FC37742996098300033A4B /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */,
+				76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */,
+			);
+			path = UIViews;
+			sourceTree = "<group>";
+		};
+		76FC377B29960A2000033A4B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37842996193C00033A4B /* UIColor+Extension.swift */,
+				76FC3782299616AF00033A4B /* UIFont+Extension.swift */,
+				76090BA12998F3B700F204B6 /* UIImage+Extension.swift */,
+				76FC377E29960A4500033A4B /* UIView+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		76FC37882996430D00033A4B /* UIViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
+				76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */,
+				76090B9F2997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift */,
+				76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */,
+			);
+			path = UIViewControllers;
+			sourceTree = "<group>";
+		};
+		76FC3791299647E000033A4B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				76FC3792299649AF00033A4B /* PhotosManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		76FC37D02996577D00033A4B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		76FC37D729972B5200033A4B /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				76A495302997BBBF00923CF9 /* AlbumType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		76FC37DA29972C3E00033A4B /* UICollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37DB29972C5200033A4B /* PhotoCollectionViewCell.swift */,
+			);
+			path = UICollectionViewCells;
+			sourceTree = "<group>";
+		};
+		76FC37DD29972C6100033A4B /* UITableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37DE29972C7400033A4B /* AlbumTableViewCell.swift */,
+			);
+			path = UITableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,7 +409,6 @@
 			files = (
 				76FC374E2995F99100033A4B /* LaunchScreen.storyboard in Resources */,
 				76FC374B2995F99100033A4B /* Assets.xcassets in Resources */,
-				76FC37492995F99000033A4B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,9 +536,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76FC37462995F99000033A4B /* ViewController.swift in Sources */,
+				76090BA02997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift in Sources */,
+				76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */,
+				76FC37732996079500033A4B /* SettingUpView.swift in Sources */,
+				76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */,
+				76FC37DF29972C7400033A4B /* AlbumTableViewCell.swift in Sources */,
+				76A4952B29977A1200923CF9 /* Album.swift in Sources */,
+				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
+				76090BA22998F3B700F204B6 /* UIImage+Extension.swift in Sources */,
+				76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */,
+				76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */,
+				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
+				76FC3793299649AF00033A4B /* PhotosManager.swift in Sources */,
+				76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */,
+				76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */,
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,
+				76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */,
+				76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */,
+				76090BA42998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift in Sources */,
+				76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
+				76FC37D4299658E000033A4B /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,14 +593,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		76FC37472995F99000033A4B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76FC37482995F99000033A4B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		76FC374C2995F99100033A4B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -592,7 +731,6 @@
 				INFOPLIST_FILE = Pixo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -622,7 +760,6 @@
 				INFOPLIST_FILE = Pixo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
