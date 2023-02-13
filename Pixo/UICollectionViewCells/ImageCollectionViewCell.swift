@@ -10,14 +10,13 @@ import UIKit
 class ImageCollectionViewCell: UICollectionViewCell {
     
     // MARK: properties UI
-    let imageView = UIImageView().then {
-        $0.addBorder(color: .black, width: 1)
-    }
+    let imageView = UIImageView()
     
     // MARK: - life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        addBorder(color: .black, width: 1)
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +37,7 @@ extension ImageCollectionViewCell: SettingUpView {
     
     func setupConstriants() {
         imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(6)
         }
     }
 }
