@@ -15,6 +15,9 @@
 		76090BAA299A0B1000F204B6 /* OverlayImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BA9299A0B1000F204B6 /* OverlayImageViewController.swift */; };
 		76090BAC299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BAB299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift */; };
 		76090BB0299A21C700F204B6 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BAF299A21C700F204B6 /* ImageCollectionViewCell.swift */; };
+		76090BC7299A878600F204B6 /* OverlayImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BC6299A878600F204B6 /* OverlayImageViewModel.swift */; };
+		76090BC9299A882C00F204B6 /* SVGImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BC8299A882C00F204B6 /* SVGImageSection.swift */; };
+		76090BCB299A884D00F204B6 /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BCA299A884D00F204B6 /* SVGImage.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -68,6 +71,9 @@
 		76090BA9299A0B1000F204B6 /* OverlayImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayImageViewController.swift; sourceTree = "<group>"; };
 		76090BAB299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OverlayImageViewController+SettingUpView.swift"; sourceTree = "<group>"; };
 		76090BAF299A21C700F204B6 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		76090BC6299A878600F204B6 /* OverlayImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayImageViewModel.swift; sourceTree = "<group>"; };
+		76090BC8299A882C00F204B6 /* SVGImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageSection.swift; sourceTree = "<group>"; };
+		76090BCA299A884D00F204B6 /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -159,6 +165,8 @@
 			children = (
 				76A4952A29977A1200923CF9 /* Album.swift */,
 				76A4952E2997B24800923CF9 /* AlbumSection.swift */,
+				76090BCA299A884D00F204B6 /* SVGImage.swift */,
+				76090BC8299A882C00F204B6 /* SVGImageSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -278,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */,
+				76090BC6299A878600F204B6 /* OverlayImageViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -552,6 +561,7 @@
 				76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */,
 				76FC37DF29972C7400033A4B /* AlbumTableViewCell.swift in Sources */,
 				76A4952B29977A1200923CF9 /* Album.swift in Sources */,
+				76090BC7299A878600F204B6 /* OverlayImageViewModel.swift in Sources */,
 				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
 				76090BA22998F3B700F204B6 /* UIImage+Extension.swift in Sources */,
 				76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */,
@@ -564,10 +574,12 @@
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,
 				76090BAC299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift in Sources */,
 				76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */,
+				76090BC9299A882C00F204B6 /* SVGImageSection.swift in Sources */,
 				76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */,
 				76090BA42998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift in Sources */,
 				76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
+				76090BCB299A884D00F204B6 /* SVGImage.swift in Sources */,
 				76FC37D4299658E000033A4B /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
