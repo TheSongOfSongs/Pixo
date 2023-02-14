@@ -19,10 +19,14 @@ class OverlayImageViewController: UIViewController {
     // MARK: Properties
     let disposeBag = DisposeBag()
     let viewModel = OverlayImageViewModel()
-    let sectionInsets = UIEdgeInsets(top: 32, left: 40, bottom: 39, right: 40)
+    lazy var sectionInsets = UIEdgeInsets(top: 32,
+                                     left: 40,
+                                     bottom: 39 + safeAreaBottomInsets,
+                                     right: 40)
     let padding: CGFloat = 16
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
+    var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -43,7 +47,9 @@ class OverlayImageViewController: UIViewController {
     }
     
     // MARK: Properties - UI
-    let topView = UIView()
+    let topView = UIView().then {
+        $0.backgroundColor = .clear
+    }
     
     let closeButton = UIButton().then {
         $0.setImage(UIImage(named: "close"), for: .normal)
@@ -70,7 +76,11 @@ class OverlayImageViewController: UIViewController {
         return collectionView
     }()
     
-    var phAssetImageView = UIImageView().then {
+    let phAssetImageBackgroundView = UIView().then {
+        $0.backgroundColor = UIColor(r: 250, g: 249, b: 246)
+    }
+    
+    let phAssetImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
     
@@ -83,7 +93,7 @@ class OverlayImageViewController: UIViewController {
     
     override func loadView() {
         let view = UIView().then {
-            $0.backgroundColor = .systemBackground
+            $0.backgroundColor =  UIColor(r: 250, g: 249, b: 246)
         }
         
         self.view = view
@@ -135,5 +145,29 @@ class OverlayImageViewController: UIViewController {
                 // TODO: 오버레이 이미지 추출
             })
             .disposed(by: disposeBag)
+        
+        collectionView.rx.modelSelected(SVGImage.self)
+            .bind(with: self, onNext: { owner, item in
+                guard let image = item.image else {
+                    // TODO: 에러 처리
+                    return
+                }
+                owner.addSVGImage(image)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func addSVGImage(_ image: UIImage) {
+        let imageView = UIImageView(frame: .zero).then {
+            $0.image = image
+            $0.contentMode = .scaleAspectFit
+            
+            let imageBounds = phAssetImageView.imageBounds
+            let width = min(imageBounds.width * 0.8, imageBounds.height * 0.8)
+            $0.setFrame(with: phAssetImageView.center,
+                        size: CGSize(width: width, height: width))
+        }
+        
+        view.addSubview(imageView)
     }
 }
