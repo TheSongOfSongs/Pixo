@@ -17,11 +17,9 @@ extension UIImageView {
         }
         
         let scale: CGFloat = {
-            if image.size.width >= image.size.height {
-                return bounds.width / image.size.width
-            } else {
-                return bounds.height / image.size.height
-            }
+            let widthScale = frame.size.width / image.size.width
+            let heightScale = frame.size.height / image.size.height
+            return min(widthScale, heightScale)
         }()
         
         let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
