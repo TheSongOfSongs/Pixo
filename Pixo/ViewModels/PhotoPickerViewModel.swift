@@ -23,7 +23,7 @@ class PhotoPickerViewModel: ViewModel {
     // MARK: properties
     var disposeBag = DisposeBag()
     
-    private let photosManager = PhotosManager()
+    private let albumsManager = AlbumsManager()
     private let albumSectionsRelay = PublishRelay<[AlbumSection]>()
     
     private var allPhotosResult: PHFetchResult<PHAsset> = PHFetchResult()
@@ -55,17 +55,17 @@ class PhotoPickerViewModel: ViewModel {
     private func fetchAlbums(with type: AlbumType) -> [Album] {
         switch type {
         case .allPhotos:
-            allPhotosResult = photosManager.fetchAllPhotos()
+            allPhotosResult = albumsManager.fetchAllPhotos()
             return [
                 Album(type: .allPhotos,
                       phFetchResult: allPhotosResult,
                       title: "All Photos")
             ]
         case .smartAlbums:
-            smartAlbumsResult = photosManager.fetchAlbums(with: .smartAlbum)
+            smartAlbumsResult = albumsManager.fetchAlbums(with: .smartAlbum)
             return albums(with: .smartAlbums, result: smartAlbumsResult)
         case .userCollections:
-            userCollectionAlbumsResult = photosManager.fetchAlbums(with: .album)
+            userCollectionAlbumsResult = albumsManager.fetchAlbums(with: .album)
             return albums(with: .userCollections, result: userCollectionAlbumsResult)
         }
     }
@@ -79,11 +79,11 @@ class PhotoPickerViewModel: ViewModel {
             }
         }()
         
-        let fetchingResult = photosManager.fetchAlbums(with: collectionType)
+        let fetchingResult = albumsManager.fetchAlbums(with: collectionType)
         
         var albums: [Album] = []
         fetchingResult.enumerateObjects { collection, index, _ in
-            let phFetchResult = self.photosManager.fetchPhotos(in: collection)
+            let phFetchResult = self.albumsManager.fetchPhotos(in: collection)
             
             if phFetchResult.count == 0 {
                 return

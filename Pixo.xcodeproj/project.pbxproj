@@ -36,7 +36,7 @@
 		76FC37852996193C00033A4B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37842996193C00033A4B /* UIColor+Extension.swift */; };
 		76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */; };
 		76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */; };
-		76FC3793299649AF00033A4B /* PhotosManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3792299649AF00033A4B /* PhotosManager.swift */; };
+		76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC3792299649AF00033A4B /* AlbumsManager.swift */; };
 		76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */; };
 		76FC37D4299658E000033A4B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37D3299658E000033A4B /* ViewModel.swift */; };
 		76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37DB29972C5200033A4B /* PhotoCollectionViewCell.swift */; };
@@ -96,7 +96,7 @@
 		76FC37842996193C00033A4B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerTitleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoPickerViewController+SettingUpView.swift"; sourceTree = "<group>"; };
-		76FC3792299649AF00033A4B /* PhotosManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosManager.swift; sourceTree = "<group>"; };
+		76FC3792299649AF00033A4B /* AlbumsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsManager.swift; sourceTree = "<group>"; };
 		76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
 		76FC37D3299658E000033A4B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		76FC37DB29972C5200033A4B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 		76FC3791299647E000033A4B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				76FC3792299649AF00033A4B /* PhotosManager.swift */,
+				76FC3792299649AF00033A4B /* AlbumsManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -567,7 +567,7 @@
 				76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */,
 				76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */,
 				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
-				76FC3793299649AF00033A4B /* PhotosManager.swift in Sources */,
+				76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */,
 				76090BAA299A0B1000F204B6 /* OverlayImageViewController.swift in Sources */,
 				76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */,
 				76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */,
