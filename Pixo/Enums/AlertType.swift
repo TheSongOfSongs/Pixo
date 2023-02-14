@@ -10,6 +10,8 @@ import Foundation
 enum AlertType {
     case successToSavePhoto
     case failToSavePhoto
+    case failToLoadImage
+    case failToLoadPhoto
     
     var body: (title: String, message: String?, okay: String, cancel: String?) {
         switch self {
@@ -21,6 +23,11 @@ enum AlertType {
         case .failToSavePhoto:
             return (title: "에러 발생",
                     message: "사진을 저장할 수 없습니다 😢",
+                    okay: "확인",
+                    cancel: nil)
+        case .failToLoadImage, .failToLoadPhoto:
+            return (title: "에러 발생",
+                    message: "이미지를 사용할 수 없습니다 😢",
                     okay: "확인",
                     cancel: nil)
         }
