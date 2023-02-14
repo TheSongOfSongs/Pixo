@@ -104,7 +104,6 @@ class OverlayImageViewController: UIViewController {
     // MARK: -
     func bind() {
         guard let phAsset = phAsset else {
-            // TODO: 이미지 없을 때 앨범으로 돌아가도록 핸들링
             return
         }
         
@@ -144,7 +143,7 @@ class OverlayImageViewController: UIViewController {
         
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                // TODO: 오버레이 이미지 추출
+                owner.captureImages()
             })
             .disposed(by: disposeBag)
         
@@ -178,7 +177,33 @@ class OverlayImageViewController: UIViewController {
                         size: CGSize(width: width, height: width))
         }
         
-        phAssetImageBackgroundView.addSubview(imageView)
+        phAssetImageView.addSubview(imageView)
     }
+    
+    func captureImages() {
+        UIImageWriteToSavedPhotosAlbum(renderViewAsImage(), self, #selector(savePhotoCompletion), nil)
+    }
+    
+    @objc func savePhotoCompletion(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
+        if let error = error {
+            NSLog("❗️ error ==> \(error.localizedDescription)")
+            showAlertRelay.accept(.failToSavePhoto)
+            return
+        }
+        
+        showAlertRelay.accept(.successToSavePhoto)
+    }
+    
+    func renderViewAsImage() -> UIImage {
+        var newBounds = phAssetImageView.bounds
+        newBounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
+                                   y: -phAssetImageView.imageBounds.origin.y)
+        
+        let renderer = UIGraphicsImageRenderer(size: phAssetImageView.imageBounds.size)
+        let image = renderer.image { ctx in
+            phAssetImageView.drawHierarchy(in: newBounds, afterScreenUpdates: true)
+        }
+        
+        return image
     }
 }

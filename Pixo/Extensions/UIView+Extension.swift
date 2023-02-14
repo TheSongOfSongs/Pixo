@@ -44,4 +44,15 @@ extension UIView {
         self.frame = CGRect(origin: .zero, size: size)
         self.center = center
     }
+    
+    func renderImage(with croppedRect: CGRect) -> UIImage {
+        var newBounds = bounds
+        newBounds.origin = CGPoint(x: -croppedRect.origin.x,
+                                   y: -croppedRect.origin.y)
+        
+        let renderer = UIGraphicsImageRenderer(size: croppedRect.size)
+        return renderer.image { context in
+            drawHierarchy(in: newBounds, afterScreenUpdates: true)
+        }
+    }
 }
