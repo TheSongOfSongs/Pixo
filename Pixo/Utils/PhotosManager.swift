@@ -2,34 +2,62 @@
 //  PhotosManager.swift
 //  Pixo
 //
-//  Created by Jinhyang Kim on 2023/02/10.
+//  Created by Jinhyang Kim on 2023/02/14.
 //
 
-import UIKit
+import Foundation
 import Photos
 
-/// 앨범에서 사진을 가져오는 기능을 하기 위해 만들어진 클래스입니다
+import RxSwift
+import RxCocoa
+
+/// 앨범 사진 관련된 작업을 담당하는 클래스입니다.
 final class PhotosManager {
     
-    // 최신순으로 사진만 가져오는 옵션
-    let imageFetchingOptions = PHFetchOptions().then {
-        $0.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        $0.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+    struct Input {
+        let requestImage: Observable<(PHAsset, CGSize)>
     }
     
-    // MARK: -
-    func fetchAllPhotos() -> PHFetchResult<PHAsset> {
-        return PHAsset.fetchAssets(with: imageFetchingOptions)
+    struct Output {
+        let progress: Driver<Double>
+        let image: Driver<UIImage?>
     }
     
-    func fetchAlbums(with type: PHAssetCollectionType) -> PHFetchResult<PHAssetCollection> {
-        return PHAssetCollection.fetchAssetCollections(with: type,
-                                                       subtype: .albumRegular,
-                                                       options: nil)
+    // MARK: - properties
+    let manager = PHImageManager.default()
+    let disposeBag = DisposeBag()
+    private let progressRelay = PublishRelay<Double>()
+    private let phAssetImageRelay = PublishRelay<UIImage?>()
+    
+    
+    // MARK: - helpers
+    func transform(input: Input) -> Output {
+        input.requestImage
+            .subscribe(with: self, onNext: { owner, result in
+                owner.fetchPhoto(of: result.0, targetSize: result.1)
+            })
+            .disposed(by: disposeBag)
+        
+        return Output(progress: progressRelay.asDriver(onErrorJustReturn: 0),
+                      image: phAssetImageRelay.asDriver(onErrorJustReturn: nil))
     }
     
-    func fetchPhotos(in collection: PHAssetCollection) -> PHFetchResult<PHAsset> {
-        return PHAsset.fetchAssets(in: collection, options: imageFetchingOptions)
+    func fetchPhoto(of phAsset: PHAsset, targetSize: CGSize) {
+        // 사진 가져오는 작업 상태 프로그래스 관련 작업
+        let options = PHImageRequestOptions().then {
+            $0.deliveryMode = .highQualityFormat
+            $0.isNetworkAccessAllowed = true
+            $0.progressHandler = { [weak self] progress, _, _, _ in
+                self?.progressRelay.accept(progress)
+            }
+        }
+        
+        // 사진 요청
+        manager.requestImage(for: phAsset,
+                             targetSize: targetSize,
+                             contentMode: .aspectFit,
+                             options: options) { [weak self] image, _ in
+            self?.phAssetImageRelay.accept(image)
+        }
     }
 }
-
