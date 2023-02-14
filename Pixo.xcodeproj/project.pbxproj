@@ -19,6 +19,7 @@
 		76090BC9299A882C00F204B6 /* SVGImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BC8299A882C00F204B6 /* SVGImageSection.swift */; };
 		76090BCB299A884D00F204B6 /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BCA299A884D00F204B6 /* SVGImage.swift */; };
 		76090BCF299B373F00F204B6 /* PhotosManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BCE299B373F00F204B6 /* PhotosManager.swift */; };
+		76090BD3299B58BE00F204B6 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BD2299B58BE00F204B6 /* UIImageView+Extension.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -76,6 +77,7 @@
 		76090BC8299A882C00F204B6 /* SVGImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageSection.swift; sourceTree = "<group>"; };
 		76090BCA299A884D00F204B6 /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
 		76090BCE299B373F00F204B6 /* PhotosManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosManager.swift; sourceTree = "<group>"; };
+		76090BD2299B58BE00F204B6 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				76FC37842996193C00033A4B /* UIColor+Extension.swift */,
 				76FC3782299616AF00033A4B /* UIFont+Extension.swift */,
 				76090BA12998F3B700F204B6 /* UIImage+Extension.swift */,
+				76090BD2299B58BE00F204B6 /* UIImageView+Extension.swift */,
 				76FC377E29960A4500033A4B /* UIView+Extension.swift */,
 			);
 			path = Extensions;
@@ -557,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76090BD3299B58BE00F204B6 /* UIImageView+Extension.swift in Sources */,
 				76090BA02997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift in Sources */,
 				76090BB0299A21C700F204B6 /* ImageCollectionViewCell.swift in Sources */,
 				76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */,

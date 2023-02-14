@@ -39,4 +39,9 @@ extension UIView {
             }
         }
     }
+    
+    func setFrame(with center: CGPoint, size: CGSize) {
+        self.frame = CGRect(origin: .zero, size: size)
+        self.center = center
+    }
 }
