@@ -27,6 +27,7 @@ class OverlayImageViewController: UIViewController {
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
+    let showAlertRelay = PublishRelay<AlertType>()
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -154,6 +155,14 @@ class OverlayImageViewController: UIViewController {
                     return
                 }
                 owner.addSVGImage(image)
+            })
+            .disposed(by: disposeBag)
+        
+        // observable, relay, subject ...
+        showAlertRelay
+            .subscribe(on: MainScheduler.instance)
+            .bind(with: self, onNext: { owner, type in
+                owner.showAlertController(with: type)
             })
             .disposed(by: disposeBag)
     }
