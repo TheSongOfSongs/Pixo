@@ -35,6 +35,7 @@ extension PhotoPickerViewController: UICollectionViewDataSource {
 extension PhotoPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let overlayImageVC = OverlayImageViewController()
+        overlayImageVC.phAsset = selectedAlbumPHAsset[indexPath.row]
         navigationController?.pushViewController(overlayImageVC, animated: false)
     }
 }
