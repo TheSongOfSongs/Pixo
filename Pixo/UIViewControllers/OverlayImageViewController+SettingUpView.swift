@@ -14,7 +14,7 @@ extension OverlayImageViewController: SettingUpView {
         topView.addSubview(overlayButton)
         view.addSubview(collectionView)
         view.addSubview(phAssetImageBackgroundView)
-        view.addSubview(phAssetImageView)
+        phAssetImageBackgroundView.addSubview(phAssetImageView)
     }
     
     func setupConstriants() {

@@ -20,9 +20,9 @@ class OverlayImageViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel = OverlayImageViewModel()
     lazy var sectionInsets = UIEdgeInsets(top: 32,
-                                     left: 40,
-                                     bottom: 39 + safeAreaBottomInsets,
-                                     right: 40)
+                                          left: 40,
+                                          bottom: 39 + safeAreaBottomInsets,
+                                          right: 40)
     let padding: CGFloat = 16
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
@@ -77,12 +77,13 @@ class OverlayImageViewController: UIViewController {
     }()
     
     let phAssetImageBackgroundView = UIView().then {
-        $0.backgroundColor = UIColor(r: 250, g: 249, b: 246)
+        $0.backgroundColor = .clear
     }
     
     let phAssetImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
+    
     
     // MARK: - view lifecyle
     override func viewDidLoad() {
@@ -168,6 +169,7 @@ class OverlayImageViewController: UIViewController {
                         size: CGSize(width: width, height: width))
         }
         
-        view.addSubview(imageView)
+        phAssetImageBackgroundView.addSubview(imageView)
+    }
     }
 }
