@@ -9,6 +9,7 @@ import UIKit
 import Photos
 
 import FirebaseStorage
+import Kingfisher
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -44,11 +45,8 @@ class OverlayImageViewController: UIViewController {
             }
             
             Task {
-                let svgImageSize = CGSize(width: 30, height: 30)
                 let url = try await item.downloadURL()
-                cell.imageView.sd_setImage(with: url,
-                                           placeholderImage: nil,
-                                           context: [.imageThumbnailPixelSize : svgImageSize])
+                cell.imageView.setSVGImage(with: url)
             }
             
             return cell
