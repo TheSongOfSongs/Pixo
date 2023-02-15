@@ -157,8 +157,11 @@ class OverlayImageViewController: UIViewController {
         
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                let image = owner.renderViewAsImage()
-                owner.saveImageSubject.onNext(image)
+                if let image = owner.exportImage() {
+                    owner.saveImageSubject.onNext(image)
+                } else {
+                    owner.showAlertController(with: .failToSavePhoto)
+                }
             })
             .disposed(by: disposeBag)
 
