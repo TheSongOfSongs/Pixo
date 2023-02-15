@@ -161,29 +161,27 @@ class OverlayImageViewController: UIViewController {
                 owner.saveImageSubject.onNext(image)
             })
             .disposed(by: disposeBag)
-        
-        /*
+
         collectionView.rx.modelSelected(StorageReference.self)
             .bind(with: self, onNext: { owner, item in
-                guard let image = item.image else {
-                    // TODO: 에러 처리
-                    return
-                }
                 owner.overlayButton.isHidden = false
-                owner.addSVGImage(image)
+                
+                Task {
+                    let url = try await item.downloadURL()
+                    owner.addSVGImage(url)
+                }
             })
             .disposed(by: disposeBag)
-         */
     }
     
-    func addSVGImage(_ image: UIImage) {
+    func addSVGImage(_ url: URL) {
         // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
         phAssetImageView.subviews.forEach {
             $0.removeFromSuperview()
         }
         
-        let imageView = UIImageView(frame: .zero).then {
-            $0.image = image
+        let imageView = IdentifiableImageView(frame: .zero).then {
+            $0.setSVGImage(with: url)
             $0.contentMode = .scaleAspectFit
             
             let imageBounds = phAssetImageView.imageBounds
