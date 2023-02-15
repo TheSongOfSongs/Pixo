@@ -30,6 +30,7 @@ PODS:
     - GoogleUtilities/Environment
   - "GoogleUtilities/NSData+zlib (7.10.0)"
   - GTMSessionFetcher/Core (3.0.0)
+  - Kingfisher (7.5.0)
   - PromisesObjC (2.1.1)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -44,9 +45,6 @@ PODS:
   - SDWebImage (5.14.2):
     - SDWebImage/Core (= 5.14.2)
   - SDWebImage/Core (5.14.2)
-  - SDWebImageSVGKitPlugin (1.4.0):
-    - SDWebImage/Core (~> 5.10)
-    - SVGKit (~> 3.0)
   - SnapKit (5.6.0)
   - SVGKit (3.0.0):
     - CocoaLumberjack (~> 3.0)
@@ -54,11 +52,12 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseUI/Storage
+  - Kingfisher
   - RxCocoa (= 6.5.0)
   - RxDataSources
   - RxSwift (= 6.5.0)
-  - SDWebImageSVGKitPlugin
   - SnapKit (~> 5.6.0)
+  - SVGKit
   - Then
 
 SPEC REPOS:
@@ -75,13 +74,13 @@ SPEC REPOS:
     - FirebaseUI
     - GoogleUtilities
     - GTMSessionFetcher
+    - Kingfisher
     - PromisesObjC
     - RxCocoa
     - RxDataSources
     - RxRelay
     - RxSwift
     - SDWebImage
-    - SDWebImageSVGKitPlugin
     - SnapKit
     - SVGKit
     - Then
@@ -99,17 +98,17 @@ SPEC CHECKSUMS:
   FirebaseUI: e9a2dd42f5b593cd8b6e64c11d30ded38f30e48c
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
+  Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SDWebImage: b9a731e1d6307f44ca703b3976d18c24ca561e84
-  SDWebImageSVGKitPlugin: 7542dd07c344ec3415ded0461a1161a6f087e0c9
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 7bdb5ca471fef2e6ea5304ffda38daf85ca79669
+PODFILE CHECKSUM: a93f1c84b44d56fc010a775c5161dc3fa176bdd3
 
 COCOAPODS: 1.11.3

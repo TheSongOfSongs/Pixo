@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SDWebImageSVGKitPlugin
+import SVGKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
