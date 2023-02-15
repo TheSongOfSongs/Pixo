@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseStorage
 import RxDataSources
 
 struct SVGImageSection {
@@ -13,7 +14,7 @@ struct SVGImageSection {
 }
 
 extension SVGImageSection: SectionModelType {
-    typealias Item = SVGImage
+    typealias Item = StorageReference
     
     init(original: SVGImageSection, items: [Item]) {
         self = original

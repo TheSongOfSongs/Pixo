@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 
+import FirebaseStorage
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -42,7 +43,14 @@ class OverlayImageViewController: UIViewController {
                 return UICollectionViewCell()
             }
             
-            cell.imageView.image = item.image
+            Task {
+                let svgImageSize = CGSize(width: 30, height: 30)
+                let url = try await item.downloadURL()
+                cell.imageView.sd_setImage(with: url,
+                                           placeholderImage: nil,
+                                           context: [.imageThumbnailPixelSize : svgImageSize])
+            }
+            
             return cell
         })
     }
@@ -156,7 +164,8 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        collectionView.rx.modelSelected(SVGImage.self)
+        /*
+        collectionView.rx.modelSelected(StorageReference.self)
             .bind(with: self, onNext: { owner, item in
                 guard let image = item.image else {
                     // TODO: 에러 처리
@@ -166,6 +175,7 @@ class OverlayImageViewController: UIViewController {
                 owner.addSVGImage(image)
             })
             .disposed(by: disposeBag)
+         */
     }
     
     func addSVGImage(_ image: UIImage) {

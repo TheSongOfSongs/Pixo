@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SDWebImageSVGKitPlugin
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
     // MARK: properties UI
-    let imageView = UIImageView()
+    let imageView = SVGKFastImageView(frame: .zero)
     
     // MARK: - life cycle
     override init(frame: CGRect) {
