@@ -60,6 +60,7 @@ class OverlayImageViewController: UIViewController {
     let overlayButton = UIButton().then {
         $0.titleLabel?.font = .button
         $0.makeCornerRounded(radius: 16)
+        $0.isHidden = true
         $0.tintColor = UIColor(r: 255, g: 251, b: 230)
         $0.backgroundColor = .black
         $0.setTitle("Overlay", for: .normal)
@@ -156,6 +157,7 @@ class OverlayImageViewController: UIViewController {
                     // TODO: 에러 처리
                     return
                 }
+                owner.overlayButton.isHidden = false
                 owner.addSVGImage(image)
             })
             .disposed(by: disposeBag)
