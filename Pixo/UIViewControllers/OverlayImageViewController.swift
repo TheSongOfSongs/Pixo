@@ -187,7 +187,7 @@ class OverlayImageViewController: UIViewController {
         phAssetImageView.addSubview(imageView)
     }
     
-    func renderViewAsImage() -> UIImage? {
+    func exportImage() -> UIImage? {
         let imageRect: CGRect = {
             var bounds = phAssetImageView.bounds
             bounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
