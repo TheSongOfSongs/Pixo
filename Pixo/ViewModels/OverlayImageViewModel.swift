@@ -30,14 +30,24 @@ class OverlayImageViewModel: NSObject, ViewModel {
     private let svgImageSectionsSubject = BehaviorSubject<[SVGImageSection]>(value: [])
     private let alertSubject = PublishSubject<AlertType>()
     let photosManager = PhotosManager()
+    let svgImageManager = SVGImageManager()
     
     
     // MARK: - helpers
     func transform(input: Input) -> Output {
         input.fetchSVGImageSections
-            .subscribe(with: self, onNext: { owner, _ in
-                let section = SVGImageSection(items: owner.svgImages())
-                owner.svgImageSectionsSubject.onNext([section])
+            .subscribe(onNext: { _ in
+                Task {
+                    let result = await self.svgImageManager.fetchSVGImages()
+                    switch result {
+                    case .success(let references):
+                        let section = SVGImageSection(items: references)
+                        self.svgImageSectionsSubject.onNext([section])
+                    case .failure(let error):
+                        NSLog("❗️ error ==> \(error.localizedDescription)")
+                        self.alertSubject.onNext(.failToFetchFromStorage)
+                    }
+                }
             })
             .disposed(by: disposeBag)
         
@@ -54,25 +64,6 @@ class OverlayImageViewModel: NSObject, ViewModel {
                       phAssetImageprogress: photosManagerOutput.progress,
                       phAssetImage: photosManagerOutput.image,
                       alert: alertSubject.asDriver(onErrorJustReturn: .unknown))
-    }
-    
-    private func svgImages() -> [SVGImage] {
-        var images: [SVGImage] = []
-        for i in 1...14 {
-            let name: String = {
-                if i < 10 {
-                    return "00\(i)"
-                } else if i < 100 {
-                    return "0\(i)"
-                } else {
-                    return "\(i)"
-                }
-            }()
-            
-            images.append(SVGImage(name: name))
-        }
-        
-        return images
     }
     
     func saveToAlbums(_ image: UIImage) {
