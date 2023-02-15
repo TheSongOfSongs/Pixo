@@ -29,6 +29,7 @@
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
 		76B6260F299D02840091D981 /* SVGImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6260E299D02840091D981 /* SVGImageProcessor.swift */; };
+		76B62611299D03E30091D981 /* IdentifiableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B62610299D03E30091D981 /* IdentifiableImageView.swift */; };
 		76FC37422995F99000033A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37412995F99000033A4B /* AppDelegate.swift */; };
 		76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37432995F99000033A4B /* SceneDelegate.swift */; };
 		76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37452995F99000033A4B /* PhotoPickerViewController.swift */; };
@@ -93,6 +94,7 @@
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
 		76B6260E299D02840091D981 /* SVGImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageProcessor.swift; sourceTree = "<group>"; };
+		76B62610299D03E30091D981 /* IdentifiableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableImageView.swift; sourceTree = "<group>"; };
 		76FC373E2995F99000033A4B /* Pixo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FC37412995F99000033A4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76FC37432995F99000033A4B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 		76FC37742996098300033A4B /* UIViews */ = {
 			isa = PBXGroup;
 			children = (
+				76B62610299D03E30091D981 /* IdentifiableImageView.swift */,
 				76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */,
 				76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */,
 			);
@@ -611,6 +614,7 @@
 				76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
 				76090BCB299A884D00F204B6 /* SVGImage.swift in Sources */,
+				76B62611299D03E30091D981 /* IdentifiableImageView.swift in Sources */,
 				76090BD1299B48BE00F204B6 /* UIApplication+Extension.swift in Sources */,
 				76FC37D4299658E000033A4B /* ViewModel.swift in Sources */,
 			);
