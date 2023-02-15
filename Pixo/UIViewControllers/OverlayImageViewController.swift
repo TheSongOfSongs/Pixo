@@ -27,6 +27,7 @@ class OverlayImageViewController: UIViewController {
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
+    let saveImageSubject = PublishSubject<UIImage>()
     let showAlertRelay = PublishRelay<AlertType>()
     
     var targetSize: CGSize {
@@ -111,7 +112,8 @@ class OverlayImageViewController: UIViewController {
         let fetchSVGImageSections = PublishSubject<Void>()
         let requestPHassetImage = PublishSubject<(PHAsset, CGSize)>()
         let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable(),
-                                                requestPHAssetImage: requestPHassetImage.asObserver())
+                                                requestPHAssetImage: requestPHassetImage.asObserver(),
+                                                saveToAlbum: saveImageSubject.asObserver())
         let output = viewModel.transform(input: input)
         
         output.svgImageSections
@@ -143,7 +145,8 @@ class OverlayImageViewController: UIViewController {
         
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                owner.captureImages()
+                let image = owner.renderViewAsImage()
+                owner.saveImageSubject.onNext(image)
             })
             .disposed(by: disposeBag)
         
@@ -178,20 +181,6 @@ class OverlayImageViewController: UIViewController {
         }
         
         phAssetImageView.addSubview(imageView)
-    }
-    
-    func captureImages() {
-        UIImageWriteToSavedPhotosAlbum(renderViewAsImage(), self, #selector(savePhotoCompletion), nil)
-    }
-    
-    @objc func savePhotoCompletion(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
-        if let error = error {
-            NSLog("❗️ error ==> \(error.localizedDescription)")
-            showAlertRelay.accept(.failToSavePhoto)
-            return
-        }
-        
-        showAlertRelay.accept(.successToSavePhoto)
     }
     
     func renderViewAsImage() -> UIImage {
