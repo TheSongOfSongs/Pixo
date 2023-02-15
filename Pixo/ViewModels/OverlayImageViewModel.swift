@@ -11,8 +11,7 @@ import Photos
 import RxSwift
 import RxCocoa
 
-class OverlayImageViewModel: ViewModel {
-    
+class OverlayImageViewModel: NSObject, ViewModel {
     struct Input {
         var fetchSVGImageSections: Observable<Void>
         let requestPHAssetImage: Observable<(PHAsset, CGSize)>
@@ -43,7 +42,7 @@ class OverlayImageViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         input.saveToAlbum
-            .subscribe(with: self, onNext: { owner, image in
+            .bind(with: self, onNext: { owner, image in
                 owner.saveToAlbums(image)
             })
             .disposed(by: disposeBag)
