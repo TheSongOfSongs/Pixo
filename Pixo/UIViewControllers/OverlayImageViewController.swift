@@ -170,6 +170,11 @@ class OverlayImageViewController: UIViewController {
     }
     
     func addSVGImage(_ image: UIImage) {
+        // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
+        phAssetImageView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
         let imageView = UIImageView(frame: .zero).then {
             $0.image = image
             $0.contentMode = .scaleAspectFit
