@@ -28,7 +28,6 @@ class OverlayImageViewController: UIViewController {
     var phAsset: PHAsset?
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     let saveImageSubject = PublishSubject<UIImage>()
-    let showAlertRelay = PublishRelay<AlertType>()
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -60,6 +59,7 @@ class OverlayImageViewController: UIViewController {
     let overlayButton = UIButton().then {
         $0.titleLabel?.font = .button
         $0.makeCornerRounded(radius: 16)
+        $0.isHidden = true
         $0.tintColor = UIColor(r: 255, g: 251, b: 230)
         $0.backgroundColor = .black
         $0.setTitle("Overlay", for: .normal)
@@ -133,6 +133,12 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        output.alert
+            .drive(with: self, onNext: { owner, type in
+                owner.showAlertController(with: type)
+            })
+            .disposed(by: disposeBag)
+        
         fetchSVGImageSections.onNext(())
         requestPHassetImage.onNext((phAsset, targetSize))
         
@@ -156,20 +162,18 @@ class OverlayImageViewController: UIViewController {
                     // TODO: 에러 처리
                     return
                 }
+                owner.overlayButton.isHidden = false
                 owner.addSVGImage(image)
-            })
-            .disposed(by: disposeBag)
-        
-        // observable, relay, subject ...
-        showAlertRelay
-            .subscribe(on: MainScheduler.instance)
-            .bind(with: self, onNext: { owner, type in
-                owner.showAlertController(with: type)
             })
             .disposed(by: disposeBag)
     }
     
     func addSVGImage(_ image: UIImage) {
+        // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
+        phAssetImageView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
         let imageView = UIImageView(frame: .zero).then {
             $0.image = image
             $0.contentMode = .scaleAspectFit
