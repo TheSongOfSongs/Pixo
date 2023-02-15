@@ -28,7 +28,6 @@ class OverlayImageViewController: UIViewController {
     var phAsset: PHAsset?
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     let saveImageSubject = PublishSubject<UIImage>()
-    let showAlertRelay = PublishRelay<AlertType>()
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -134,6 +133,12 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        output.alert
+            .drive(with: self, onNext: { owner, type in
+                owner.showAlertController(with: type)
+            })
+            .disposed(by: disposeBag)
+        
         fetchSVGImageSections.onNext(())
         requestPHassetImage.onNext((phAsset, targetSize))
         
@@ -159,14 +164,6 @@ class OverlayImageViewController: UIViewController {
                 }
                 owner.overlayButton.isHidden = false
                 owner.addSVGImage(image)
-            })
-            .disposed(by: disposeBag)
-        
-        // observable, relay, subject ...
-        showAlertRelay
-            .subscribe(on: MainScheduler.instance)
-            .bind(with: self, onNext: { owner, type in
-                owner.showAlertController(with: type)
             })
             .disposed(by: disposeBag)
     }
