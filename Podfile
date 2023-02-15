@@ -6,9 +6,11 @@ target 'Pixo' do
   use_frameworks!
 
   # Pods for Pixo
+  pod 'FirebaseUI/Storage'
   pod 'RxCocoa', '6.5.0'
   pod 'RxDataSources'
   pod 'RxSwift', '6.5.0'
+  pod 'SDWebImageSVGKitPlugin'
   pod 'SnapKit', '~> 5.6.0'
   pod 'Then'
 
