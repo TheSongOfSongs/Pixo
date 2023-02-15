@@ -86,6 +86,7 @@ class OverlayImageViewModel: NSObject, ViewModel {
         if let error = error {
             NSLog("❗️ error ==> \(error.localizedDescription)")
             alertSubject.onNext(.failToSavePhoto)
+            return
         }
         
         alertSubject.onNext(.successToSavePhoto)
