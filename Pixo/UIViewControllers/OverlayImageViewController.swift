@@ -187,16 +187,19 @@ class OverlayImageViewController: UIViewController {
         phAssetImageView.addSubview(imageView)
     }
     
-    func renderViewAsImage() -> UIImage {
-        var newBounds = phAssetImageView.bounds
-        newBounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
-                                   y: -phAssetImageView.imageBounds.origin.y)
+    func renderViewAsImage() -> UIImage? {
+        let imageRect: CGRect = {
+            var bounds = phAssetImageView.bounds
+            bounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
+                                    y: -phAssetImageView.imageBounds.origin.y)
+            return bounds
+        }()
         
-        let renderer = UIGraphicsImageRenderer(size: phAssetImageView.imageBounds.size)
-        let image = renderer.image { ctx in
-            phAssetImageView.drawHierarchy(in: newBounds, afterScreenUpdates: true)
-        }
+        UIGraphicsBeginImageContextWithOptions(phAssetImageView.imageBounds.size, false, 0.0)
+        phAssetImageView.drawHierarchy(in: imageRect, afterScreenUpdates: true)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        return image
+        return result
     }
 }
