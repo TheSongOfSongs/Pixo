@@ -31,6 +31,7 @@ class OverlayImageViewController: UIViewController {
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     let saveImageSubject = PublishSubject<UIImage>()
     let urlCacheManager = URLCacheManager.shared
+    var phAssetImage: UIImage?
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -98,6 +99,8 @@ class OverlayImageViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         bind()
+        
+        phAssetImageView.image = phAssetImage
     }
     
     override func loadView() {
@@ -110,18 +113,12 @@ class OverlayImageViewController: UIViewController {
     
     // MARK: -
     func bind() {
-        guard let phAsset = phAsset else {
-            return
-        }
-        
         // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
         var isFetchingMore = false
         
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
-        let requestPHassetImage = PublishSubject<(PHAsset, CGSize)>()
         let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable(),
-                                                requestPHAssetImage: requestPHassetImage.asObserver(),
                                                 saveToAlbum: saveImageSubject.asObserver())
         let output = viewModel.transform(input: input)
         
@@ -144,19 +141,6 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        output.phAssetImageprogress
-            .drive(with: self, onNext: { owner, progress in
-                // TODO: progress 띄우는 작업
-            })
-            .disposed(by: disposeBag)
-        
-        output.phAssetImage
-            .drive(with: self, onNext: { owner, image in
-                // TODO: progress 숨기기
-                owner.phAssetImageView.image = image
-            })
-            .disposed(by: disposeBag)
-        
         output.alert
             .drive(with: self, onNext: { owner, type in
                 owner.showAlertController(with: type)
@@ -164,7 +148,6 @@ class OverlayImageViewController: UIViewController {
             .disposed(by: disposeBag)
         
         fetchSVGImageSections.onNext(())
-        requestPHassetImage.onNext((phAsset, targetSize))
         
         // UI event
         closeButton.rx.tap

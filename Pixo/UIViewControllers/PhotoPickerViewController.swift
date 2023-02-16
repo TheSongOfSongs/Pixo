@@ -35,10 +35,11 @@ class PhotoPickerViewController: UIViewController {
     
     // collectionView
     let selectedAlbumRelay = BehaviorRelay<(Album, Bool)>(value: (Album(type: .allPhotos,
-                                                                      phFetchResult: PHFetchResult(),
-                                                                      title: ""),
-                                                                false)
-    )
+                                                                        phFetchResult: PHFetchResult(),
+                                                                        title: ""),
+                                                                  false))
+    let pushOverlayImageViewControllerSubject = PublishSubject<(PHAsset, CGSize)>()
+    
     var selectedAlbum: Album {
         return selectedAlbumRelay.value.0
     }
@@ -138,7 +139,8 @@ class PhotoPickerViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbumsSubject.asObservable())
+        let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbumsSubject.asObservable(),
+                                               fetchPHAssetImage: pushOverlayImageViewControllerSubject.asObservable())
         let output = viewModel.transform(input: input)
         
         // output
@@ -156,6 +158,21 @@ class PhotoPickerViewController: UIViewController {
             .compactMap({ $0.first?.items.first })
             .bind(with: self, onNext: { owner, album in
                 owner.selectedAlbumRelay.accept((album: album, shouldReload: true))
+            })
+            .disposed(by: disposeBag)
+        
+        output.phAssetImageprogress
+            .drive(with: self, onNext: { owner, progress in
+                // TODO: progress 띄우는 작업
+            })
+            .disposed(by: disposeBag)
+        
+        output.phAssetImage
+            .drive(with: self, onNext: { owner, image in
+                // TODO: progress 숨기기
+                let overlayImageVC = OverlayImageViewController()
+                overlayImageVC.phAssetImage = image
+                self.navigationController?.pushViewController(overlayImageVC, animated: false)
             })
             .disposed(by: disposeBag)
     }

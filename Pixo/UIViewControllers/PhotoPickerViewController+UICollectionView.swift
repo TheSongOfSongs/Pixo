@@ -34,9 +34,14 @@ extension PhotoPickerViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension PhotoPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let overlayImageVC = OverlayImageViewController()
-        overlayImageVC.phAsset = selectedAlbumPHAsset[indexPath.row]
-        navigationController?.pushViewController(overlayImageVC, animated: false)
+         let asset = selectedAlbumPHAsset[indexPath.row]
+         let size: CGSize = {
+             let width = view.frame.width
+             let height = view.frame.height - 80 - 151 - view.safeAreaInsets.bottom
+             return CGSize(width: width, height: height)
+         }()
+         
+         pushOverlayImageViewControllerSubject.onNext((asset, size))
     }
 }
 
