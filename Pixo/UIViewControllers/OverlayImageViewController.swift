@@ -114,6 +114,9 @@ class OverlayImageViewController: UIViewController {
             return
         }
         
+        // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
+        var isFetchingMore = false
+        
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
         let requestPHassetImage = PublishSubject<(PHAsset, CGSize)>()
@@ -122,8 +125,23 @@ class OverlayImageViewController: UIViewController {
                                                 saveToAlbum: saveImageSubject.asObserver())
         let output = viewModel.transform(input: input)
         
-        output.svgImageSections
+        let svgImageSections = output.svgImageSections
+            .share()
+        
+        svgImageSections
             .bind(to: collectionView.rx.items(dataSource: self.dataSource))
+            .disposed(by: disposeBag)
+        
+        svgImageSections
+            .subscribe(onNext: { _ in
+                isFetchingMore = false
+            })
+            .disposed(by: disposeBag)
+        
+        output.noMoreImages
+            .subscribe(with: self, onNext: { owner, _ in
+                fetchSVGImageSections.onCompleted()
+            })
             .disposed(by: disposeBag)
         
         output.phAssetImageprogress
@@ -172,6 +190,21 @@ class OverlayImageViewController: UIViewController {
                 Task {
                     let url = try await item.downloadURL()
                     owner.addSVGImage(url)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        // 스크롤 끝에 닿았을 때 데이터 추가 요청
+        Observable.combineLatest(svgImageSections, collectionView.rx.didScroll)
+            .filter({ _ in !isFetchingMore })
+            .observe(on: MainScheduler.instance)
+            .subscribe(with: self, onNext: { owner, _ in
+                let offsetX = owner.collectionView.contentOffset.x
+                let contentWidth = owner.collectionView.contentSize.width
+                
+                if offsetX > contentWidth - owner.collectionView.frame.size.width - 10 {
+                    fetchSVGImageSections.onNext(())
+                    isFetchingMore = true
                 }
             })
             .disposed(by: disposeBag)
