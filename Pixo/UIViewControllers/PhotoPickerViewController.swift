@@ -87,7 +87,7 @@ class PhotoPickerViewController: UIViewController {
         fetchAlbumsSubject.onNext(())
         PHPhotoLibrary.shared().register(self)
     }
-
+    
     override func loadView() {
         let view = UIView().then {
             $0.backgroundColor = .systemBackground
@@ -181,18 +181,18 @@ class PhotoPickerViewController: UIViewController {
         return RxTableViewSectionedReloadDataSource<AlbumSection>(configureCell: { [weak self] _, tableView, indexPath, album in
             guard let self = self,
                   let cell = tableView
-                    .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
-                        return UITableViewCell()
-                    }
-
+                .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
+                return UITableViewCell()
+            }
+            
             cell.titleLabel.text = album.title
-
+            
             if let previewAsset = album.previewPHAsset {
                 self.imageManager.requestImage(for: previewAsset, targetSize: self.previewSize, contentMode: .aspectFill, options: nil) { image, _ in
                     cell.previewImageView.image = image
                 }
             }
-
+            
             return cell
         })
     }
