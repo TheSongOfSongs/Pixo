@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 struct SVGImage {
-    var name: String
-    var image: UIImage? {
-        return UIImage(named: name)
+    var storageReference: StorageReference
+    
+    var cacheKey: NSString {
+        return NSString(string: storageReference.fullPath)
     }
 }

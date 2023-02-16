@@ -8,6 +8,8 @@
 import UIKit
 import Photos
 
+import FirebaseStorage
+import Kingfisher
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -28,6 +30,7 @@ class OverlayImageViewController: UIViewController {
     var phAsset: PHAsset?
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     let saveImageSubject = PublishSubject<UIImage>()
+    let urlCacheManager = URLCacheManager.shared
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -42,7 +45,10 @@ class OverlayImageViewController: UIViewController {
                 return UICollectionViewCell()
             }
             
-            cell.imageView.image = item.image
+            Task {
+                await cell.imageView.setSVGImage(with: item)
+            }
+            
             return cell
         })
     }
@@ -108,6 +114,9 @@ class OverlayImageViewController: UIViewController {
             return
         }
         
+        // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
+        var isFetchingMore = false
+        
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
         let requestPHassetImage = PublishSubject<(PHAsset, CGSize)>()
@@ -116,8 +125,23 @@ class OverlayImageViewController: UIViewController {
                                                 saveToAlbum: saveImageSubject.asObserver())
         let output = viewModel.transform(input: input)
         
-        output.svgImageSections
+        let svgImageSections = output.svgImageSections
+            .share()
+        
+        svgImageSections
             .bind(to: collectionView.rx.items(dataSource: self.dataSource))
+            .disposed(by: disposeBag)
+        
+        svgImageSections
+            .subscribe(onNext: { _ in
+                isFetchingMore = false
+            })
+            .disposed(by: disposeBag)
+        
+        output.noMoreImages
+            .subscribe(with: self, onNext: { owner, _ in
+                fetchSVGImageSections.onCompleted()
+            })
             .disposed(by: disposeBag)
         
         output.phAssetImageprogress
@@ -151,36 +175,57 @@ class OverlayImageViewController: UIViewController {
         
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                let image = owner.renderViewAsImage()
-                owner.saveImageSubject.onNext(image)
+                if let image = owner.exportImage() {
+                    owner.saveImageSubject.onNext(image)
+                } else {
+                    owner.showAlertController(with: .failToSavePhoto)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        collectionView.rx.modelSelected(SVGImage.self)
+            .bind(with: self, onNext: { owner, item in
+                owner.overlayButton.isHidden = false
+                owner.addSVGImageView(item)
             })
             .disposed(by: disposeBag)
         
-        collectionView.rx.modelSelected(SVGImage.self)
-            .bind(with: self, onNext: { owner, item in
-                guard let image = item.image else {
-                    // TODO: 에러 처리
-                    return
+        // 스크롤 끝에 닿기 전에 데이터 추가 요청
+        Observable.combineLatest(svgImageSections, collectionView.rx.didScroll)
+            .filter({ _ in !isFetchingMore })
+            .observe(on: MainScheduler.instance)
+            .subscribe(with: self, onNext: { owner, _ in
+                let offsetX = owner.collectionView.contentOffset.x
+                let contentWidth = owner.collectionView.contentSize.width
+                
+                if offsetX > contentWidth - owner.collectionView.frame.size.width - 50 {
+                    fetchSVGImageSections.onNext(())
+                    isFetchingMore = true
                 }
-                owner.overlayButton.isHidden = false
-                owner.addSVGImage(image)
             })
             .disposed(by: disposeBag)
     }
     
-    func addSVGImage(_ image: UIImage) {
+    /// SVGImage로부터 이미지를 저장소에서 다운받아 UIImageView를 생성하여
+    /// phAssetImageView에 추가해줍니다.
+    func addSVGImageView(_ svgImage: SVGImage) {
         // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
         phAssetImageView.subviews.forEach {
             $0.removeFromSuperview()
         }
         
-        let imageView = UIImageView(frame: .zero).then {
-            $0.image = image
+        let imageView = IdentifiableImageView(frame: .zero).then {
             $0.contentMode = .scaleAspectFit
+        }
+        
+        Task {
+            // 이미지를 가져와 넣어주기
+            await imageView.setSVGImage(with: svgImage)
             
+            // 가져온 이미지의 사이즈를 바탕으로 frame 정해주기
             let imageBounds = phAssetImageView.imageBounds
             let width = min(imageBounds.width * 0.8, imageBounds.height * 0.8)
-            $0.setFrame(with: phAssetImageView.center,
+            imageView.setFrame(with: phAssetImageView.center,
                         size: CGSize(width: width, height: width))
         }
         

@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SVGKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
     // MARK: properties UI
-    let imageView = UIImageView()
+    let imageView = IdentifiableImageView()
     
     // MARK: - life cycle
     override init(frame: CGRect) {
@@ -25,6 +26,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageView.image = nil
     }
 }
 
