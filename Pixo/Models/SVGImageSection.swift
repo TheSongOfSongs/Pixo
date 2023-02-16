@@ -14,7 +14,7 @@ struct SVGImageSection {
 }
 
 extension SVGImageSection: SectionModelType {
-    typealias Item = StorageReference
+    typealias Item = SVGImage
     
     init(original: SVGImageSection, items: [Item]) {
         self = original

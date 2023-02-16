@@ -30,6 +30,7 @@ class OverlayImageViewController: UIViewController {
     var phAsset: PHAsset?
     var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     let saveImageSubject = PublishSubject<UIImage>()
+    let urlCacheManager = URLCacheManager.shared
     
     var targetSize: CGSize {
         let scale = UIScreen.main.scale
@@ -45,8 +46,7 @@ class OverlayImageViewController: UIViewController {
             }
             
             Task {
-                let url = try await item.downloadURL()
-                cell.imageView.setSVGImage(with: url)
+                await cell.imageView.setSVGImage(with: item)
             }
             
             return cell
@@ -183,14 +183,10 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        collectionView.rx.modelSelected(StorageReference.self)
+        collectionView.rx.modelSelected(SVGImage.self)
             .bind(with: self, onNext: { owner, item in
                 owner.overlayButton.isHidden = false
-                
-                Task {
-                    let url = try await item.downloadURL()
-                    owner.addSVGImage(url)
-                }
+                owner.addSVGImageView(item)
             })
             .disposed(by: disposeBag)
         
@@ -210,19 +206,26 @@ class OverlayImageViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func addSVGImage(_ url: URL) {
+    /// SVGImage로부터 이미지를 저장소에서 다운받아 UIImageView를 생성하여
+    /// phAssetImageView에 추가해줍니다.
+    func addSVGImageView(_ svgImage: SVGImage) {
         // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
         phAssetImageView.subviews.forEach {
             $0.removeFromSuperview()
         }
         
         let imageView = IdentifiableImageView(frame: .zero).then {
-            $0.setSVGImage(with: url)
             $0.contentMode = .scaleAspectFit
+        }
+        
+        Task {
+            // 이미지를 가져와 넣어주기
+            await imageView.setSVGImage(with: svgImage)
             
+            // 가져온 이미지의 사이즈를 바탕으로 frame 정해주기
             let imageBounds = phAssetImageView.imageBounds
             let width = min(imageBounds.width * 0.8, imageBounds.height * 0.8)
-            $0.setFrame(with: phAssetImageView.center,
+            imageView.setFrame(with: phAssetImageView.center,
                         size: CGSize(width: width, height: width))
         }
         

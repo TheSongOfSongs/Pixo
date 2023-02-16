@@ -35,7 +35,7 @@ class OverlayImageViewModel: NSObject, ViewModel {
     let svgImageManager = SVGImageManager()
     var pageToken: String?
     
-    var svgImageReferences: [StorageReference] {
+    var svgImageReferences: [SVGImage] {
         return svgImageSectionsRelay.value.first?.items ?? []
     }
     
@@ -51,7 +51,7 @@ class OverlayImageViewModel: NSObject, ViewModel {
                     
                     switch result {
                     case .success(let result):
-                        let items = self.svgImageReferences + result.0
+                        let items = self.svgImageReferences + result.0.map({ SVGImage(storageReference: $0) })
                         self.pageToken = result.1
                         self.svgImageSectionsRelay.accept([SVGImageSection(items: items)])
                         

@@ -10,4 +10,8 @@ import FirebaseStorage
 
 struct SVGImage {
     var storageReference: StorageReference
+    
+    var cacheKey: NSString {
+        return NSString(string: storageReference.fullPath)
+    }
 }
