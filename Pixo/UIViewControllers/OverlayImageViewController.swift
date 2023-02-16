@@ -190,7 +190,7 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        // 스크롤 끝에 닿았을 때 데이터 추가 요청
+        // 스크롤 끝에 닿기 전에 데이터 추가 요청
         Observable.combineLatest(svgImageSections, collectionView.rx.didScroll)
             .filter({ _ in !isFetchingMore })
             .observe(on: MainScheduler.instance)
@@ -198,7 +198,7 @@ class OverlayImageViewController: UIViewController {
                 let offsetX = owner.collectionView.contentOffset.x
                 let contentWidth = owner.collectionView.contentSize.width
                 
-                if offsetX > contentWidth - owner.collectionView.frame.size.width - 10 {
+                if offsetX > contentWidth - owner.collectionView.frame.size.width - 50 {
                     fetchSVGImageSections.onNext(())
                     isFetchingMore = true
                 }
