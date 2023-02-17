@@ -25,6 +25,7 @@
 		76090BD7299BC15B00F204B6 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BD6299BC15B00F204B6 /* AlertType.swift */; };
 		76090BDF299CBDD100F204B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76090BDE299CBDD100F204B6 /* GoogleService-Info.plist */; };
 		76090BE1299CC0AA00F204B6 /* SVGImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */; };
+		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -91,6 +92,7 @@
 		76090BD6299BC15B00F204B6 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		76090BDE299CBDD100F204B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageManager.swift; sourceTree = "<group>"; };
+		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				76B62610299D03E30091D981 /* IdentifiableImageView.swift */,
 				76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */,
 				76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */,
+				7697F1FA299E983F00BF8F54 /* PieProgressView.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				76FC3783299616AF00033A4B /* UIFont+Extension.swift in Sources */,
 				76FC37DF29972C7400033A4B /* AlbumTableViewCell.swift in Sources */,
 				76A4952B29977A1200923CF9 /* Album.swift in Sources */,
+				7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */,
 				76090BC7299A878600F204B6 /* OverlayImageViewModel.swift in Sources */,
 				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
 				76090BD5299BBEC900F204B6 /* UIViewController+Extension.swift in Sources */,
