@@ -33,12 +33,6 @@ class OverlayImageViewController: UIViewController {
     let urlCacheManager = URLCacheManager.shared
     var phAssetImage: UIImage?
     
-    var targetSize: CGSize {
-        let scale = UIScreen.main.scale
-        return CGSize(width: phAssetImageView.bounds.width * scale,
-                      height: phAssetImageView.bounds.height * scale)
-    }
-    
     var dataSource: DataSource {
         return DataSource(configureCell: { dataSource, collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier,
