@@ -13,6 +13,7 @@ extension PhotoPickerViewController: SettingUpView {
         view.addSubview(titleView)
         view.addSubview(tableView)
         view.addSubview(photoCollectionView)
+        view.addSubview(progressCircleView)
     }
     
     func setupConstriants() {
@@ -30,6 +31,12 @@ extension PhotoPickerViewController: SettingUpView {
         photoCollectionView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom)
             make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        progressCircleView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(120)
         }
     }
 }

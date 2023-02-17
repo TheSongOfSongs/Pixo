@@ -34,15 +34,22 @@ extension PhotoPickerViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension PhotoPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let overlayImageVC = OverlayImageViewController()
-        overlayImageVC.phAsset = selectedAlbumPHAsset[indexPath.row]
-        navigationController?.pushViewController(overlayImageVC, animated: false)
+         let asset = selectedAlbumPHAsset[indexPath.row]
+         let size: CGSize = {
+             // OverlayImageVC의 phAssetImageView 사이즈 기반으로 계산
+             let scale = UIScreen.main.scale
+             let width = view.frame.width * scale
+             let height = (view.frame.height - 80 - 151 - view.safeAreaInsets.bottom) * scale
+             return CGSize(width: width, height: height)
+         }()
+        
+         pushOverlayImageViewControllerSubject.onNext((asset, size))
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return photoPreviewSize // cell size와 프리뷰 이미지 사이즈는 동일
+        return collectionViewCellSize
     }
 }

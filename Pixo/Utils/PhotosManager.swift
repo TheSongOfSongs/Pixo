@@ -21,6 +21,7 @@ final class PhotosManager {
     struct Output {
         let progress: Driver<Double>
         let image: Driver<UIImage?>
+        let checkiCloudPHAssetImage: Driver<Bool>
     }
     
     // MARK: - properties
@@ -28,7 +29,7 @@ final class PhotosManager {
     let disposeBag = DisposeBag()
     private let progressRelay = PublishRelay<Double>()
     private let phAssetImageRelay = PublishRelay<UIImage?>()
-    
+    private let checkiCloudImageRelay = PublishRelay<Bool>()
     
     // MARK: - helpers
     func transform(input: Input) -> Output {
@@ -39,14 +40,31 @@ final class PhotosManager {
             .disposed(by: disposeBag)
         
         return Output(progress: progressRelay.asDriver(onErrorJustReturn: 0),
-                      image: phAssetImageRelay.asDriver(onErrorJustReturn: nil))
+                      image: phAssetImageRelay.asDriver(onErrorJustReturn: nil),
+                      checkiCloudPHAssetImage: checkiCloudImageRelay.asDriver(onErrorJustReturn: false))
     }
     
     func fetchPhoto(of phAsset: PHAsset, targetSize: CGSize) {
+        let isLocalImage: Bool = {
+            if let isLocalPHAsset = PHAssetResource
+                .assetResources(for: phAsset)
+                .first?.value(forKey: "locallyAvailable") as? Bool,
+               isLocalPHAsset {
+                return true
+            } else {
+                return false
+            }
+        }()
+        
+        checkiCloudImageRelay.accept(!isLocalImage)
+        
         // 사진 가져오는 작업 상태 프로그래스 관련 작업
         let options = PHImageRequestOptions().then {
             $0.deliveryMode = .highQualityFormat
             $0.isNetworkAccessAllowed = true
+            
+            // iCloud에서 로딩해야 하는 경우
+            guard !isLocalImage else { return }
             $0.progressHandler = { [weak self] progress, _, _, _ in
                 self?.progressRelay.accept(progress)
             }

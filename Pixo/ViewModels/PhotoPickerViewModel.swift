@@ -14,16 +14,22 @@ class PhotoPickerViewModel: ViewModel {
     
     struct Input {
         var fetchAlbums: Observable<Void>
+        let fetchPHAssetImage: Observable<(PHAsset, CGSize)>
     }
     
     struct Output {
         var albums: Observable<[AlbumSection]>
+        let phAssetImageprogress: Driver<Double>
+        let phAssetImage: Driver<UIImage?>
+        let checkiCloudPHAssetImage: Driver<Bool>
     }
     
     // MARK: properties
     var disposeBag = DisposeBag()
     
     private let albumsManager = AlbumsManager()
+    private let photosManager = PhotosManager()
+    
     private let albumSectionsRelay = PublishRelay<[AlbumSection]>()
     
     private var allPhotosResult: PHFetchResult<PHAsset> = PHFetchResult()
@@ -39,7 +45,13 @@ class PhotoPickerViewModel: ViewModel {
             })
             .disposed(by: disposeBag)
         
-        return Output(albums: albumSectionsRelay.asObservable())
+        let photosManagerInput = PhotosManager.Input(requestImage: input.fetchPHAssetImage)
+        let photosManagerOutput = photosManager.transform(input: photosManagerInput)
+        
+        return Output(albums: albumSectionsRelay.asObservable(),
+                      phAssetImageprogress: photosManagerOutput.progress,
+                      phAssetImage: photosManagerOutput.image,
+                      checkiCloudPHAssetImage: photosManagerOutput.checkiCloudPHAssetImage)
     }
     
     /// PhotosManager를 통해 앨범 리스트를 가져옵니다

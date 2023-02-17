@@ -15,15 +15,12 @@ import RxCocoa
 class OverlayImageViewModel: NSObject, ViewModel {
     struct Input {
         var fetchSVGImageSections: Observable<Void>
-        let requestPHAssetImage: Observable<(PHAsset, CGSize)>
         let saveToAlbum: Observable<UIImage>
     }
     
     struct Output {
         var svgImageSections: Observable<[SVGImageSection]>
         let noMoreImages: Observable<Void>
-        let phAssetImageprogress: Driver<Double>
-        let phAssetImage: Driver<UIImage?>
         let alert: Driver<AlertType>
     }
     
@@ -72,13 +69,8 @@ class OverlayImageViewModel: NSObject, ViewModel {
             })
             .disposed(by: disposeBag)
         
-        let photosManagerInput = PhotosManager.Input(requestImage: input.requestPHAssetImage)
-        let photosManagerOutput = photosManager.transform(input: photosManagerInput)
-        
         return Output(svgImageSections: svgImageSectionsRelay.asObservable(),
                       noMoreImages: noMoreImages.asObservable(),
-                      phAssetImageprogress: photosManagerOutput.progress,
-                      phAssetImage: photosManagerOutput.image,
                       alert: alertSubject.asDriver(onErrorJustReturn: .unknown))
     }
     

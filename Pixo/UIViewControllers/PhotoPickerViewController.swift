@@ -35,10 +35,11 @@ class PhotoPickerViewController: UIViewController {
     
     // collectionView
     let selectedAlbumRelay = BehaviorRelay<(Album, Bool)>(value: (Album(type: .allPhotos,
-                                                                      phFetchResult: PHFetchResult(),
-                                                                      title: ""),
-                                                                false)
-    )
+                                                                        phFetchResult: PHFetchResult(),
+                                                                        title: ""),
+                                                                  false))
+    let pushOverlayImageViewControllerSubject = PublishSubject<(PHAsset, CGSize)>()
+    
     var selectedAlbum: Album {
         return selectedAlbumRelay.value.0
     }
@@ -48,13 +49,19 @@ class PhotoPickerViewController: UIViewController {
     let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     let padding: CGFloat = 8
     let itemsPerRow: CGFloat = 3
-    var photoPreviewSize: CGSize {
+    
+    lazy var collectionViewCellSize: CGSize = {
         let paddingSpace = sectionInsets.left * 2 + padding * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let width = availableWidth / itemsPerRow
         return CGSize(width: width, height: width)
-    }
+    }()
     
+    var photoPreviewSize: CGSize {
+        let scale = UIScreen.main.scale
+        let width = collectionViewCellSize.width * scale
+        return CGSize(width: width, height: width)
+    }
     
     // MARK: Properties - UI
     let titleView = PhotoPickerTitleView(frame: .zero)
@@ -75,6 +82,12 @@ class PhotoPickerViewController: UIViewController {
         return collectionView
     }()
     
+    /// iCloud 로딩 진행상태를 나타내는 뷰
+    let progressCircleView = ProgressCircleView(frame: .zero,
+                                                title: "iCloud에서 로딩 중").then {
+        $0.isHidden = true
+    }
+    
     
     // MARK: - view lifecycle
     override func viewDidLoad() {
@@ -86,7 +99,7 @@ class PhotoPickerViewController: UIViewController {
         fetchAlbumsSubject.onNext(())
         PHPhotoLibrary.shared().register(self)
     }
-
+    
     override func loadView() {
         let view = UIView().then {
             $0.backgroundColor = .systemBackground
@@ -138,7 +151,8 @@ class PhotoPickerViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbumsSubject.asObservable())
+        let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbumsSubject.asObservable(),
+                                               fetchPHAssetImage: pushOverlayImageViewControllerSubject.asObservable())
         let output = viewModel.transform(input: input)
         
         // output
@@ -158,24 +172,57 @@ class PhotoPickerViewController: UIViewController {
                 owner.selectedAlbumRelay.accept((album: album, shouldReload: true))
             })
             .disposed(by: disposeBag)
+        
+        // iCloud이면 progress 보여주는 뷰 세팅
+        output.checkiCloudPHAssetImage
+            .filter({ $0 })
+            .drive(with: self, onNext: { owner, isICloud in
+                owner.view.isUserInteractionEnabled = false
+                owner.progressCircleView.isHidden = false
+            })
+            .disposed(by: disposeBag)
+        
+        output.phAssetImageprogress
+            .drive(with: self, onNext: { owner, progress in
+                owner.progressCircleView
+                    .progress
+                    .accept(progress)
+            })
+            .disposed(by: disposeBag)
+        
+        output.phAssetImage
+            .drive(with: self, onNext: { owner, image in
+                // progressCircleView 숨기기
+                if !owner.progressCircleView.isHidden {
+                    usleep(200000) // 애니메이션 마무리되는 0.2초 동안 기다리기
+                    owner.view.isUserInteractionEnabled = true
+                    owner.progressCircleView.isHidden = true
+                }
+                
+                // 화면 전환
+                let overlayImageVC = OverlayImageViewController()
+                overlayImageVC.phAssetImage = image
+                self.navigationController?.pushViewController(overlayImageVC, animated: false)
+            })
+            .disposed(by: disposeBag)
     }
     
     func tableViewDataSource() -> RxTableViewSectionedReloadDataSource<AlbumSection> {
         return RxTableViewSectionedReloadDataSource<AlbumSection>(configureCell: { [weak self] _, tableView, indexPath, album in
             guard let self = self,
                   let cell = tableView
-                    .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
-                        return UITableViewCell()
-                    }
-
+                .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
+                return UITableViewCell()
+            }
+            
             cell.titleLabel.text = album.title
-
+            
             if let previewAsset = album.previewPHAsset {
                 self.imageManager.requestImage(for: previewAsset, targetSize: self.previewSize, contentMode: .aspectFill, options: nil) { image, _ in
                     cell.previewImageView.image = image
                 }
             }
-
+            
             return cell
         })
     }
