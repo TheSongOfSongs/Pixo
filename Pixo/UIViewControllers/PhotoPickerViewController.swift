@@ -76,6 +76,12 @@ class PhotoPickerViewController: UIViewController {
         return collectionView
     }()
     
+    /// iCloud 로딩 진행상태를 나타내는 뷰
+    let progressCircleView = ProgressCircleView(frame: .zero,
+                                                title: "iCloud에서 로딩 중").then {
+        $0.isHidden = true
+    }
+    
     
     // MARK: - view lifecycle
     override func viewDidLoad() {
@@ -163,13 +169,21 @@ class PhotoPickerViewController: UIViewController {
         
         output.phAssetImageprogress
             .drive(with: self, onNext: { owner, progress in
-                // TODO: progress 띄우는 작업
+                owner.view.isUserInteractionEnabled = false
+                owner.progressCircleView.isHidden = false
+                owner.progressCircleView
+                    .progress
+                    .accept(progress)
             })
             .disposed(by: disposeBag)
         
         output.phAssetImage
             .drive(with: self, onNext: { owner, image in
-                // TODO: progress 숨기기
+                // progressCircleView 숨기기
+                owner.view.isUserInteractionEnabled = true
+                owner.progressCircleView.isHidden = true
+                
+                // 화면 전환
                 let overlayImageVC = OverlayImageViewController()
                 overlayImageVC.phAssetImage = image
                 self.navigationController?.pushViewController(overlayImageVC, animated: false)
