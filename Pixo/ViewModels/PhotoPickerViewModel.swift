@@ -21,6 +21,7 @@ class PhotoPickerViewModel: ViewModel {
         var albums: Observable<[AlbumSection]>
         let phAssetImageprogress: Driver<Double>
         let phAssetImage: Driver<UIImage?>
+        let checkiCloudPHAssetImage: Driver<Bool>
     }
     
     // MARK: properties
@@ -49,7 +50,8 @@ class PhotoPickerViewModel: ViewModel {
         
         return Output(albums: albumSectionsRelay.asObservable(),
                       phAssetImageprogress: photosManagerOutput.progress,
-                      phAssetImage: photosManagerOutput.image)
+                      phAssetImage: photosManagerOutput.image,
+                      checkiCloudPHAssetImage: photosManagerOutput.checkiCloudPHAssetImage)
     }
     
     /// PhotosManager를 통해 앨범 리스트를 가져옵니다

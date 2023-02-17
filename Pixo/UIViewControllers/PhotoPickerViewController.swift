@@ -173,10 +173,17 @@ class PhotoPickerViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        output.phAssetImageprogress
-            .drive(with: self, onNext: { owner, progress in
+        // iCloud이면 progress 보여주는 뷰 세팅
+        output.checkiCloudPHAssetImage
+            .filter({ $0 })
+            .drive(with: self, onNext: { owner, isICloud in
                 owner.view.isUserInteractionEnabled = false
                 owner.progressCircleView.isHidden = false
+            })
+            .disposed(by: disposeBag)
+        
+        output.phAssetImageprogress
+            .drive(with: self, onNext: { owner, progress in
                 owner.progressCircleView
                     .progress
                     .accept(progress)
@@ -186,8 +193,11 @@ class PhotoPickerViewController: UIViewController {
         output.phAssetImage
             .drive(with: self, onNext: { owner, image in
                 // progressCircleView 숨기기
-                owner.view.isUserInteractionEnabled = true
-                owner.progressCircleView.isHidden = true
+                if !owner.progressCircleView.isHidden {
+                    usleep(200000) // 애니메이션 마무리되는 0.2초 동안 기다리기
+                    owner.view.isUserInteractionEnabled = true
+                    owner.progressCircleView.isHidden = true
+                }
                 
                 // 화면 전환
                 let overlayImageVC = OverlayImageViewController()
