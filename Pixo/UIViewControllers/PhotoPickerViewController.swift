@@ -49,13 +49,19 @@ class PhotoPickerViewController: UIViewController {
     let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     let padding: CGFloat = 8
     let itemsPerRow: CGFloat = 3
-    var photoPreviewSize: CGSize {
+    
+    lazy var collectionViewCellSize: CGSize = {
         let paddingSpace = sectionInsets.left * 2 + padding * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let width = availableWidth / itemsPerRow
         return CGSize(width: width, height: width)
-    }
+    }()
     
+    var photoPreviewSize: CGSize {
+        let scale = UIScreen.main.scale
+        let width = collectionViewCellSize.width * scale
+        return CGSize(width: width, height: width)
+    }
     
     // MARK: Properties - UI
     let titleView = PhotoPickerTitleView(frame: .zero)
