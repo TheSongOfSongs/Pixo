@@ -12,24 +12,29 @@ import FirebaseStorage
 import RxSwift
 import RxCocoa
 
+
+typealias ImageMergingSources = (phAsset: PHAsset, backgroundImageView: UIImageView, overlayImageViews: [UIImageView])
+
 class OverlayImageViewModel: NSObject, ViewModel {
+    
     struct Input {
         var fetchSVGImageSections: Observable<Void>
         let saveToAlbum: Observable<UIImage>
-        let fetchPHAssetImage: Observable<(PHAsset, CGSize)>
+        let mergeAndExportImage: Observable<(ImageMergingSources)>
     }
     
     struct Output {
         var svgImageSections: Observable<[SVGImageSection]>
         let noMoreImages: Observable<Void>
         let alert: Driver<AlertType>
-        let phAssetImage: Driver<UIImage?>
     }
     
     // MARK: properties
     var disposeBag = DisposeBag()
     private let svgImageSectionsRelay = BehaviorRelay<[SVGImageSection]>(value: [])
     private let alertSubject = PublishSubject<AlertType>()
+    private let imageMergingSourcesSubject = PublishSubject<ImageMergingSources>()
+    
     let photosManager = PhotosManager()
     let svgImageManager = SVGImageManager()
     var pageToken: String?
@@ -42,6 +47,9 @@ class OverlayImageViewModel: NSObject, ViewModel {
     // MARK: - helpers
     func transform(input: Input) -> Output {
         let noMoreImages = PublishSubject<Void>()
+        let fetchPHAssetImage = PublishSubject<(PHAsset, CGSize)>()
+        let photosManagerInput = PhotosManager.Input(requestImage: fetchPHAssetImage.asObservable())
+        let photosManagerOutput = photosManager.transform(input: photosManagerInput)
         
         input.fetchSVGImageSections
             .subscribe(onNext: { _ in
@@ -71,13 +79,43 @@ class OverlayImageViewModel: NSObject, ViewModel {
             })
             .disposed(by: disposeBag)
         
-        let photosManagerInput = PhotosManager.Input(requestImage: input.fetchPHAssetImage)
-        let photosManagerOutput = photosManager.transform(input: photosManagerInput)
+        input.mergeAndExportImage
+            .bind(with: self, onNext: { owner, sources in
+                owner.imageMergingSourcesSubject.onNext(sources)
+                
+                let phAsset = sources.phAsset
+                fetchPHAssetImage.onNext((phAsset,
+                                          CGSize(width: phAsset.pixelWidth,
+                                                 height: phAsset.pixelHeight)))
+            })
+            .disposed(by: disposeBag)
         
+        Observable.zip(imageMergingSourcesSubject, photosManagerOutput.image.asObservable())
+            .subscribe(with: self, onNext: { owner, result in
+                let sources = result.0
+               
+                guard let backgroundImage = result.1 else {
+                    owner.alertSubject.onNext(.failToSavePhoto)
+                    return
+                }
+                
+                let exportManager = ExportManager(backgroundImage: backgroundImage,
+                                                  backgroundImageBounds: sources.backgroundImageView.imageBounds,
+                                                  overlayImageViews: sources.overlayImageViews)
+                
+                guard let image = exportManager.mergeImage() else {
+                    owner.alertSubject.onNext(.failToSavePhoto)
+                    return
+                }
+                
+                owner.saveToAlbums(image)
+            })
+            .disposed(by: disposeBag)
+        
+
         return Output(svgImageSections: svgImageSectionsRelay.asObservable(),
                       noMoreImages: noMoreImages.asObservable(),
-                      alert: alertSubject.asDriver(onErrorJustReturn: .unknown),
-                      phAssetImage: photosManagerOutput.image)
+                      alert: alertSubject.asDriver(onErrorJustReturn: .unknown))
     }
     
     func saveToAlbums(_ image: UIImage) {

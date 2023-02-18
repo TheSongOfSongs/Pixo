@@ -49,6 +49,8 @@ class OverlayImageViewController: UIViewController {
         })
     }
     
+    var overlayImageViews: [UIImageView] = []
+    
     // MARK: Properties - UI
     let topView = UIView().then {
         $0.backgroundColor = .clear
@@ -112,18 +114,18 @@ class OverlayImageViewController: UIViewController {
         // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
         var isFetchingMore = false
         
+        let mergeAndExportImage = PublishSubject<ImageMergingSources>()
+        
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
         let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable(),
                                                 saveToAlbum: saveImageSubject.asObservable(),
-                                                fetchPHAssetImage: fetchPHAssetImageSubject.asObservable())
+                                                mergeAndExportImage: mergeAndExportImage.asObservable())
         
         let output = viewModel.transform(input: input)
         
         let svgImageSections = output.svgImageSections
             .share()
-        
-        let phAssetImage = output.phAssetImage
         
         svgImageSections
             .bind(to: collectionView.rx.items(dataSource: self.dataSource))
@@ -160,38 +162,11 @@ class OverlayImageViewController: UIViewController {
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
                 guard let phAsset = owner.phAsset else { return }
-                // PHAsset 이미지 원본 사이즈 요청
-                owner.fetchPHAssetImageSubject.onNext((phAsset,
-                                                       CGSize(width: phAsset.pixelWidth,
-                                                              height: phAsset.pixelHeight)))
-            })
-            .disposed(by: disposeBag)
-        
-        // PHAsset 이미지 원본 사이즈 받았을 때
-        phAssetImage
-            .drive(with: self, onNext: { owner, phAssetImage in
-                guard let phAsset = owner.phAsset,
-                      let phAssetImage = phAssetImage,
-                      let svgImage = owner.svgImageView.image else {
-                    return
-                }
-                
-                // 이미지 합성
-                // 이미지 합성 (1) - PHAsset 이미지 그리기
-                let phAssetImageSize = CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight)
-                UIGraphicsBeginImageContextWithOptions(phAssetImageSize, true, 1)
-                phAssetImage.draw(at: .zero)
-                
-                
-                // 이미지 합성 (2) - SVG 이미지 그리기
-                svgImage.draw(in: owner.svgImageRect(to: phAssetImageSize))
-                
-                // 앨범에 저장
-                if let result = UIGraphicsGetImageFromCurrentImageContext() {
-                    owner.saveImageSubject.onNext(result)
-                }
-                
-                UIGraphicsEndImageContext()
+                // 이미지 합성 및 추출, 앨범 저장 요청
+                let sources = ImageMergingSources(phAsset: phAsset,
+                                                  backgroundImageView: owner.phAssetImageView,
+                                                  overlayImageViews: owner.overlayImageViews)
+                mergeAndExportImage.onNext(sources)
             })
             .disposed(by: disposeBag)
         
@@ -222,11 +197,12 @@ class OverlayImageViewController: UIViewController {
     /// phAssetImageView에 추가해줍니다.
     func addSVGImageView(_ svgImage: SVGImage) {
         // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
-        phAssetImageView.subviews.forEach {
-            $0.removeFromSuperview()
+        overlayImageViews.forEach { overlayImageView in
+            overlayImageView.removeFromSuperview()
+            overlayImageViews.removeAll(where: { $0 === overlayImageView })
         }
         
-        svgImageView = IdentifiableImageView(frame: .zero).then {
+        let svgImageView = IdentifiableImageView(frame: .zero).then {
             $0.contentMode = .scaleAspectFit
         }
         
@@ -242,19 +218,6 @@ class OverlayImageViewController: UIViewController {
         }
         
         phAssetImageView.addSubview(svgImageView)
-    }
-    
-    /// 이미지 합성 시, 원본 이미지와 PHAssetImageView의 비율을 고려한 SVG 이미지의 frame을 반환합니다.
-    func svgImageRect(to phAssetImageSize: CGSize) -> CGRect {
-        let svgImageViewFrame = svgImageView.frame
-        let phAssetImageBounds = phAssetImageView.imageBounds
-        let origin: CGPoint = {
-            return CGPoint(x: phAssetImageSize.width * (svgImageViewFrame.origin.x - phAssetImageBounds.origin.x) / phAssetImageBounds.width,
-                           y: phAssetImageSize.height * (svgImageViewFrame.origin.y - phAssetImageBounds.origin.y) / phAssetImageBounds.height)
-        }()
-        
-        let width = svgImageViewFrame.width * phAssetImageSize.width / phAssetImageBounds.width
-        let size = CGSize(width: width, height: width) // 이미지 비율 1:1
-        return CGRect(origin: origin, size: size)
+        overlayImageViews.append(svgImageView)
     }
 }
