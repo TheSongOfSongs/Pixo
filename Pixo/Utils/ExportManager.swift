@@ -19,15 +19,32 @@ struct ExportManager {
     /// 배경이미지 위에 얹을 이미지의 image view 배열
     let overlayImageViews: [UIImageView]
     
+    /// 배경이미지의 사이즈
     var backgroundImageSize: CGSize
+    
+    /// 이미지 추출 시 scale 값으로 해상도 조정
+    var quality: Quality?
+    
+    /// 이미지 추출 시 이미지 파일 타입 지정
+    var format: Format?
+    
+    var opaque: Bool {
+        return format?.imageType.opaque ?? false
+    }
+    
+    var scale: Double {
+        return quality?.scale ?? 1
+    }
     
     
     // MARK: - init
-    init(backgroundImage: UIImage, backgroundImageBounds: CGRect, overlayImageViews: [UIImageView]) {
-        self.backgroundImage = backgroundImage
-        self.backgroundImageBounds = backgroundImageBounds
-        self.overlayImageViews = overlayImageViews
+    init(source: ImageExportSources) {
+        self.backgroundImage = source.backgroundImage
+        self.backgroundImageBounds = source.backgroundImageBounds
+        self.overlayImageViews = source.overlayImageViews
         self.backgroundImageSize = backgroundImage.size
+        self.quality = source.quality
+        self.format = source.format
     }
     
     // MARK: - helpers
@@ -35,7 +52,7 @@ struct ExportManager {
     func mergeImage() -> UIImage? {
         let defaultImageSize = backgroundImage.size
         
-        UIGraphicsBeginImageContextWithOptions(defaultImageSize, true, 1)
+        UIGraphicsBeginImageContextWithOptions(defaultImageSize, opaque, scale)
         
         // 1. 배경이미지 그리기
         backgroundImage.draw(at: .zero)
@@ -45,7 +62,6 @@ struct ExportManager {
             guard let overlayImage = overlayImageView.image else { return }
             
             let frame = svgImageRect(svgImageViewFrame: overlayImageView.frame)
-            
             overlayImage.draw(in: frame)
         }
         

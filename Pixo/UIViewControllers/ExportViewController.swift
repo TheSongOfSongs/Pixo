@@ -20,6 +20,8 @@ class ExportViewController: UIViewController {
     var formats: [ExportSetting] = []
     var qualities: [ExportSetting] = []
     var previewImage: UIImage?
+    var selectedFormat: ExportSetting?
+    var selectedQuality: ExportSetting?
     
     var phAsset: PHAsset {
         return imageMergingSources.phAsset
@@ -85,8 +87,10 @@ class ExportViewController: UIViewController {
     // MARK: - helpers
     func bind() {
         let mergeAndExportImage = PublishSubject<ImageMergingSources>()
+        let exportOptions = PublishSubject<(Format?, Quality?)>()
         let output = viewModel.transform(input: ExportViewModel.Input(phAsset: phAsset,
-                                                                      mergeAndExportImage: mergeAndExportImage.asObservable()))
+                                                                      mergeAndExportImage: mergeAndExportImage.asObservable(),
+                                                                      exportOptions: exportOptions.asObservable()))
         
         exportSettingView.showFixedBottomSheet
             .bind(with: self, onNext: { owner, type in
@@ -120,9 +124,13 @@ class ExportViewController: UIViewController {
                 switch type {
                 case .format:
                     owner.exportSettingView.selectedFormat.onNext(setting)
+                    owner.selectedFormat = setting as? Format
                 case .quality:
                     owner.exportSettingView.selectedQuality.onNext(setting)
+                    owner.selectedQuality = setting as? Quality
                 }
+                
+                exportOptions.onNext((owner.selectedFormat as? Format, owner.selectedQuality as? Quality))
                 
                 owner.hideBottomSheetView()
             })
@@ -149,7 +157,10 @@ class ExportViewController: UIViewController {
             .onNext(formats[0])
         
         exportSettingView.selectedQuality
-            .onNext(qualities[0])
+            .onNext(qualities[1])
+        
+        self.selectedFormat = formats[0]
+        self.selectedQuality = qualities[1]
     }
     
     func setupNavigationBar() {

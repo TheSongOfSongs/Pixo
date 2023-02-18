@@ -13,11 +13,11 @@ struct Format: ExportSetting {
     let type: ExportSettingType = .format
     var title: String
     var subtitle: String
-    var format: ImageFormatType
+    var imageType: ImageFormatType
     
     init(title: String, subtitle: String, format: ImageFormatType) {
         self.title = title
         self.subtitle = subtitle
-        self.format = format
+        self.imageType = format
     }
 }

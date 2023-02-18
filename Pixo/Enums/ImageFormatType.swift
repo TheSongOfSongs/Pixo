@@ -10,4 +10,13 @@ import Foundation
 enum ImageFormatType {
     case png
     case jpg
+    
+    var opaque: Bool {
+        switch self {
+        case .png:
+            return true
+        case .jpg:
+            return false
+        }
+    }
 }

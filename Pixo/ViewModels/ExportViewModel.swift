@@ -16,6 +16,7 @@ class ExportViewModel: NSObject, ViewModel {
     struct Input {
         let phAsset: PHAsset
         let mergeAndExportImage: Observable<(ImageMergingSources)>
+        let exportOptions: Observable<(Format?, Quality?)>
     }
     
     struct Output {
@@ -66,24 +67,26 @@ class ExportViewModel: NSObject, ViewModel {
             })
             .disposed(by: disposeBag)
         
-        Observable.zip(imageMergingSourcesSubject, photosManagerOutput.image.asObservable())
+        Observable.zip(imageMergingSourcesSubject, photosManagerOutput.image.asObservable(), input.exportOptions)
             .subscribe(with: self, onNext: { owner, result in
-                let sources = result.0
-               
                 guard let backgroundImage = result.1 else {
                     owner.alertSubject.onNext(.failToSavePhoto)
                     return
                 }
                 
-                let exportManager = ExportManager(backgroundImage: backgroundImage,
-                                                  backgroundImageBounds: sources.backgroundImageView.imageBounds,
-                                                  overlayImageViews: sources.overlayImageViews)
-                
-                guard let image = exportManager.mergeImage() else {
+                let mergingSources = result.0
+                let options = result.2
+                let exportSources = ImageExportSources(backgroundImage: backgroundImage,
+                                                       backgroundImageBounds: mergingSources.backgroundImageView.imageBounds,
+                                                       overlayImageViews: mergingSources.overlayImageViews,
+                                                       format: options.0,
+                                                       quality: options.1)
+
+                guard let image = ExportManager(source: exportSources).mergeImage() else {
                     owner.alertSubject.onNext(.failToSavePhoto)
                     return
                 }
-                
+
                 owner.saveToAlbums(image)
             })
             .disposed(by: disposeBag)
