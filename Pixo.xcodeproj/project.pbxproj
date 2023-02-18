@@ -25,6 +25,7 @@
 		76090BD7299BC15B00F204B6 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BD6299BC15B00F204B6 /* AlertType.swift */; };
 		76090BDF299CBDD100F204B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76090BDE299CBDD100F204B6 /* GoogleService-Info.plist */; };
 		76090BE1299CC0AA00F204B6 /* SVGImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */; };
+		766EFCA429A132B000D21021 /* ExportSettingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */; };
 		7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */; };
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
@@ -104,6 +105,7 @@
 		76090BD6299BC15B00F204B6 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		76090BDE299CBDD100F204B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageManager.swift; sourceTree = "<group>"; };
+		766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				76FC37DE29972C7400033A4B /* AlbumTableViewCell.swift */,
+				766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */,
 				7697F21429A0BDD500BF8F54 /* ExportSettingTableViewCell.swift */,
 			);
 			path = UITableViewCells;
