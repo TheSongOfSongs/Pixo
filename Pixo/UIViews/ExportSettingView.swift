@@ -33,12 +33,14 @@ class ExportSettingView: UIView {
     // MARK: - properties
     var disposeBag = DisposeBag()
     let phAsset: PHAsset
-    let viewModel = ExportSettingViewModel()
     var formats: [ExportSettig] = []
     var qualities: [ExportSettig] = []
     var selectedSetting: [ExportSettig] = []
-    var selectedFormat = PublishSubject<ExportSettig>()
-    var selectedQuality = PublishSubject<ExportSettig>()
+    
+    // MARK: - properties Rx
+    let showFixedBottomSheet = PublishRelay<ExportSettingType>()
+    let selectedFormat = PublishSubject<ExportSettig>()
+    let selectedQuality = PublishSubject<ExportSettig>()
     
     
     // MARK: - properties UI
@@ -73,21 +75,12 @@ class ExportSettingView: UIView {
     }
     
     func bind() {
-        let output = viewModel.transform(input: ExportSettingViewModel.Input(phAsset: phAsset))
-        self.formats = output.formats
-        self.qualities = output.qualities
-        
         // 선택된 format이나 quality가 변경될 때마다 table view 업데이트
         Observable.combineLatest(selectedFormat, selectedQuality)
             .bind(with: self, onNext: { owner, items in
                 owner.selectedSetting = [items.0, items.1]
                 owner.selectedExportSettingTableView.reloadData()
-                print(owner.selectedSetting)
             })
             .disposed(by: disposeBag)
-        
-        // 초기값 설정
-        selectedFormat.onNext(formats[0])
-        selectedQuality.onNext(qualities[0])
     }
 }

@@ -1,15 +1,15 @@
 //
-//  ExportSettingViewModel.swift
+//  ExportViewModel.swift
 //  Pixo
 //
-//  Created by Jinhyang Kim on 2023/02/18.
+//  Created by Jinhyang Kim on 2023/02/19.
 //
 
 import UIKit
 import Photos
 import RxSwift
 
-class ExportSettingViewModel: ViewModel {
+class ExportViewModel: ViewModel {
     
     struct Input {
         let phAsset: PHAsset
@@ -39,10 +39,9 @@ class ExportSettingViewModel: ViewModel {
         let qualities = [
             ExportSettig(title: "낮은", subtitle: "\(Int(phAsset.pixelWidth/2)) x \(Int(phAsset.pixelHeight/2))"),
             ExportSettig(title: "최적", subtitle: "\(Int(phAsset.pixelWidth)) x \(Int(phAsset.pixelHeight))"),
-            ExportSettig(title: "낮은", subtitle: "\(Int(phAsset.pixelWidth*2)) x \(Int(phAsset.pixelHeight*2))")
+            ExportSettig(title: "높은", subtitle: "\(Int(phAsset.pixelWidth*2)) x \(Int(phAsset.pixelHeight*2))")
         ]
         
         return Output(formats: formats, qualities: qualities)
     }
 }
-
