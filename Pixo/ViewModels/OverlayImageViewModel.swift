@@ -12,9 +12,6 @@ import FirebaseStorage
 import RxSwift
 import RxCocoa
 
-
-typealias ImageMergingSources = (phAsset: PHAsset, backgroundImageView: UIImageView, overlayImageViews: [UIImageView])
-
 class OverlayImageViewModel: NSObject, ViewModel {
     
     struct Input {

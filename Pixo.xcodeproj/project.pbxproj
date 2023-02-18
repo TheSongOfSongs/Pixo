@@ -30,6 +30,7 @@
 		766EFCA229A12E0D00D21021 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA129A12E0D00D21021 /* ExportViewModel.swift */; };
 		766EFCA429A132B000D21021 /* ExportSettingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */; };
 		766EFCA629A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */; };
+		766EFCA929A13ED500D21021 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA829A13ED500D21021 /* Typealias.swift */; };
 		7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */; };
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
@@ -113,6 +114,7 @@
 		766EFCA129A12E0D00D21021 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
 		766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportSettingBottomSheetView+UITableView.swift"; sourceTree = "<group>"; };
+		766EFCA829A13ED500D21021 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
 				7697F20E29A0B45000BF8F54 /* Constants.swift */,
+				766EFCA829A13ED500D21021 /* Typealias.swift */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
 				76FC374C2995F99100033A4B /* LaunchScreen.storyboard */,
 				76FC374F2995F99100033A4B /* Info.plist */,
@@ -664,6 +667,7 @@
 				7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */,
 				7697F20729A0ABC000BF8F54 /* ExportViewController.swift in Sources */,
 				76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */,
+				766EFCA929A13ED500D21021 /* Typealias.swift in Sources */,
 				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
 				76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */,
 				7697F21729A0C42800BF8F54 /* ExportSetting.swift in Sources */,
