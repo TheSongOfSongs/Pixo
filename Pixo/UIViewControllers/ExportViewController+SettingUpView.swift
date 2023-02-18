@@ -12,10 +12,6 @@ extension ExportViewController: SettingUpView {
         view.addSubview(phAssetImageView)
         view.addSubview(exportSettingView)
         view.addSubview(exportButton)
-        
-        overlayImageViews.forEach { imageView in
-            phAssetImageView.addSubview(imageView)
-        }
     }
     
     func setupConstriants() {

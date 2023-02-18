@@ -15,7 +15,6 @@ import RxSwift
 class ExportViewController: UIViewController {
     
     // MARK: - properties
-    let image: UIImage
     let phAsset: PHAsset
     let overlayImageViews: [UIImageView]
     
@@ -38,8 +37,8 @@ class ExportViewController: UIViewController {
     // MARK: - properties Rx
 
     // MARK: - life cycle
-    init(image: UIImage, phAsset: PHAsset, overlayImageViews: [UIImageView]) {
-        self.image = image
+    init(mergedImage: UIImage, phAsset: PHAsset, overlayImageViews: [UIImageView]) {
+        self.phAssetImageView.image = mergedImage
         self.phAsset = phAsset
         self.overlayImageViews = overlayImageViews
         self.exportSettingView = ExportSettingView(frame: .zero, phAsset: phAsset)
@@ -78,7 +77,7 @@ class ExportViewController: UIViewController {
     
     // MARK: - helpers
     func bind() {
-        phAssetImageView.image = image
+        
     }
     
     func setupNavigationBar() {

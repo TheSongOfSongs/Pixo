@@ -219,4 +219,20 @@ class OverlayImageViewController: UIViewController {
         phAssetImageView.addSubview(svgImageView)
         overlayImageViews.append(svgImageView)
     }
+    
+    func mergedImage() -> UIImage? {
+        let imageRect: CGRect = {
+            var bounds = phAssetImageView.bounds
+            bounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
+                                    y: -phAssetImageView.imageBounds.origin.y)
+            return bounds
+        }()
+        
+        UIGraphicsBeginImageContextWithOptions(phAssetImageView.imageBounds.size, false, 0.0)
+        phAssetImageView.drawHierarchy(in: imageRect, afterScreenUpdates: true)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return result
+    }
 }
