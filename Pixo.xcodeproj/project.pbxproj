@@ -30,6 +30,8 @@
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
 		7697F1FD29A07EAC00BF8F54 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */; };
 		7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20E29A0B45000BF8F54 /* Constants.swift */; };
+		7697F20729A0ABC000BF8F54 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20629A0ABC000BF8F54 /* ExportViewController.swift */; };
+		7697F20929A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -101,6 +103,8 @@
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
 		7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
 		7697F20E29A0B45000BF8F54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7697F20629A0ABC000BF8F54 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
+		7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportViewController+SettingUpView.swift"; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 		76FC37882996430D00033A4B /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7697F20629A0ABC000BF8F54 /* ExportViewController.swift */,
+				7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */,
 				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
 				76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */,
 				76090B9F2997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift */,
@@ -620,6 +626,7 @@
 				76090BA22998F3B700F204B6 /* UIImage+Extension.swift in Sources */,
 				76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */,
 				7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */,
+				7697F20729A0ABC000BF8F54 /* ExportViewController.swift in Sources */,
 				76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */,
 				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
 				76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */,
@@ -637,6 +644,7 @@
 				76FC378A2996432500033A4B /* PhotoPickerViewController+SettingUpView.swift in Sources */,
 				76B62619299E64540091D981 /* URLCacheManager.swift in Sources */,
 				76FC37442995F99000033A4B /* SceneDelegate.swift in Sources */,
+				7697F20929A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift in Sources */,
 				76090BCB299A884D00F204B6 /* SVGImage.swift in Sources */,
 				76B62611299D03E30091D981 /* IdentifiableImageView.swift in Sources */,
 				76090BD1299B48BE00F204B6 /* UIApplication+Extension.swift in Sources */,
