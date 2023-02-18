@@ -8,6 +8,12 @@
 import UIKit
 
 extension UIView {
+    
+    enum GradientDirection {
+        case horizontal
+        case vertical
+    }
+    
     class var identifier: String {
         return String(describing: self)
     }
@@ -17,9 +23,34 @@ extension UIView {
         clipsToBounds = true
     }
     
+    func makeUpperCornerRounded(radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    func addGradientLayer(colors: [UIColor], direction: GradientDirection) {
+        layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        layer.addSublayer(gradientLayer(colors: colors.map({ $0.cgColor }), direction: direction))
+    }
+    
     func addBorder(color: UIColor, width: CGFloat) {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
+    }
+    
+    private func gradientLayer(colors: [Any], direction: GradientDirection = .vertical) -> CAGradientLayer{
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.zPosition = -1
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors = colors
+        
+        if direction == .horizontal {
+            gradientLayer.startPoint = CGPoint(x: 0, y: 1)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        }
+        
+        return gradientLayer
     }
     
     func setHiddenWithAnimation(_ isHidden: Bool) {

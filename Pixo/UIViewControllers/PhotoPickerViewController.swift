@@ -46,6 +46,9 @@ class PhotoPickerViewController: UIViewController {
     var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
         return selectedAlbum.phFetchResult
     }
+    
+    var phAsset: PHAsset?
+    
     let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     let padding: CGFloat = 8
     let itemsPerRow: CGFloat = 3
@@ -201,6 +204,7 @@ class PhotoPickerViewController: UIViewController {
                 
                 // 화면 전환
                 let overlayImageVC = OverlayImageViewController()
+                overlayImageVC.phAsset = owner.phAsset
                 overlayImageVC.phAssetImage = image
                 self.navigationController?.pushViewController(overlayImageVC, animated: false)
             })

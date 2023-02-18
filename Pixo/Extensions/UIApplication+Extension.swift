@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIApplication {
-    static var safeAreaInsets: UIEdgeInsets? {
+    static var safeAreaInsets: UIEdgeInsets {
         return UIApplication.shared
             .connectedScenes
             .filter({$0.activationState == .foregroundActive})
@@ -17,6 +17,8 @@ extension UIApplication {
             .first?.windows
             .filter({$0.isKeyWindow})
             .first?
-            .safeAreaInsets
+            .safeAreaInsets ?? .zero
     }
+    
+    static let safeAreaBottomInset = safeAreaInsets.bottom
 }

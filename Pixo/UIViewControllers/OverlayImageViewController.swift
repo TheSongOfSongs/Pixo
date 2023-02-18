@@ -23,15 +23,14 @@ class OverlayImageViewController: UIViewController {
     let viewModel = OverlayImageViewModel()
     lazy var sectionInsets = UIEdgeInsets(top: 32,
                                           left: 40,
-                                          bottom: 39 + safeAreaBottomInsets,
+                                          bottom: 39 + UIApplication.safeAreaBottomInset,
                                           right: 40)
     let padding: CGFloat = 16
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
-    var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
-    let saveImageSubject = PublishSubject<UIImage>()
     let urlCacheManager = URLCacheManager.shared
     var phAssetImage: UIImage?
+    var fetchPHAssetImageSubject = PublishSubject<(PHAsset, CGSize)>()
     
     var dataSource: DataSource {
         return DataSource(configureCell: { dataSource, collectionView, indexPath, item in
@@ -47,6 +46,8 @@ class OverlayImageViewController: UIViewController {
             return cell
         })
     }
+    
+    var overlayImageViews: [UIImageView] = []
     
     // MARK: Properties - UI
     let topView = UIView().then {
@@ -87,6 +88,7 @@ class OverlayImageViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
     }
     
+    var svgImageView = IdentifiableImageView(frame: .zero)
     
     // MARK: - view lifecyle
     override func viewDidLoad() {
@@ -110,10 +112,12 @@ class OverlayImageViewController: UIViewController {
         // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
         var isFetchingMore = false
         
+        
+        
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
-        let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable(),
-                                                saveToAlbum: saveImageSubject.asObserver())
+        let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable())
+        
         let output = viewModel.transform(input: input)
         
         let svgImageSections = output.svgImageSections
@@ -150,16 +154,28 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        // 오버레이 버튼 눌렀을 때
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                if let image = owner.exportImage() {
-                    owner.saveImageSubject.onNext(image)
-                } else {
-                    owner.showAlertController(with: .failToSavePhoto)
+                guard let previewImage = owner.mergedImage(),
+                      let phAsset = owner.phAsset else {
+                    return
                 }
+                
+                let sources = ImageMergingSources(phAsset: phAsset,
+                                                  backgroundImageView: owner.phAssetImageView,
+                                                  overlayImageViews: owner.overlayImageViews
+                )
+                
+                let exportViewController = ExportViewController(imageMergingSources: sources)
+                exportViewController.modalPresentationStyle = .overCurrentContext
+                exportViewController.previewImage = previewImage
+                let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+                owner.navigationItem.backBarButtonItem = backBarButtonItem
+                owner.navigationController?.pushViewController(exportViewController, animated: true)
             })
             .disposed(by: disposeBag)
-
+        
         collectionView.rx.modelSelected(SVGImage.self)
             .bind(with: self, onNext: { owner, item in
                 owner.overlayButton.isHidden = false
@@ -187,29 +203,31 @@ class OverlayImageViewController: UIViewController {
     /// phAssetImageView에 추가해줍니다.
     func addSVGImageView(_ svgImage: SVGImage) {
         // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
-        phAssetImageView.subviews.forEach {
-            $0.removeFromSuperview()
+        overlayImageViews.forEach { overlayImageView in
+            overlayImageView.removeFromSuperview()
+            overlayImageViews.removeAll(where: { $0 === overlayImageView })
         }
         
-        let imageView = IdentifiableImageView(frame: .zero).then {
+        let svgImageView = IdentifiableImageView(frame: .zero).then {
             $0.contentMode = .scaleAspectFit
         }
         
         Task {
             // 이미지를 가져와 넣어주기
-            await imageView.setSVGImage(with: svgImage)
+            await svgImageView.setSVGImage(with: svgImage)
             
             // 가져온 이미지의 사이즈를 바탕으로 frame 정해주기
             let imageBounds = phAssetImageView.imageBounds
             let width = min(imageBounds.width * 0.8, imageBounds.height * 0.8)
-            imageView.setFrame(with: phAssetImageView.center,
-                        size: CGSize(width: width, height: width))
+            svgImageView.setFrame(with: phAssetImageView.center,
+                               size: CGSize(width: width, height: width))
         }
         
-        phAssetImageView.addSubview(imageView)
+        phAssetImageView.addSubview(svgImageView)
+        overlayImageViews.append(svgImageView)
     }
     
-    func exportImage() -> UIImage? {
+    func mergedImage() -> UIImage? {
         let imageRect: CGRect = {
             var bounds = phAssetImageView.bounds
             bounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
