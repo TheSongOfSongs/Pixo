@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationVC = UINavigationController(rootViewController: PhotoPickerViewController())
         navigationVC.isNavigationBarHidden = true
+        navigationVC.navigationBar.tintColor = .black
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()
     }
