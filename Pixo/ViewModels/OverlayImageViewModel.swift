@@ -16,12 +16,14 @@ class OverlayImageViewModel: NSObject, ViewModel {
     struct Input {
         var fetchSVGImageSections: Observable<Void>
         let saveToAlbum: Observable<UIImage>
+        let fetchPHAssetImage: Observable<(PHAsset, CGSize)>
     }
     
     struct Output {
         var svgImageSections: Observable<[SVGImageSection]>
         let noMoreImages: Observable<Void>
         let alert: Driver<AlertType>
+        let phAssetImage: Driver<UIImage?>
     }
     
     // MARK: properties
@@ -69,9 +71,13 @@ class OverlayImageViewModel: NSObject, ViewModel {
             })
             .disposed(by: disposeBag)
         
+        let photosManagerInput = PhotosManager.Input(requestImage: input.fetchPHAssetImage)
+        let photosManagerOutput = photosManager.transform(input: photosManagerInput)
+        
         return Output(svgImageSections: svgImageSectionsRelay.asObservable(),
                       noMoreImages: noMoreImages.asObservable(),
-                      alert: alertSubject.asDriver(onErrorJustReturn: .unknown))
+                      alert: alertSubject.asDriver(onErrorJustReturn: .unknown),
+                      phAssetImage: photosManagerOutput.image)
     }
     
     func saveToAlbums(_ image: UIImage) {

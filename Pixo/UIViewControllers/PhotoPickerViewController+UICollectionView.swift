@@ -42,7 +42,7 @@ extension PhotoPickerViewController: UICollectionViewDelegate {
              let height = (view.frame.height - 80 - 151 - view.safeAreaInsets.bottom) * scale
              return CGSize(width: width, height: height)
          }()
-        
+        self.phAsset = asset
          pushOverlayImageViewControllerSubject.onNext((asset, size))
     }
 }

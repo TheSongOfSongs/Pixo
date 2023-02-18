@@ -32,6 +32,7 @@ class OverlayImageViewController: UIViewController {
     let saveImageSubject = PublishSubject<UIImage>()
     let urlCacheManager = URLCacheManager.shared
     var phAssetImage: UIImage?
+    var fetchPHAssetImageSubject = PublishSubject<(PHAsset, CGSize)>()
     
     var dataSource: DataSource {
         return DataSource(configureCell: { dataSource, collectionView, indexPath, item in
@@ -87,6 +88,7 @@ class OverlayImageViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
     }
     
+    var svgImageView = IdentifiableImageView(frame: .zero)
     
     // MARK: - view lifecyle
     override func viewDidLoad() {
@@ -113,11 +115,15 @@ class OverlayImageViewController: UIViewController {
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
         let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable(),
-                                                saveToAlbum: saveImageSubject.asObserver())
+                                                saveToAlbum: saveImageSubject.asObservable(),
+                                                fetchPHAssetImage: fetchPHAssetImageSubject.asObservable())
+        
         let output = viewModel.transform(input: input)
         
         let svgImageSections = output.svgImageSections
             .share()
+        
+        let phAssetImage = output.phAssetImage
         
         svgImageSections
             .bind(to: collectionView.rx.items(dataSource: self.dataSource))
@@ -150,16 +156,45 @@ class OverlayImageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        // 오버레이 버튼 눌렀을 때
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                if let image = owner.exportImage() {
-                    owner.saveImageSubject.onNext(image)
-                } else {
-                    owner.showAlertController(with: .failToSavePhoto)
-                }
+                guard let phAsset = owner.phAsset else { return }
+                // PHAsset 이미지 원본 사이즈 요청
+                owner.fetchPHAssetImageSubject.onNext((phAsset,
+                                                       CGSize(width: phAsset.pixelWidth,
+                                                              height: phAsset.pixelHeight)))
             })
             .disposed(by: disposeBag)
-
+        
+        // PHAsset 이미지 원본 사이즈 받았을 때
+        phAssetImage
+            .drive(with: self, onNext: { owner, phAssetImage in
+                guard let phAsset = owner.phAsset,
+                      let phAssetImage = phAssetImage,
+                      let svgImage = owner.svgImageView.image else {
+                    return
+                }
+                
+                // 이미지 합성
+                // 이미지 합성 (1) - PHAsset 이미지 그리기
+                let phAssetImageSize = CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight)
+                UIGraphicsBeginImageContextWithOptions(phAssetImageSize, true, 1)
+                phAssetImage.draw(at: .zero)
+                
+                
+                // 이미지 합성 (2) - SVG 이미지 그리기
+                svgImage.draw(in: owner.svgImageRect(to: phAssetImageSize))
+                
+                // 앨범에 저장
+                if let result = UIGraphicsGetImageFromCurrentImageContext() {
+                    owner.saveImageSubject.onNext(result)
+                }
+                
+                UIGraphicsEndImageContext()
+            })
+            .disposed(by: disposeBag)
+        
         collectionView.rx.modelSelected(SVGImage.self)
             .bind(with: self, onNext: { owner, item in
                 owner.overlayButton.isHidden = false
@@ -191,37 +226,35 @@ class OverlayImageViewController: UIViewController {
             $0.removeFromSuperview()
         }
         
-        let imageView = IdentifiableImageView(frame: .zero).then {
+        svgImageView = IdentifiableImageView(frame: .zero).then {
             $0.contentMode = .scaleAspectFit
         }
         
         Task {
             // 이미지를 가져와 넣어주기
-            await imageView.setSVGImage(with: svgImage)
+            await svgImageView.setSVGImage(with: svgImage)
             
             // 가져온 이미지의 사이즈를 바탕으로 frame 정해주기
             let imageBounds = phAssetImageView.imageBounds
             let width = min(imageBounds.width * 0.8, imageBounds.height * 0.8)
-            imageView.setFrame(with: phAssetImageView.center,
-                        size: CGSize(width: width, height: width))
+            svgImageView.setFrame(with: phAssetImageView.center,
+                               size: CGSize(width: width, height: width))
         }
         
-        phAssetImageView.addSubview(imageView)
+        phAssetImageView.addSubview(svgImageView)
     }
     
-    func exportImage() -> UIImage? {
-        let imageRect: CGRect = {
-            var bounds = phAssetImageView.bounds
-            bounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
-                                    y: -phAssetImageView.imageBounds.origin.y)
-            return bounds
+    /// 이미지 합성 시, 원본 이미지와 PHAssetImageView의 비율을 고려한 SVG 이미지의 frame을 반환합니다.
+    func svgImageRect(to phAssetImageSize: CGSize) -> CGRect {
+        let svgImageViewFrame = svgImageView.frame
+        let phAssetImageBounds = phAssetImageView.imageBounds
+        let origin: CGPoint = {
+            return CGPoint(x: phAssetImageSize.width * (svgImageViewFrame.origin.x - phAssetImageBounds.origin.x) / phAssetImageBounds.width,
+                           y: phAssetImageSize.height * (svgImageViewFrame.origin.y - phAssetImageBounds.origin.y) / phAssetImageBounds.height)
         }()
         
-        UIGraphicsBeginImageContextWithOptions(phAssetImageView.imageBounds.size, false, 0.0)
-        phAssetImageView.drawHierarchy(in: imageRect, afterScreenUpdates: true)
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return result
+        let width = svgImageViewFrame.width * phAssetImageSize.width / phAssetImageBounds.width
+        let size = CGSize(width: width, height: width) // 이미지 비율 1:1
+        return CGRect(origin: origin, size: size)
     }
 }
