@@ -46,7 +46,7 @@ class ExportViewModel: NSObject, ViewModel {
         let photosManagerOutput = photosManager.transform(input: photosManagerInput)
         
         let formats = [
-            Format(title: "JPG", subtitle: "투명도 없음. 공유하기에 가장 좋습니다.", format: .jpg),
+            Format(title: "JPEG", subtitle: "투명도 없음. 공유하기에 가장 좋습니다.", format: .jpeg),
             Format(title: "PNG", subtitle: "투명도를 갖춘 최상의 이미지 품질", format: .png)
         ]
         
