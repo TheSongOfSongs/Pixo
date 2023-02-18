@@ -30,7 +30,10 @@ extension UIView {
     }
     
     func addGradientLayer(colors: [UIColor], direction: GradientDirection) {
+        // 그라데이션 레이어 추가 전, 이전에 추가된 그라데이션 레이어는 모두 제거
         layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        
+        // 그라데이션 레이어 추가
         layer.addSublayer(gradientLayer(colors: colors.map({ $0.cgColor }), direction: direction))
     }
     
@@ -74,16 +77,5 @@ extension UIView {
     func setFrame(with center: CGPoint, size: CGSize) {
         self.frame = CGRect(origin: .zero, size: size)
         self.center = center
-    }
-    
-    func renderImage(with croppedRect: CGRect) -> UIImage {
-        var newBounds = bounds
-        newBounds.origin = CGPoint(x: -croppedRect.origin.x,
-                                   y: -croppedRect.origin.y)
-        
-        let renderer = UIGraphicsImageRenderer(size: croppedRect.size)
-        return renderer.image { context in
-            drawHierarchy(in: newBounds, afterScreenUpdates: true)
-        }
     }
 }

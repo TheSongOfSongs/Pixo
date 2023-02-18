@@ -20,5 +20,6 @@ extension UIApplication {
             .safeAreaInsets ?? .zero
     }
     
+    // MARK: static constants
     static let safeAreaBottomInset = safeAreaInsets.bottom
 }

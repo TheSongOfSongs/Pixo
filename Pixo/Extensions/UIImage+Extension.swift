@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImage {
-    // static constants
+    // MARK: static constants
     static let photo = UIImage(systemName: "photo")
     static let close = UIImage(named: "close")
 }
