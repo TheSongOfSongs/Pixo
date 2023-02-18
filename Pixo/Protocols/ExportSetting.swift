@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 이미지 추출 옵션 모델이 채택하는 protocol 입니다.
 protocol ExportSetting {
     var type: ExportSettingType { get }
     var title: String { get }
