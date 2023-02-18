@@ -5,6 +5,9 @@
 //  Created by Jinhyang Kim on 2023/02/18.
 //
 
+import UIKit
+import Photos
+
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -12,17 +15,38 @@ import RxSwift
 class ExportViewController: UIViewController {
     
     // MARK: - properties
+    let image: UIImage
+    let phAsset: PHAsset
+    let overlayImageViews: [UIImageView]
     
     
     // MARK: - properties UI
+    let phAssetImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+    }
     
-    
+    let exportSettingView: ExportSettingView
     
     // MARK: - properties Rx
 
     // MARK: - life cycle
+    init(image: UIImage, phAsset: PHAsset, overlayImageViews: [UIImageView]) {
+        self.image = image
+        self.phAsset = phAsset
+        self.overlayImageViews = overlayImageViews
+        self.exportSettingView = ExportSettingView(frame: .zero, phAsset: phAsset)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bind()
         setupLayout()
         setupNavigationBar()
     }
@@ -39,7 +63,12 @@ class ExportViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
+    
     // MARK: - helpers
+    func bind() {
+        phAssetImageView.image = image
+    }
+    
     func setupNavigationBar() {
         title = "내보내기"
         navigationController?.isNavigationBarHidden = false
