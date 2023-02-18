@@ -29,9 +29,9 @@
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
 		7697F1FD29A07EAC00BF8F54 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */; };
-		7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20E29A0B45000BF8F54 /* Constants.swift */; };
 		7697F20729A0ABC000BF8F54 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20629A0ABC000BF8F54 /* ExportViewController.swift */; };
 		7697F20929A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */; };
+		7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20E29A0B45000BF8F54 /* Constants.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -102,9 +102,9 @@
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
 		7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
-		7697F20E29A0B45000BF8F54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7697F20629A0ABC000BF8F54 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportViewController+SettingUpView.swift"; sourceTree = "<group>"; };
+		7697F20E29A0B45000BF8F54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
