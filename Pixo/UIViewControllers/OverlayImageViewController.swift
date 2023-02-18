@@ -18,20 +18,21 @@ class OverlayImageViewController: UIViewController {
     
     typealias DataSource = RxCollectionViewSectionedReloadDataSource<SVGImageSection>
     
-    // MARK: Properties
-    let disposeBag = DisposeBag()
+    // MARK: properties
     let viewModel = OverlayImageViewModel()
-    lazy var sectionInsets = UIEdgeInsets(top: 32,
-                                          left: 40,
-                                          bottom: 39 + UIApplication.safeAreaBottomInset,
-                                          right: 40)
+    let sectionInsets = UIEdgeInsets(top: 32,
+                                     left: 40,
+                                     bottom: 39 + UIApplication.safeAreaBottomInset,
+                                     right: 40)
     let padding: CGFloat = 16
     let itemsPerColumn: CGFloat = 1
-    var phAsset: PHAsset?
-    let urlCacheManager = URLCacheManager.shared
-    var phAssetImage: UIImage?
-    var fetchPHAssetImageSubject = PublishSubject<(PHAsset, CGSize)>()
+    let phAsset: PHAsset
     
+    // MARK: - properties Rx
+    var disposeBag = DisposeBag()
+    let fetchPHAssetImage = PublishSubject<FetchingPHAssetImageSource>()
+    
+    /// overlayImageCollectionView dataSource
     var dataSource: DataSource {
         return DataSource(configureCell: { dataSource, collectionView, indexPath, item in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier,
@@ -47,9 +48,7 @@ class OverlayImageViewController: UIViewController {
         })
     }
     
-    var overlayImageViews: [UIImageView] = []
-    
-    // MARK: Properties - UI
+    // MARK: - properties UI
     let topView = UIView().then {
         $0.backgroundColor = .clear
     }
@@ -67,7 +66,7 @@ class OverlayImageViewController: UIViewController {
         $0.setTitle("Overlay", for: .normal)
     }
     
-    lazy var collectionView: UICollectionView = {
+    lazy var overlayImageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout().then {
             $0.sectionInset = self.sectionInsets
             $0.scrollDirection = .horizontal
@@ -88,15 +87,23 @@ class OverlayImageViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
     }
     
-    var svgImageView = IdentifiableImageView(frame: .zero)
+    var overlayImageViews: [UIImageView] = []
     
-    // MARK: - view lifecyle
+    // MARK: - lifecyle
+    init(phAsset: PHAsset, phAssetImage: UIImage) {
+        self.phAsset = phAsset
+        self.phAssetImageView.image = phAssetImage
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         bind()
-        
-        phAssetImageView.image = phAssetImage
     }
     
     override func loadView() {
@@ -109,22 +116,18 @@ class OverlayImageViewController: UIViewController {
     
     // MARK: -
     func bind() {
-        // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
+        /// 추가 데이터 로딩 중인지 판별하는 flag 값
         var isFetchingMore = false
         
-        
-        
-        // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
         let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable())
-        
         let output = viewModel.transform(input: input)
-        
-        let svgImageSections = output.svgImageSections
+        let svgImageSections = output
+            .svgImageSections
             .share()
         
         svgImageSections
-            .bind(to: collectionView.rx.items(dataSource: self.dataSource))
+            .bind(to: overlayImageCollectionView.rx.items(dataSource: self.dataSource))
             .disposed(by: disposeBag)
         
         svgImageSections
@@ -147,36 +150,35 @@ class OverlayImageViewController: UIViewController {
         
         fetchSVGImageSections.onNext(())
         
-        // UI event
         closeButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
                 owner.navigationController?.popViewController(animated: false)
             })
             .disposed(by: disposeBag)
         
-        // 오버레이 버튼 눌렀을 때
+        // 오버레이 버튼 눌렀을 때 > ExportVC로 이동
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                guard let previewImage = owner.mergedImage(),
-                      let phAsset = owner.phAsset else {
+                guard let previewImage = owner.mergedImage() else {
+                    owner.showAlertController(with: .failToLoadPhoto)
                     return
                 }
                 
-                let sources = ImageMergingSources(phAsset: phAsset,
+                let sources = ImageMergingSources(phAsset: owner.phAsset,
                                                   backgroundImageView: owner.phAssetImageView,
-                                                  overlayImageViews: owner.overlayImageViews
-                )
+                                                  overlayImageViews: owner.overlayImageViews)
                 
-                let exportViewController = ExportViewController(imageMergingSources: sources)
-                exportViewController.modalPresentationStyle = .overCurrentContext
-                exportViewController.previewImage = previewImage
-                let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+                let exportViewController = ExportViewController(imageMergingSources: sources).then {
+                    $0.previewImage = previewImage
+                }
+                
+                let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: owner, action: nil)
                 owner.navigationItem.backBarButtonItem = backBarButtonItem
                 owner.navigationController?.pushViewController(exportViewController, animated: true)
             })
             .disposed(by: disposeBag)
         
-        collectionView.rx.modelSelected(SVGImage.self)
+        overlayImageCollectionView.rx.modelSelected(SVGImage.self)
             .bind(with: self, onNext: { owner, item in
                 owner.overlayButton.isHidden = false
                 owner.addSVGImageView(item)
@@ -184,14 +186,14 @@ class OverlayImageViewController: UIViewController {
             .disposed(by: disposeBag)
         
         // 스크롤 끝에 닿기 전에 데이터 추가 요청
-        Observable.combineLatest(svgImageSections, collectionView.rx.didScroll)
+        Observable.combineLatest(svgImageSections, overlayImageCollectionView.rx.didScroll)
             .filter({ _ in !isFetchingMore })
             .observe(on: MainScheduler.instance)
             .subscribe(with: self, onNext: { owner, _ in
-                let offsetX = owner.collectionView.contentOffset.x
-                let contentWidth = owner.collectionView.contentSize.width
+                let offsetX = owner.overlayImageCollectionView.contentOffset.x
+                let contentWidth = owner.overlayImageCollectionView.contentSize.width
                 
-                if offsetX > contentWidth - owner.collectionView.frame.size.width - 50 {
+                if offsetX > contentWidth - owner.overlayImageCollectionView.frame.size.width - 50 {
                     fetchSVGImageSections.onNext(())
                     isFetchingMore = true
                 }
@@ -199,8 +201,7 @@ class OverlayImageViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    /// SVGImage로부터 이미지를 저장소에서 다운받아 UIImageView를 생성하여
-    /// phAssetImageView에 추가해줍니다.
+    /// SVGImage로부터 이미지를 저장소에서 다운받아 UIImageView를 생성하여 phAssetImageView에 추가해줍니다.
     func addSVGImageView(_ svgImage: SVGImage) {
         // svg 이미지를 추가하기 전, 이전 추가된 이미지는 삭제
         overlayImageViews.forEach { overlayImageView in
@@ -220,14 +221,16 @@ class OverlayImageViewController: UIViewController {
             let imageBounds = phAssetImageView.imageBounds
             let width = min(imageBounds.width * 0.8, imageBounds.height * 0.8)
             svgImageView.setFrame(with: phAssetImageView.center,
-                               size: CGSize(width: width, height: width))
+                                  size: CGSize(width: width, height: width))
         }
         
         phAssetImageView.addSubview(svgImageView)
         overlayImageViews.append(svgImageView)
     }
     
-    func mergedImage() -> UIImage? {
+    /// 현재 화면에 보여지는 것과 같이 앨범에서 가져온 사진과 오버레이 이미지들을 얹어 합성한 결과물을 반환합니다.
+    /// 화면사이즈의 이미지이므로 ExportViewController에서 미리보기 용도로만 사용됩니다.
+    private func mergedImage() -> UIImage? {
         let imageRect: CGRect = {
             var bounds = phAssetImageView.bounds
             bounds.origin = CGPoint(x: -phAssetImageView.imageBounds.origin.x,
@@ -239,7 +242,6 @@ class OverlayImageViewController: UIViewController {
         phAssetImageView.drawHierarchy(in: imageRect, afterScreenUpdates: true)
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         return result
     }
 }

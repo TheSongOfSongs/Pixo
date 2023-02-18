@@ -12,7 +12,7 @@ extension OverlayImageViewController: SettingUpView {
         view.addSubview(topView)
         topView.addSubview(closeButton)
         topView.addSubview(overlayButton)
-        view.addSubview(collectionView)
+        view.addSubview(overlayImageCollectionView)
         view.addSubview(phAssetImageBackgroundView)
         phAssetImageBackgroundView.addSubview(phAssetImageView)
     }
@@ -36,7 +36,7 @@ extension OverlayImageViewController: SettingUpView {
             make.trailing.equalToSuperview().inset(19)
         }
         
-        collectionView.snp.makeConstraints { make in
+        overlayImageCollectionView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
             make.height.equalTo(151.0 + UIApplication.safeAreaBottomInset)
@@ -45,7 +45,7 @@ extension OverlayImageViewController: SettingUpView {
         phAssetImageBackgroundView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(topView.snp.bottom)
-            make.bottom.equalTo(collectionView.snp.top)
+            make.bottom.equalTo(overlayImageCollectionView.snp.top)
         }
         
         phAssetImageView.snp.makeConstraints { make in

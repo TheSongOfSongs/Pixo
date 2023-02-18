@@ -186,7 +186,7 @@ class PhotoPickerViewController: UIViewController {
             .disposed(by: disposeBag)
         
         // 앨범에서 사진을 선택하고, OverlayImageVC에 넘겨줄 사진을 받았을 때
-        Observable.zip(output.phAssetImage.asObservable(), selectedPHAsset)
+        Observable.zip(selectedPHAsset, output.phAssetImage.asObservable())
             .bind(with: self, onNext: { owner, result in
                 // progressCircleView 숨기기
                 if !owner.progressCircleView.isHidden {
@@ -195,10 +195,13 @@ class PhotoPickerViewController: UIViewController {
                     owner.progressCircleView.isHidden = true
                 }
                 
+                guard let phAssetImage = result.1 else {
+                    owner.showAlertController(with: .failToLoadPhoto)
+                    return
+                }
+                
                 // 화면 전환
-                let overlayImageVC = OverlayImageViewController()
-                overlayImageVC.phAsset = result.1
-                overlayImageVC.phAssetImage = result.0
+                let overlayImageVC = OverlayImageViewController(phAsset: result.0, phAssetImage: phAssetImage)
                 self.navigationController?.pushViewController(overlayImageVC, animated: false)
             })
             .disposed(by: disposeBag)

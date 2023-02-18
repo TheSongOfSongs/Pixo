@@ -9,10 +9,10 @@ import Foundation
 import FirebaseStorage
 
 
+typealias FetcingSVGImagesResult = (storageReferences: [StorageReference], pageToken: String?)
+
 /// FirebaseStorage로부터 svg 이미지를 가져오는 기능을 담당합니다
 final class SVGImageManager {
-    
-    typealias FetcingSVGImagesResult = (storageReferences: [StorageReference], pageToken: String?)
     
     /// 한 번 요청 시 최대로 가져올 수 있는 이미지 수
     let maxResults: Int64 = 10

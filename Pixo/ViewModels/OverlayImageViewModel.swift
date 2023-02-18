@@ -24,47 +24,53 @@ class OverlayImageViewModel: ViewModel {
         let alert: Driver<AlertType>
     }
     
-    // MARK: properties
+    // MARK: - properties Rx
     var disposeBag = DisposeBag()
-    private let svgImageSectionsRelay = BehaviorRelay<[SVGImageSection]>(value: [])
-    private let alertSubject = PublishSubject<AlertType>()
+    private let svgImageSections = BehaviorRelay<[SVGImageSection]>(value: [])
+    private let alert = PublishSubject<AlertType>()
     
+    // MARK: - properties
     let svgImageManager = SVGImageManager()
     var pageToken: String?
-    
     var svgImageReferences: [SVGImage] {
-        return svgImageSectionsRelay.value.first?.items ?? []
+        return svgImageSections.value.first?.items ?? []
+    }
+    
+    // MARK: - life cycle
+    deinit {
+        disposeBag = DisposeBag()
     }
     
     
     // MARK: - helpers
     func transform(input: Input) -> Output {
+        /// 더 이상 추가할 이미지가 없을 경우
         let noMoreImages = PublishSubject<Void>()
         
         input.fetchSVGImageSections
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: {  _ in
                 Task {
                     let result = await self.svgImageManager.fetchSVGImages(with: self.pageToken)
                     
                     switch result {
                     case .success(let result):
-                        let items = self.svgImageReferences + result.0.map({ SVGImage(storageReference: $0) })
-                        self.pageToken = result.1
-                        self.svgImageSectionsRelay.accept([SVGImageSection(items: items)])
+                        let items = self.svgImageReferences + result.storageReferences.map({ SVGImage(storageReference: $0) })
+                        self.pageToken = result.pageToken
+                        self.svgImageSections.accept([SVGImageSection(items: items)])
                         
-                        if result.1 == nil {
+                        if self.pageToken == nil {
                             noMoreImages.onNext(())
                         }
                     case .failure(let error):
                         NSLog("❗️ error ==> \(error.localizedDescription)")
-                        self.alertSubject.onNext(.failToFetchFromStorage)
+                        self.alert.onNext(.failToFetchFromStorage)
                     }
                 }
             })
             .disposed(by: disposeBag)
         
-        return Output(svgImageSections: svgImageSectionsRelay.asObservable(),
+        return Output(svgImageSections: svgImageSections.asObservable(),
                       noMoreImages: noMoreImages.asObservable(),
-                      alert: alertSubject.asDriver(onErrorJustReturn: .unknown))
+                      alert: alert.asDriver(onErrorJustReturn: .unknown))
     }
 }
