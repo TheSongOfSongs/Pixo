@@ -11,6 +11,7 @@ extension ExportViewController: SettingUpView {
     func addSubviews() {
         view.addSubview(phAssetImageView)
         view.addSubview(exportSettingView)
+        view.addSubview(exportButton)
         
         overlayImageViews.forEach { imageView in
             phAssetImageView.addSubview(imageView)
@@ -23,10 +24,16 @@ extension ExportViewController: SettingUpView {
             make.bottom.equalTo(exportSettingView.snp.top)
         }
         
+        exportButton.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(15)
+            make.height.equalTo(60)
+        }
+        
         exportSettingView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(220)
+            make.bottom.equalTo(exportButton.snp.top)
+            make.height.equalTo(200)
         }
     }
 }

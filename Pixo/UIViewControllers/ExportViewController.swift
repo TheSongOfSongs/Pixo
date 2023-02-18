@@ -23,9 +23,17 @@ class ExportViewController: UIViewController {
     // MARK: - properties UI
     let phAssetImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .beige
     }
     
     let exportSettingView: ExportSettingView
+    
+    let exportButton = UIButton().then {
+        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        $0.setTitle("내보내기 →", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        
+    }
     
     // MARK: - properties Rx
 
@@ -61,6 +69,10 @@ class ExportViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        exportButton.addGradientLayer(colors: [.pink, .magenta], direction: .horizontal)
     }
     
     

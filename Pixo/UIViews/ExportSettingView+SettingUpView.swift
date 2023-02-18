@@ -22,7 +22,7 @@ extension ExportSettingView: SettingUpView {
         
         selectedExportSettingTableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(safeAreaInsets.bottom + 50)
+            make.bottom.equalToSuperview().inset(20)
             make.height.equalTo(160)
         }
     }
