@@ -11,11 +11,13 @@ import Photos
 import RxSwift
 import RxCocoa
 
+typealias FetchingPHAssetImageSource = (phAsset: PHAsset, targetSize: CGSize)
+
 /// 앨범 사진 관련된 작업을 담당하는 클래스입니다.
 final class PhotosManager {
     
     struct Input {
-        let requestImage: Observable<(PHAsset, CGSize)>
+        let fetchImage: Observable<FetchingPHAssetImageSource>
     }
     
     struct Output {
@@ -33,7 +35,7 @@ final class PhotosManager {
     
     // MARK: - helpers
     func transform(input: Input) -> Output {
-        input.requestImage
+        input.fetchImage
             .subscribe(with: self, onNext: { owner, result in
                 owner.fetchPhoto(of: result.0, targetSize: result.1)
             })

@@ -14,48 +14,37 @@ import RxSwift
 
 class PhotoPickerViewController: UIViewController {
     
-    /// 현재 선택된 앨범 정보와 collection view를 리로드해야하는지 여부를 나타냅니다.
-    /// 선택된 album이 바뀔 때마다 relay에 값을 넣어주면 구독하는 쪽의 코드에서  collection view를 항상 reload 시킵니다.
-    /// album 값이 변경되면 collection view의 데이터소스는 업데이트되어야 하지만, collection view를 reload하는게 아니라
-    /// 변경된 부분만 업데이트시켜줘야 하므로 reload 여부를 Bool 값으로 전달합니다.
-    typealias AlbumDataSource = (album: Album, shouldReload: Bool)
-    
-    // MARK: Properties
-    let disposeBag = DisposeBag()
-    let viewModel = PhotoPickerViewModel()
-    
-    // tableView
-    let fetchAlbumsSubject = PublishSubject<Void>()
-    let imageManager = PHCachingImageManager()
-    let previewSize = CGSize(width: 64, height: 64)
-    let albumSectionsRelay = BehaviorRelay<[AlbumSection]>(value: [])
-    var albumSections: [AlbumSection] {
-        return albumSectionsRelay.value
-    }
-    
-    // collectionView
-    let selectedAlbumRelay = BehaviorRelay<(Album, Bool)>(value: (Album(type: .allPhotos,
-                                                                        phFetchResult: PHFetchResult(),
-                                                                        title: ""),
-                                                                  false))
-    let pushOverlayImageViewControllerSubject = PublishSubject<(PHAsset, CGSize)>()
+    // MARK: - properties Rx
+    var disposeBag = DisposeBag()
+    let fetchAlbums = PublishSubject<Void>()
+    let albumSections = BehaviorRelay<[AlbumSection]>(value: [])
+    let albumDataSource = BehaviorRelay<AlbumDataSource>(value: (album: Album(type: .allPhotos,
+                                                                              phFetchResult: PHFetchResult(),
+                                                                              title: ""),
+                                                                 shouldReload: false))
+    let pushOverlayImageViewController = PublishSubject<FetchingPHAssetImageSource>()
+    let selectedPHAsset = PublishSubject<PHAsset>()
     let updateAlbums = PublishSubject<PHChange>()
     
-    var selectedAlbum: Album {
-        return selectedAlbumRelay.value.0
-    }
-    var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
-        return selectedAlbum.phFetchResult
-    }
-    
-    
-    var phAsset: PHAsset?
-    
+    // MARK: - properties
+    let viewModel = PhotoPickerViewModel()
+    let imageManager = PHCachingImageManager()
+    let previewSize = CGSize(width: 64, height: 64)
     let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     let padding: CGFloat = 8
     let itemsPerRow: CGFloat = 3
     
-    lazy var collectionViewCellSize: CGSize = {
+    /// 현재 선택되어 사진 리스트가 띄어진 앨범
+    var selectedAlbum: Album {
+        return albumDataSource.value.album
+    }
+    
+    /// 현재 선택된 앨범 리스트. collection view의 dataSource
+    var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
+        return selectedAlbum.phFetchResult
+    }
+    
+    lazy var photoCollectionViewCellSize: CGSize = {
         let paddingSpace = sectionInsets.left * 2 + padding * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let width = availableWidth / itemsPerRow
@@ -64,14 +53,14 @@ class PhotoPickerViewController: UIViewController {
     
     var photoPreviewSize: CGSize {
         let scale = UIScreen.main.scale
-        let width = collectionViewCellSize.width * scale
+        let width = photoCollectionViewCellSize.width * scale
         return CGSize(width: width, height: width)
     }
     
-    // MARK: Properties - UI
+    // MARK: - properties UI
     let titleView = PhotoPickerTitleView(frame: .zero)
     
-    let tableView = UITableView().then {
+    let albumTableView = UITableView().then {
         $0.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.identifier)
         $0.rowHeight = 85
         $0.separatorStyle = .none
@@ -101,7 +90,7 @@ class PhotoPickerViewController: UIViewController {
         setupLayout()
         setupCollectionView()
         bind()
-        fetchAlbumsSubject.onNext(())
+        fetchAlbums.onNext(())
         PHPhotoLibrary.shared().register(self)
     }
     
@@ -114,59 +103,59 @@ class PhotoPickerViewController: UIViewController {
     }
     
     
-    // MARK: -
+    // MARK: - helpers
     func setupCollectionView() {
         photoCollectionView.dataSource = self
         photoCollectionView.delegate = self
     }
     
     func bind() {
-        // titleView
+        let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbums.asObservable(),
+                                               fetchPHAssetImage: pushOverlayImageViewController.asObservable(),
+                                               updateAlbums: updateAlbums.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        let albums = output
+            .albums
+            .share()
+        
         titleView.photoPickerDriver
             .drive(with: self, onNext: { owner, photoPicker in
                 switch photoPicker {
                 case .photos:
-                    owner.tableView.setHiddenWithAnimation(true)
+                    owner.albumTableView.setHiddenWithAnimation(true)
                     owner.photoCollectionView.setHiddenWithAnimation(false)
                 case .albums:
-                    owner.tableView.setHiddenWithAnimation(false)
+                    owner.albumTableView.setHiddenWithAnimation(false)
                     owner.photoCollectionView.setHiddenWithAnimation(true)
                 }
             })
             .disposed(by: disposeBag)
         
         // tableView
-        Observable.zip(tableView.rx.modelSelected(Album.self), tableView.rx.itemSelected)
+        Observable.zip(albumTableView.rx.modelSelected(Album.self), albumTableView.rx.itemSelected)
             .map({ $0.0 })
             .bind(with: self, onNext: { owner, album in
-                owner.selectedAlbumRelay.accept((album, true))
+                owner.albumDataSource.accept((album, true))
                 owner.titleView.photoPickerRelay.accept(.photos)
             })
             .disposed(by: disposeBag)
         
         // collectionView
         // BehaviorRelay 초기값 허수로 지정했기 때문에 skip
-        selectedAlbumRelay
+        albumDataSource
             .skip(1)
-            .filter({ $0.1 })
-            .map({ $0.0 })
+            .filter({ $0.shouldReload })
+            .map({ $0.album })
             .bind(with: self, onNext: { owner, album in
                 owner.photoCollectionView.reloadData()
                 owner.titleView.titleLabel.text = album.title
             })
             .disposed(by: disposeBag)
         
-        let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbumsSubject.asObservable(),
-                                               fetchPHAssetImage: pushOverlayImageViewControllerSubject.asObservable(),
-                                               updateAlbums: updateAlbums.asObservable())
-        let output = viewModel.transform(input: input)
-        
-        // output
-        let albums = output.albums
-            .share()
-        
         albums
-            .bind(to: tableView.rx.items(dataSource: tableViewDataSource()))
+            .bind(to: albumTableView.rx.items(dataSource: tableViewDataSource()))
             .disposed(by: disposeBag)
         
         // collection view의 default 아이템을 위해 위해 앨범 리스트 중 가장 첫번째 것을 선택하여 보여줌
@@ -175,7 +164,7 @@ class PhotoPickerViewController: UIViewController {
             .take(1)
             .compactMap({ $0.first?.items.first })
             .bind(with: self, onNext: { owner, album in
-                owner.selectedAlbumRelay.accept((album: album, shouldReload: true))
+                owner.albumDataSource.accept((album: album, shouldReload: true))
             })
             .disposed(by: disposeBag)
         
@@ -196,8 +185,9 @@ class PhotoPickerViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        output.phAssetImage
-            .drive(with: self, onNext: { owner, image in
+        // 앨범에서 사진을 선택하고, OverlayImageVC에 넘겨줄 사진을 받았을 때
+        Observable.zip(output.phAssetImage.asObservable(), selectedPHAsset)
+            .bind(with: self, onNext: { owner, result in
                 // progressCircleView 숨기기
                 if !owner.progressCircleView.isHidden {
                     usleep(200000) // 애니메이션 마무리되는 0.2초 동안 기다리기
@@ -207,8 +197,8 @@ class PhotoPickerViewController: UIViewController {
                 
                 // 화면 전환
                 let overlayImageVC = OverlayImageViewController()
-                overlayImageVC.phAsset = owner.phAsset
-                overlayImageVC.phAssetImage = image
+                overlayImageVC.phAsset = result.1
+                overlayImageVC.phAssetImage = result.0
                 self.navigationController?.pushViewController(overlayImageVC, animated: false)
             })
             .disposed(by: disposeBag)

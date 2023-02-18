@@ -11,7 +11,7 @@ import SnapKit
 extension PhotoPickerViewController: SettingUpView {
     func addSubviews() {
         view.addSubview(titleView)
-        view.addSubview(tableView)
+        view.addSubview(albumTableView)
         view.addSubview(photoCollectionView)
         view.addSubview(progressCircleView)
     }
@@ -23,7 +23,7 @@ extension PhotoPickerViewController: SettingUpView {
             make.height.equalTo(Constant.navigationBarHeight + view.safeAreaInsets.top)
         }
         
-        tableView.snp.makeConstraints { make in
+        albumTableView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom)
             make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
         }

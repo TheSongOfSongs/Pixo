@@ -40,9 +40,9 @@ class ExportViewModel: NSObject, ViewModel {
     
     // MARK: - helpers
     func transform(input: Input) -> Output {
-        let fetchPHAssetImage = PublishSubject<(PHAsset, CGSize)>()
+        let fetchPHAssetImage = PublishSubject<FetchingPHAssetImageSource>()
         let phAsset = input.phAsset
-        let photosManagerInput = PhotosManager.Input(requestImage: fetchPHAssetImage.asObservable())
+        let photosManagerInput = PhotosManager.Input(fetchImage: fetchPHAssetImage.asObservable())
         let photosManagerOutput = photosManager.transform(input: photosManagerInput)
         
         let formats = [

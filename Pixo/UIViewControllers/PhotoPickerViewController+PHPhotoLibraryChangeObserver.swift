@@ -29,11 +29,11 @@ extension PhotoPickerViewController: PHPhotoLibraryChangeObserver {
             return album
         }()
         
-        selectedAlbumRelay.accept((album, false))
+        albumDataSource.accept((album, false))
         
         guard changes.hasIncrementalChanges else {
             photoCollectionView.reloadData()
-            tableView.reloadData()
+            albumTableView.reloadData()
             return
         }
         

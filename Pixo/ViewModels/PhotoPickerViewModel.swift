@@ -10,11 +10,17 @@ import Photos
 import RxSwift
 import RxCocoa
 
+/// 현재 선택된 앨범 정보와 collection view를 리로드해야하는지 여부를 나타냅니다.
+/// 선택된 album이 바뀔 때마다 relay에 값을 넣어주면 구독하는 쪽의 코드에서  collection view를 항상 reload 시킵니다.
+/// album 값이 변경되면 collection view의 데이터소스는 업데이트되어야 하지만, collection view를 reload하는게 아니라
+/// 변경된 부분만 업데이트시켜줘야 하므로 reload 여부를 Bool 값으로 전달합니다.
+typealias AlbumDataSource = (album: Album, shouldReload: Bool)
+
 class PhotoPickerViewModel: ViewModel {
     
     struct Input {
         let fetchAlbums: Observable<Void>
-        let fetchPHAssetImage: Observable<(PHAsset, CGSize)>
+        let fetchPHAssetImage: Observable<FetchingPHAssetImageSource>
         let updateAlbums: Observable<PHChange>
     }
     
@@ -55,7 +61,7 @@ class PhotoPickerViewModel: ViewModel {
             })
             .disposed(by: disposeBag)
         
-        let photosManagerInput = PhotosManager.Input(requestImage: input.fetchPHAssetImage)
+        let photosManagerInput = PhotosManager.Input(fetchImage: input.fetchPHAssetImage)
         let photosManagerOutput = photosManager.transform(input: photosManagerInput)
         
         return Output(albums: albumSectionsRelay.asObservable(),
