@@ -28,8 +28,9 @@ struct ExportManager {
     /// 이미지 추출 시 이미지 파일 타입 지정
     var format: Format?
     
+    /// 불투명도
     var opaque: Bool {
-        return format?.imageType.opaque ?? false
+        return format?.imageType.opaque ?? true
     }
     
     var scale: Double {
@@ -68,7 +69,13 @@ struct ExportManager {
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return result
+        if opaque,
+           let image = result,
+           let data = image.pngData() {
+            return UIImage(data: data) // png
+        } else {
+            return result // jpeg
+        }
     }
     
     /// 이미지 합성 시, defaultImageView의 원본 이미지와 defaultImageView의 frame과 bounds 값을 고려하여 SVG 이미지를 그릴 영역의 frame을 반환합니다.
