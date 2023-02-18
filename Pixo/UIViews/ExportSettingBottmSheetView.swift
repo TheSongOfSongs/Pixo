@@ -25,7 +25,7 @@ class ExportSettingBottmSheetView: UIView {
     }
     
     let closeButton = UIButton().then {
-        $0.setImage(UIImage(named: "close"), for: .normal)
+        $0.setImage(UIImage.close, for: .normal)
     }
     
     let exportSettingsTableView = UITableView(frame: .zero, style: .insetGrouped).then {

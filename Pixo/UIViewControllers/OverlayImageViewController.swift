@@ -55,7 +55,7 @@ class OverlayImageViewController: UIViewController {
     }
     
     let closeButton = UIButton().then {
-        $0.setImage(UIImage(named: "close"), for: .normal)
+        $0.setImage(UIImage.close, for: .normal)
     }
     
     let overlayButton = UIButton().then {
@@ -101,7 +101,7 @@ class OverlayImageViewController: UIViewController {
     
     override func loadView() {
         let view = UIView().then {
-            $0.backgroundColor =  UIColor(r: 250, g: 249, b: 246)
+            $0.backgroundColor =  UIColor.beige
         }
         
         self.view = view
