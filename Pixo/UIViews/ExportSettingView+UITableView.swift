@@ -34,3 +34,13 @@ extension ExportSettingView: UITableViewDataSource {
         return cell
     }
 }
+
+extension ExportSettingView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let exportSetting = ExportSettingType(rawValue: indexPath.row) else {
+            return
+        }
+        
+        showFixedBottomSheet.accept(exportSetting)
+    }
+}

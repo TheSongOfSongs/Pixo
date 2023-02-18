@@ -62,6 +62,7 @@ class ExportSettingView: UIView {
         super.init(frame: frame)
         
         selectedExportSettingTableView.dataSource = self
+        selectedExportSettingTableView.delegate = self
         setupLayout()
         bind()
     }
