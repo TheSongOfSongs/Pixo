@@ -29,6 +29,7 @@
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
 		7697F1FD29A07EAC00BF8F54 /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */; };
+		7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F20E29A0B45000BF8F54 /* Constants.swift */; };
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
@@ -99,6 +100,7 @@
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
 		7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
+		7697F20E29A0B45000BF8F54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				76FC37D02996577D00033A4B /* ViewModels */,
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
+				7697F20E29A0B45000BF8F54 /* Constants.swift */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
 				76FC374C2995F99100033A4B /* LaunchScreen.storyboard */,
 				76FC374F2995F99100033A4B /* Info.plist */,
@@ -621,6 +624,7 @@
 				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
 				76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */,
 				76090BAA299A0B1000F204B6 /* OverlayImageViewController.swift in Sources */,
+				7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */,
 				76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */,
 				76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */,
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,

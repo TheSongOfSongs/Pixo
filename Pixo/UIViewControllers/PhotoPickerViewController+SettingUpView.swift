@@ -20,7 +20,7 @@ extension PhotoPickerViewController: SettingUpView {
         titleView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(80)
+            make.height.equalTo(Constant.navigationBarHeight + view.safeAreaInsets.top)
         }
         
         tableView.snp.makeConstraints { make in

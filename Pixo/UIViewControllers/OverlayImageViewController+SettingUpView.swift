@@ -20,19 +20,19 @@ extension OverlayImageViewController: SettingUpView {
     func setupConstriants() {
         topView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(80)
+            make.height.equalTo(Constant.navigationBarHeight + view.safeAreaInsets.top + 10)
         }
         
         closeButton.snp.makeConstraints { make in
             make.width.height.equalTo(40)
-            make.top.equalToSuperview().offset(29)
+            make.bottom.equalTo(topView).inset(8)
             make.leading.equalToSuperview().offset(16)
         }
         
         overlayButton.snp.makeConstraints { make in
-            make.top.equalTo(30)
             make.width.equalTo(103)
             make.height.equalTo(33)
+            make.bottom.equalTo(topView).inset(14)
             make.trailing.equalToSuperview().inset(19)
         }
         
