@@ -39,7 +39,7 @@ extension OverlayImageViewController: SettingUpView {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
-            make.height.equalTo(151.0 + safeAreaBottomInsets)
+            make.height.equalTo(151.0 + UIApplication.safeAreaBottomInset)
         }
         
         phAssetImageBackgroundView.snp.makeConstraints { make in

@@ -23,12 +23,11 @@ class OverlayImageViewController: UIViewController {
     let viewModel = OverlayImageViewModel()
     lazy var sectionInsets = UIEdgeInsets(top: 32,
                                           left: 40,
-                                          bottom: 39 + safeAreaBottomInsets,
+                                          bottom: 39 + UIApplication.safeAreaBottomInset,
                                           right: 40)
     let padding: CGFloat = 16
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
-    var safeAreaBottomInsets: CGFloat = UIApplication.safeAreaInsets?.bottom ?? 0
     let saveImageSubject = PublishSubject<UIImage>()
     let urlCacheManager = URLCacheManager.shared
     var phAssetImage: UIImage?
