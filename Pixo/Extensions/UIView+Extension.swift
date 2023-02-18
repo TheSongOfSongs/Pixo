@@ -23,6 +23,12 @@ extension UIView {
         clipsToBounds = true
     }
     
+    func makeUpperCornerRounded(radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
     func addGradientLayer(colors: [UIColor], direction: GradientDirection) {
         layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         layer.addSublayer(gradientLayer(colors: colors.map({ $0.cgColor }), direction: direction))

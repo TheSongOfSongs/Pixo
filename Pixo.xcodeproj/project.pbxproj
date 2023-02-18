@@ -25,7 +25,10 @@
 		76090BD7299BC15B00F204B6 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BD6299BC15B00F204B6 /* AlertType.swift */; };
 		76090BDF299CBDD100F204B6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76090BDE299CBDD100F204B6 /* GoogleService-Info.plist */; };
 		76090BE1299CC0AA00F204B6 /* SVGImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */; };
+		766EFC9E29A1235600D21021 /* ExportSettingBottmSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFC9D29A1235600D21021 /* ExportSettingBottmSheetView.swift */; };
+		766EFCA029A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFC9F29A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift */; };
 		766EFCA429A132B000D21021 /* ExportSettingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */; };
+		766EFCA629A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */; };
 		7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */; };
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
@@ -105,7 +108,10 @@
 		76090BD6299BC15B00F204B6 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		76090BDE299CBDD100F204B6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageManager.swift; sourceTree = "<group>"; };
+		766EFC9D29A1235600D21021 /* ExportSettingBottmSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingBottmSheetView.swift; sourceTree = "<group>"; };
+		766EFC9F29A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportSettingBottomSheetView+SettingUpView.swift"; sourceTree = "<group>"; };
 		766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingDetailTableViewCell.swift; sourceTree = "<group>"; };
+		766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportSettingBottomSheetView+UITableView.swift"; sourceTree = "<group>"; };
 		7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
@@ -301,6 +307,9 @@
 				7697F1FA299E983F00BF8F54 /* PieProgressView.swift */,
 				7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */,
 				7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */,
+				766EFC9D29A1235600D21021 /* ExportSettingBottmSheetView.swift */,
+				766EFC9F29A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift */,
+				766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */,
 				7697F21229A0BB7500BF8F54 /* ExportSettingView.swift */,
 				7697F21E29A0F5C900BF8F54 /* ExportSettingView+SettingUpView.swift */,
 				7697F22029A0F5E600BF8F54 /* ExportSettingView+UITableView.swift */,
@@ -633,6 +642,7 @@
 				7697F1FD29A07EAC00BF8F54 /* ExportManager.swift in Sources */,
 				76090BA02997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift in Sources */,
 				76090BB0299A21C700F204B6 /* ImageCollectionViewCell.swift in Sources */,
+				766EFC9E29A1235600D21021 /* ExportSettingBottmSheetView.swift in Sources */,
 				76FC377F29960A4500033A4B /* UIView+Extension.swift in Sources */,
 				76090BD7299BC15B00F204B6 /* AlertType.swift in Sources */,
 				76FC37732996079500033A4B /* SettingUpView.swift in Sources */,
@@ -643,6 +653,7 @@
 				76A4952B29977A1200923CF9 /* Album.swift in Sources */,
 				7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */,
 				7697F21F29A0F5C900BF8F54 /* ExportSettingView+SettingUpView.swift in Sources */,
+				766EFCA029A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift in Sources */,
 				76090BC7299A878600F204B6 /* OverlayImageViewModel.swift in Sources */,
 				76FC37462995F99000033A4B /* PhotoPickerViewController.swift in Sources */,
 				76090BD5299BBEC900F204B6 /* UIViewController+Extension.swift in Sources */,
@@ -659,6 +670,7 @@
 				7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */,
 				76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */,
 				76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */,
+				766EFCA629A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift in Sources */,
 				76FC37422995F99000033A4B /* AppDelegate.swift in Sources */,
 				76090BAC299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift in Sources */,
 				76090BE1299CC0AA00F204B6 /* SVGImageManager.swift in Sources */,
