@@ -17,8 +17,8 @@ class ExportViewController: UIViewController {
     // MARK: - properties
     let viewModel = ExportViewModel()
     let imageMergingSources: ImageMergingSources
-    var formats: [ExportSettig] = []
-    var qualities: [ExportSettig] = []
+    var formats: [ExportSetting] = []
+    var qualities: [ExportSetting] = []
     var previewImage: UIImage?
     
     var phAsset: PHAsset {
@@ -89,18 +89,19 @@ class ExportViewController: UIViewController {
                                                                       mergeAndExportImage: mergeAndExportImage.asObservable()))
         
         exportSettingView.showFixedBottomSheet
-            .bind(with: self, onNext: { owner, exportSetting in
-                owner.bottomSheetView.type.accept(exportSetting)
+            .bind(with: self, onNext: { owner, type in
+                owner.bottomSheetView.type.accept(type)
                 
-                let exportSettings: [ExportSettig] = {
-                    switch exportSetting {
+                let settings: [ExportSetting] = {
+                    switch type {
                     case .format:
                         return owner.formats
                     case .quality:
                         return owner.qualities
                     }
                 }()
-                owner.bottomSheetView.exportSettings.accept(exportSettings)
+                
+                owner.bottomSheetView.exportSettings.accept(settings)
                 owner.showBottomSheetView()
             })
             .disposed(by: disposeBag)

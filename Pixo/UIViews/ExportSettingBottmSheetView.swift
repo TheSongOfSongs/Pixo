@@ -15,9 +15,9 @@ class ExportSettingBottmSheetView: UIView {
     
     // MARK: - properties Rx
     var disposeBag = DisposeBag()
-    let type = BehaviorRelay<ExportSettingView.ExportSettingType>(value: .format)
-    let exportSettings = BehaviorRelay<[ExportSettig]>(value: [])
-    let selectedExportSetting = PublishRelay<(ExportSettig, ExportSettingView.ExportSettingType)>()
+    let type = BehaviorRelay<ExportSettingType>(value: .format)
+    let exportSettings = BehaviorRelay<[ExportSetting]>(value: [])
+    let selectedExportSetting = PublishRelay<(ExportSetting, ExportSettingType)>()
     
     // MARK: - properties UI
     lazy var titleLabel = UILabel().then {

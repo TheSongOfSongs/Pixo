@@ -19,8 +19,8 @@ class ExportViewModel: NSObject, ViewModel {
     }
     
     struct Output {
-        let formats: [ExportSettig]
-        let qualities: [ExportSettig]
+        let formats: [ExportSetting]
+        let qualities: [ExportSetting]
         let alert: Driver<AlertType>
     }
     
@@ -45,14 +45,14 @@ class ExportViewModel: NSObject, ViewModel {
         let photosManagerOutput = photosManager.transform(input: photosManagerInput)
         
         let formats = [
-            ExportSettig(title: "JPG", subtitle: "투명도 없음. 공유하기에 가장 좋습니다."),
-            ExportSettig(title: "PNG", subtitle: "투명도를 갖춘 최상의 이미지 품질")
+            Format(title: "JPG", subtitle: "투명도 없음. 공유하기에 가장 좋습니다.", format: .jpg),
+            Format(title: "PNG", subtitle: "투명도를 갖춘 최상의 이미지 품질", format: .png)
         ]
         
         let qualities = [
-            ExportSettig(title: "낮은", subtitle: "\(Int(phAsset.pixelWidth/2)) x \(Int(phAsset.pixelHeight/2))"),
-            ExportSettig(title: "최적", subtitle: "\(Int(phAsset.pixelWidth)) x \(Int(phAsset.pixelHeight))"),
-            ExportSettig(title: "높은", subtitle: "\(Int(phAsset.pixelWidth*2)) x \(Int(phAsset.pixelHeight*2))")
+            Quality(title: "낮은", subtitle: "\(Int(phAsset.pixelWidth/2)) x \(Int(phAsset.pixelHeight/2))", scale: 0.5),
+            Quality(title: "최적", subtitle: "\(Int(phAsset.pixelWidth)) x \(Int(phAsset.pixelHeight))", scale: 1),
+            Quality(title: "높은", subtitle: "\(Int(phAsset.pixelWidth*2)) x \(Int(phAsset.pixelHeight*2))", scale: 2)
         ]
         
         input.mergeAndExportImage

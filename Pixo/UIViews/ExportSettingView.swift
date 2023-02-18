@@ -18,14 +18,14 @@ class ExportSettingView: UIView {
     // MARK: - properties
     var disposeBag = DisposeBag()
     let phAsset: PHAsset
-    var formats: [ExportSettig] = []
-    var qualities: [ExportSettig] = []
-    var selectedSetting: [ExportSettig] = []
+    var formats: [ExportSetting] = []
+    var qualities: [ExportSetting] = []
+    var selectedSetting: [ExportSetting] = []
     
     // MARK: - properties Rx
     let showFixedBottomSheet = PublishRelay<ExportSettingType>()
-    let selectedFormat = PublishSubject<ExportSettig>()
-    let selectedQuality = PublishSubject<ExportSettig>()
+    let selectedFormat = PublishSubject<ExportSetting>()
+    let selectedQuality = PublishSubject<ExportSetting>()
     
     
     // MARK: - properties UI
