@@ -12,12 +12,10 @@ import FirebaseStorage
 import RxSwift
 import RxCocoa
 
-class OverlayImageViewModel: NSObject, ViewModel {
+class OverlayImageViewModel: ViewModel {
     
     struct Input {
         var fetchSVGImageSections: Observable<Void>
-        let saveToAlbum: Observable<UIImage>
-        let mergeAndExportImage: Observable<(ImageMergingSources)>
     }
     
     struct Output {
@@ -30,9 +28,7 @@ class OverlayImageViewModel: NSObject, ViewModel {
     var disposeBag = DisposeBag()
     private let svgImageSectionsRelay = BehaviorRelay<[SVGImageSection]>(value: [])
     private let alertSubject = PublishSubject<AlertType>()
-    private let imageMergingSourcesSubject = PublishSubject<ImageMergingSources>()
     
-    let photosManager = PhotosManager()
     let svgImageManager = SVGImageManager()
     var pageToken: String?
     
@@ -44,9 +40,6 @@ class OverlayImageViewModel: NSObject, ViewModel {
     // MARK: - helpers
     func transform(input: Input) -> Output {
         let noMoreImages = PublishSubject<Void>()
-        let fetchPHAssetImage = PublishSubject<(PHAsset, CGSize)>()
-        let photosManagerInput = PhotosManager.Input(requestImage: fetchPHAssetImage.asObservable())
-        let photosManagerOutput = photosManager.transform(input: photosManagerInput)
         
         input.fetchSVGImageSections
             .subscribe(onNext: { _ in
@@ -70,65 +63,8 @@ class OverlayImageViewModel: NSObject, ViewModel {
             })
             .disposed(by: disposeBag)
         
-        input.saveToAlbum
-            .bind(with: self, onNext: { owner, image in
-                owner.saveToAlbums(image)
-            })
-            .disposed(by: disposeBag)
-        
-        input.mergeAndExportImage
-            .bind(with: self, onNext: { owner, sources in
-                owner.imageMergingSourcesSubject.onNext(sources)
-                
-                let phAsset = sources.phAsset
-                fetchPHAssetImage.onNext((phAsset,
-                                          CGSize(width: phAsset.pixelWidth,
-                                                 height: phAsset.pixelHeight)))
-            })
-            .disposed(by: disposeBag)
-        
-        Observable.zip(imageMergingSourcesSubject, photosManagerOutput.image.asObservable())
-            .subscribe(with: self, onNext: { owner, result in
-                let sources = result.0
-               
-                guard let backgroundImage = result.1 else {
-                    owner.alertSubject.onNext(.failToSavePhoto)
-                    return
-                }
-                
-                let exportManager = ExportManager(backgroundImage: backgroundImage,
-                                                  backgroundImageBounds: sources.backgroundImageView.imageBounds,
-                                                  overlayImageViews: sources.overlayImageViews)
-                
-                guard let image = exportManager.mergeImage() else {
-                    owner.alertSubject.onNext(.failToSavePhoto)
-                    return
-                }
-                
-                owner.saveToAlbums(image)
-            })
-            .disposed(by: disposeBag)
-        
-
         return Output(svgImageSections: svgImageSectionsRelay.asObservable(),
                       noMoreImages: noMoreImages.asObservable(),
                       alert: alertSubject.asDriver(onErrorJustReturn: .unknown))
-    }
-    
-    func saveToAlbums(_ image: UIImage) {
-        UIImageWriteToSavedPhotosAlbum(image,
-                                       self,
-                                       #selector(showAlertOfSavingAlbums),
-                                       nil)
-    }
-    
-    @objc func showAlertOfSavingAlbums(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
-        if let error = error {
-            NSLog("❗️ error ==> \(error.localizedDescription)")
-            alertSubject.onNext(.failToSavePhoto)
-            return
-        }
-        
-        alertSubject.onNext(.successToSavePhoto)
     }
 }

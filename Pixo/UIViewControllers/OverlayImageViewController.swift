@@ -28,7 +28,6 @@ class OverlayImageViewController: UIViewController {
     let padding: CGFloat = 16
     let itemsPerColumn: CGFloat = 1
     var phAsset: PHAsset?
-    let saveImageSubject = PublishSubject<UIImage>()
     let urlCacheManager = URLCacheManager.shared
     var phAssetImage: UIImage?
     var fetchPHAssetImageSubject = PublishSubject<(PHAsset, CGSize)>()
@@ -113,13 +112,11 @@ class OverlayImageViewController: UIViewController {
         // 현재 데이터를 추가로딩하는 중인지 판별하는 flag 값
         var isFetchingMore = false
         
-        let mergeAndExportImage = PublishSubject<ImageMergingSources>()
+        
         
         // viewModel
         let fetchSVGImageSections = PublishSubject<Void>()
-        let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable(),
-                                                saveToAlbum: saveImageSubject.asObservable(),
-                                                mergeAndExportImage: mergeAndExportImage.asObservable())
+        let input = OverlayImageViewModel.Input(fetchSVGImageSections: fetchSVGImageSections.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -160,12 +157,22 @@ class OverlayImageViewController: UIViewController {
         // 오버레이 버튼 눌렀을 때
         overlayButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                guard let phAsset = owner.phAsset else { return }
-                // 이미지 합성 및 추출, 앨범 저장 요청
+                guard let previewImage = owner.mergedImage(),
+                      let phAsset = owner.phAsset else {
+                    return
+                }
+                
                 let sources = ImageMergingSources(phAsset: phAsset,
                                                   backgroundImageView: owner.phAssetImageView,
-                                                  overlayImageViews: owner.overlayImageViews)
-                mergeAndExportImage.onNext(sources)
+                                                  overlayImageViews: owner.overlayImageViews
+                )
+                
+                let exportViewController = ExportViewController(imageMergingSources: sources)
+                exportViewController.modalPresentationStyle = .overCurrentContext
+                exportViewController.previewImage = previewImage
+                let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+                owner.navigationItem.backBarButtonItem = backBarButtonItem
+                owner.navigationController?.pushViewController(exportViewController, animated: true)
             })
             .disposed(by: disposeBag)
         

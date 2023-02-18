@@ -16,11 +16,14 @@ class ExportViewController: UIViewController {
     
     // MARK: - properties
     let viewModel = ExportViewModel()
-    let phAsset: PHAsset
-    let overlayImageViews: [UIImageView]
+    let imageMergingSources: ImageMergingSources
     var formats: [ExportSettig] = []
     var qualities: [ExportSettig] = []
+    var previewImage: UIImage?
     
+    var phAsset: PHAsset {
+        return imageMergingSources.phAsset
+    }
     
     // MARK: - properties UI
     let phAssetImageView = UIImageView().then {
@@ -42,11 +45,10 @@ class ExportViewController: UIViewController {
     var disposeBag = DisposeBag()
 
     // MARK: - life cycle
-    init(mergedImage: UIImage, phAsset: PHAsset, overlayImageViews: [UIImageView]) {
-        self.phAssetImageView.image = mergedImage
-        self.phAsset = phAsset
-        self.overlayImageViews = overlayImageViews
-        self.exportSettingView = ExportSettingView(frame: .zero, phAsset: phAsset)
+    init(imageMergingSources: ImageMergingSources) {
+        self.imageMergingSources = imageMergingSources
+        self.exportSettingView = ExportSettingView(frame: .zero,
+                                                   phAsset: imageMergingSources.phAsset)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -61,6 +63,7 @@ class ExportViewController: UIViewController {
         bind()
         setupLayout()
         setupNavigationBar()
+        self.phAssetImageView.image = previewImage
     }
     
     override func loadView() {
@@ -79,9 +82,12 @@ class ExportViewController: UIViewController {
         exportButton.addGradientLayer(colors: [.pink, .magenta], direction: .horizontal)
     }
     
-    
     // MARK: - helpers
     func bind() {
+        let mergeAndExportImage = PublishSubject<ImageMergingSources>()
+        let output = viewModel.transform(input: ExportViewModel.Input(phAsset: phAsset,
+                                                                      mergeAndExportImage: mergeAndExportImage.asObservable()))
+        
         exportSettingView.showFixedBottomSheet
             .bind(with: self, onNext: { owner, exportSetting in
                 owner.bottomSheetView.type.accept(exportSetting)
@@ -121,7 +127,19 @@ class ExportViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        let output = viewModel.transform(input: ExportViewModel.Input(phAsset: phAsset))
+        exportButton.rx.tap
+            .bind(with: self, onNext: { owner, _ in
+                mergeAndExportImage.onNext(owner.imageMergingSources)
+            })
+            .disposed(by: disposeBag)
+        
+        output.alert
+            .drive(with: self, onNext: { owner, type in
+                owner.showAlertController(with: type)
+            })
+            .disposed(by: disposeBag)
+        
+        
         self.formats = output.formats
         self.qualities = output.qualities
         
