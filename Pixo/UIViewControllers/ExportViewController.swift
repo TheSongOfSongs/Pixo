@@ -15,8 +15,11 @@ import RxSwift
 class ExportViewController: UIViewController {
     
     // MARK: - properties
+    let viewModel = ExportViewModel()
     let phAsset: PHAsset
     let overlayImageViews: [UIImageView]
+    var formats: [ExportSettig] = []
+    var qualities: [ExportSettig] = []
     
     
     // MARK: - properties UI
@@ -31,10 +34,12 @@ class ExportViewController: UIViewController {
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         $0.setTitle("내보내기 →", for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        
     }
     
+    let bottomSheetView = ExportSettingBottmSheetView(frame: .zero)
+    
     // MARK: - properties Rx
+    var disposeBag = DisposeBag()
 
     // MARK: - life cycle
     init(mergedImage: UIImage, phAsset: PHAsset, overlayImageViews: [UIImageView]) {
@@ -77,7 +82,55 @@ class ExportViewController: UIViewController {
     
     // MARK: - helpers
     func bind() {
+        exportSettingView.showFixedBottomSheet
+            .bind(with: self, onNext: { owner, exportSetting in
+                owner.bottomSheetView.type.accept(exportSetting)
+                
+                let exportSettings: [ExportSettig] = {
+                    switch exportSetting {
+                    case .format:
+                        return owner.formats
+                    case .quality:
+                        return owner.qualities
+                    }
+                }()
+                owner.bottomSheetView.exportSettings.accept(exportSettings)
+                owner.showBottomSheetView()
+            })
+            .disposed(by: disposeBag)
         
+        bottomSheetView.closeButton.rx.tap
+            .bind(with: self, onNext: { owner, _ in
+                owner.hideBottomSheetView()
+            })
+            .disposed(by: disposeBag)
+        
+        bottomSheetView.selectedExportSetting
+            .bind(with: self, onNext: { owner, result in
+                let setting = result.0
+                let type = result.1
+                
+                switch type {
+                case .format:
+                    owner.exportSettingView.selectedFormat.onNext(setting)
+                case .quality:
+                    owner.exportSettingView.selectedQuality.onNext(setting)
+                }
+                
+                owner.hideBottomSheetView()
+            })
+            .disposed(by: disposeBag)
+        
+        let output = viewModel.transform(input: ExportViewModel.Input(phAsset: phAsset))
+        self.formats = output.formats
+        self.qualities = output.qualities
+        
+        // 초기값 세팅
+        exportSettingView.selectedFormat
+            .onNext(formats[0])
+        
+        exportSettingView.selectedQuality
+            .onNext(qualities[0])
     }
     
     func setupNavigationBar() {
