@@ -13,35 +13,45 @@ import RxCocoa
 class PhotoPickerViewModel: ViewModel {
     
     struct Input {
-        var fetchAlbums: Observable<Void>
+        let fetchAlbums: Observable<Void>
         let fetchPHAssetImage: Observable<(PHAsset, CGSize)>
+        let updateAlbums: Observable<PHChange>
     }
     
     struct Output {
-        var albums: Observable<[AlbumSection]>
+        let albums: Observable<[AlbumSection]>
         let phAssetImageprogress: Driver<Double>
         let phAssetImage: Driver<UIImage?>
         let checkiCloudPHAssetImage: Driver<Bool>
     }
     
-    // MARK: properties
-    var disposeBag = DisposeBag()
-    
+    // MARK: - properties
     private let albumsManager = AlbumsManager()
     private let photosManager = PhotosManager()
-    
-    private let albumSectionsRelay = PublishRelay<[AlbumSection]>()
-    
     private var allPhotosResult: PHFetchResult<PHAsset> = PHFetchResult()
     private var smartAlbumsResult: PHFetchResult<PHAssetCollection> = PHFetchResult()
     private var userCollectionAlbumsResult: PHFetchResult<PHAssetCollection> = PHFetchResult()
     
+    // MARK: - properties Rx
+    var disposeBag = DisposeBag()
+    private let albumSectionsRelay = PublishRelay<[AlbumSection]>()
     
-    // MARK: -
+    // MARK: - life cycle
+    deinit {
+        disposeBag = DisposeBag()
+    }
+    
+    // MARK: - helpers
     func transform(input: Input) -> Output {
         input.fetchAlbums
             .subscribe(with: self, onNext: { owner, _ in
                 owner.fetchAlbumSections()
+            })
+            .disposed(by: disposeBag)
+        
+        input.updateAlbums
+            .subscribe(with: self, onNext: { owner, change in
+                owner.updateAlbums(with: change)
             })
             .disposed(by: disposeBag)
         
@@ -55,7 +65,7 @@ class PhotoPickerViewModel: ViewModel {
     }
     
     /// PhotosManager를 통해 앨범 리스트를 가져옵니다
-    func fetchAlbumSections() {
+    private func fetchAlbumSections() {
         let albumSections = [AlbumSection(type: .allPhotos, items: fetchAlbums(with: .allPhotos)),
                              AlbumSection(type: .smartAlbums, items: fetchAlbums(with: .smartAlbums)),
                              AlbumSection(type: .userCollections, items: fetchAlbums(with: .userCollections))
@@ -64,6 +74,7 @@ class PhotoPickerViewModel: ViewModel {
         albumSectionsRelay.accept(albumSections)
     }
     
+    /// 앨범 타입에 따른 앨범 리스트를 가져옵니다
     private func fetchAlbums(with type: AlbumType) -> [Album] {
         switch type {
         case .allPhotos:
@@ -112,7 +123,8 @@ class PhotoPickerViewModel: ViewModel {
         return albums
     }
     
-    func updateAlbums(with changeInstance: PHChange) {
+    /// 기기에 사진이 추가되거나 삭제 되는 등의 업데이트가 생겼을 때 반영합니다.
+    private func updateAlbums(with changeInstance: PHChange) {
         // allPhotos
         if let changeDetails = changeInstance.changeDetails(for: allPhotosResult) {
             allPhotosResult = changeDetails.fetchResultAfterChanges
@@ -123,7 +135,7 @@ class PhotoPickerViewModel: ViewModel {
             smartAlbumsResult = changeDetails.fetchResultAfterChanges
         }
         
-        // userCollections// smartAlbums
+        // userCollections
         if let changeDetails = changeInstance.changeDetails(for: userCollectionAlbumsResult) {
             userCollectionAlbumsResult = changeDetails.fetchResultAfterChanges
         }

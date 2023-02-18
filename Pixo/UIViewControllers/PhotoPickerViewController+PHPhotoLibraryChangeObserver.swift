@@ -10,13 +10,16 @@ import Photos
 
 extension PhotoPickerViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        if let changes = changeInstance.changeDetails(for: selectedAlbumPHAsset) {
-            DispatchQueue.main.sync {
+        // 백그라운드에서 호출되므로 메인쓰레드 실행 필요
+        DispatchQueue.main.sync {
+            if let changes = changeInstance.changeDetails(for: selectedAlbumPHAsset) {
+                // 선택된 앨범의 사진 리스트 업데이트
                 updateCollectionView(changes: changes)
             }
         }
         
-        viewModel.updateAlbums(with: changeInstance)
+        // 앨범 리스트 업데이트
+        updateAlbums.onNext(changeInstance)
     }
     
     func updateCollectionView(changes: PHFetchResultChangeDetails<PHAsset>) {

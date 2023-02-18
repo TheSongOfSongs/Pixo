@@ -39,6 +39,7 @@ class PhotoPickerViewController: UIViewController {
                                                                         title: ""),
                                                                   false))
     let pushOverlayImageViewControllerSubject = PublishSubject<(PHAsset, CGSize)>()
+    let updateAlbums = PublishSubject<PHChange>()
     
     var selectedAlbum: Album {
         return selectedAlbumRelay.value.0
@@ -46,6 +47,7 @@ class PhotoPickerViewController: UIViewController {
     var selectedAlbumPHAsset: PHFetchResult<PHAsset> {
         return selectedAlbum.phFetchResult
     }
+    
     
     var phAsset: PHAsset?
     
@@ -155,7 +157,8 @@ class PhotoPickerViewController: UIViewController {
             .disposed(by: disposeBag)
         
         let input = PhotoPickerViewModel.Input(fetchAlbums: fetchAlbumsSubject.asObservable(),
-                                               fetchPHAssetImage: pushOverlayImageViewControllerSubject.asObservable())
+                                               fetchPHAssetImage: pushOverlayImageViewControllerSubject.asObservable(),
+                                               updateAlbums: updateAlbums.asObservable())
         let output = viewModel.transform(input: input)
         
         // output
