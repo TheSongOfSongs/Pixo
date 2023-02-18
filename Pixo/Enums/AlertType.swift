@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Alert 창에 들어갈 문구와 버튼 타입을 정의합니다.
 enum AlertType {
     case successToSavePhoto
     case failToFetchFromStorage
