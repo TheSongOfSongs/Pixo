@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 배경이미지와 오버레이 이미지를 합성하여 앨범에 추가하는 기능을 담당합니다.
 struct ExportManager {
     
     // MARK: - properties
@@ -66,6 +67,7 @@ struct ExportManager {
             overlayImage.draw(in: frame)
         }
         
+        // 3. 이미지 추출
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         

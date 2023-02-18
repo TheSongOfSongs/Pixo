@@ -18,16 +18,19 @@ final class AlbumsManager {
     }
     
     // MARK: -
+    /// 모든 사진을 가져옵니다.
     func fetchAllPhotos() -> PHFetchResult<PHAsset> {
         return PHAsset.fetchAssets(with: imageFetchingOptions)
     }
     
+    /// 앨범 타입에 따른 앨범리스트를 가져옵니다.
     func fetchAlbums(with type: PHAssetCollectionType) -> PHFetchResult<PHAssetCollection> {
         return PHAssetCollection.fetchAssetCollections(with: type,
                                                        subtype: .albumRegular,
                                                        options: nil)
     }
     
+    /// 앨범의 사진 리스트를 가져옵니다.
     func fetchPhotos(in collection: PHAssetCollection) -> PHFetchResult<PHAsset> {
         return PHAsset.fetchAssets(in: collection, options: imageFetchingOptions)
     }
