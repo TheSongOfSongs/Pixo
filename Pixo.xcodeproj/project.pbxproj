@@ -30,12 +30,13 @@
 		766EFCA229A12E0D00D21021 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA129A12E0D00D21021 /* ExportViewModel.swift */; };
 		766EFCA429A132B000D21021 /* ExportSettingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */; };
 		766EFCA629A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */; };
-		766EFCA929A13ED500D21021 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCA829A13ED500D21021 /* Typealias.swift */; };
 		766EFCAB29A144BE00D21021 /* ExportSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCAA29A144BE00D21021 /* ExportSetting.swift */; };
 		766EFCAD29A1452300D21021 /* ExportSettingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCAC29A1452300D21021 /* ExportSettingType.swift */; };
 		766EFCAF29A1456400D21021 /* Quality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCAE29A1456400D21021 /* Quality.swift */; };
 		766EFCB129A145A800D21021 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB029A145A800D21021 /* Format.swift */; };
 		766EFCB329A146C600D21021 /* ImageFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB229A146C600D21021 /* ImageFormatType.swift */; };
+		766EFCB529A14AAE00D21021 /* ImageMergingSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB429A14AAE00D21021 /* ImageMergingSources.swift */; };
+		766EFCB729A14E2C00D21021 /* ImageExportSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB629A14E2C00D21021 /* ImageExportSources.swift */; };
 		7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */; };
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
@@ -118,12 +119,13 @@
 		766EFCA129A12E0D00D21021 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
 		766EFCA329A132B000D21021 /* ExportSettingDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingDetailTableViewCell.swift; sourceTree = "<group>"; };
 		766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportSettingBottomSheetView+UITableView.swift"; sourceTree = "<group>"; };
-		766EFCA829A13ED500D21021 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		766EFCAA29A144BE00D21021 /* ExportSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSetting.swift; sourceTree = "<group>"; };
 		766EFCAC29A1452300D21021 /* ExportSettingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingType.swift; sourceTree = "<group>"; };
 		766EFCAE29A1456400D21021 /* Quality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quality.swift; sourceTree = "<group>"; };
 		766EFCB029A145A800D21021 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		766EFCB229A146C600D21021 /* ImageFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormatType.swift; sourceTree = "<group>"; };
+		766EFCB429A14AAE00D21021 /* ImageMergingSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergingSources.swift; sourceTree = "<group>"; };
+		766EFCB629A14E2C00D21021 /* ImageExportSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExportSources.swift; sourceTree = "<group>"; };
 		7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
@@ -233,6 +235,8 @@
 				76090BC8299A882C00F204B6 /* SVGImageSection.swift */,
 				766EFCAE29A1456400D21021 /* Quality.swift */,
 				766EFCB029A145A800D21021 /* Format.swift */,
+				766EFCB429A14AAE00D21021 /* ImageMergingSources.swift */,
+				766EFCB629A14E2C00D21021 /* ImageExportSources.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,7 +279,6 @@
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
 				7697F20E29A0B45000BF8F54 /* Constants.swift */,
-				766EFCA829A13ED500D21021 /* Typealias.swift */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
 				76FC374C2995F99100033A4B /* LaunchScreen.storyboard */,
 				76FC374F2995F99100033A4B /* Info.plist */,
@@ -680,11 +683,11 @@
 				7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */,
 				7697F20729A0ABC000BF8F54 /* ExportViewController.swift in Sources */,
 				76FC378729963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift in Sources */,
-				766EFCA929A13ED500D21021 /* Typealias.swift in Sources */,
 				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
 				76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */,
 				766EFCB329A146C600D21021 /* ImageFormatType.swift in Sources */,
 				76090BAA299A0B1000F204B6 /* OverlayImageViewController.swift in Sources */,
+				766EFCB529A14AAE00D21021 /* ImageMergingSources.swift in Sources */,
 				7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */,
 				76FC3778299609CA00033A4B /* PhotoPickerTitleView.swift in Sources */,
 				76FC37DC29972C5200033A4B /* PhotoCollectionViewCell.swift in Sources */,
@@ -704,6 +707,7 @@
 				7697F20929A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift in Sources */,
 				76090BCB299A884D00F204B6 /* SVGImage.swift in Sources */,
 				76B62611299D03E30091D981 /* IdentifiableImageView.swift in Sources */,
+				766EFCB729A14E2C00D21021 /* ImageExportSources.swift in Sources */,
 				766EFCAF29A1456400D21021 /* Quality.swift in Sources */,
 				7697F21329A0BB7500BF8F54 /* ExportSettingView.swift in Sources */,
 				7697F21529A0BDD500BF8F54 /* ExportSettingTableViewCell.swift in Sources */,

@@ -16,7 +16,7 @@ class ExportViewController: UIViewController {
     
     // MARK: - properties
     let viewModel = ExportViewModel()
-    let imageMergingSources: ImageMergingSources
+    var imageMergingSources: ImageMergingSources
     var formats: [ExportSetting] = []
     var qualities: [ExportSetting] = []
     var previewImage: UIImage?
