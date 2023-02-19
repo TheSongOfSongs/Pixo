@@ -9,10 +9,13 @@ import Foundation
 import Photos
 
 import FirebaseStorage
-import RxSwift
 import RxCocoa
+import RxDataSources
+import RxSwift
 
 class OverlayImageViewModel: ViewModel {
+    
+    typealias DataSource = RxCollectionViewSectionedReloadDataSource<SVGImageSection>
     
     struct Input {
         var fetchSVGImageSections: Observable<Void>
@@ -28,6 +31,22 @@ class OverlayImageViewModel: ViewModel {
     var disposeBag = DisposeBag()
     private let svgImageSections = BehaviorRelay<[SVGImageSection]>(value: [])
     private let alert = PublishSubject<AlertType>()
+    
+    /// overlayImageCollectionView dataSource
+    var dataSource: DataSource {
+        return DataSource(configureCell: { dataSource, collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier,
+                                                                for: indexPath) as? ImageCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            
+            Task {
+                await cell.imageView.setSVGImage(with: item)
+            }
+            
+            return cell
+        })
+    }
     
     // MARK: - properties
     let svgImageManager = SVGImageManager()

@@ -16,7 +16,7 @@ import RxSwift
 
 class OverlayImageViewController: UIViewController {
     
-    typealias DataSource = RxCollectionViewSectionedReloadDataSource<SVGImageSection>
+    
     
     // MARK: properties
     let viewModel = OverlayImageViewModel()
@@ -32,21 +32,7 @@ class OverlayImageViewController: UIViewController {
     var disposeBag = DisposeBag()
     let fetchPHAssetImage = PublishSubject<FetchingPHAssetImageSource>()
     
-    /// overlayImageCollectionView dataSource
-    var dataSource: DataSource {
-        return DataSource(configureCell: { dataSource, collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier,
-                                                                for: indexPath) as? ImageCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            Task {
-                await cell.imageView.setSVGImage(with: item)
-            }
-            
-            return cell
-        })
-    }
+    
     
     // MARK: - properties UI
     let topView = UIView().then {
@@ -127,7 +113,7 @@ class OverlayImageViewController: UIViewController {
             .share()
         
         svgImageSections
-            .bind(to: overlayImageCollectionView.rx.items(dataSource: self.dataSource))
+            .bind(to: overlayImageCollectionView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
         
         svgImageSections
