@@ -6,16 +6,12 @@
 //
 
 import UIKit
-import Kingfisher
 import SVGKit
 
 final class IdentifiableImageView: UIImageView {
     
     /// ReusableView에서 발생하는 이미지 깜빡임 이슈를 막기 위한 identifier
     var urlString: String?
-    
-    /// URL로부터 받아온 데이터를 svg 이미지로 가공하기 위한 processor
-    lazy var processor = SVGImgProcessor(identifier: urlString ?? "")
     
     /// 캐싱된 이미지가 있으면 사용하고, 없으면 URL로부터 데이터를 받아와 svg 이미지를 할당 후 캐싱처리합니다.
     func setSVGImage(with svgImage: SVGImage) async {

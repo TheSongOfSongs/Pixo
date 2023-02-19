@@ -7,7 +7,6 @@ target 'Pixo' do
 
   # Pods for Pixo
   pod 'FirebaseUI/Storage'
-  pod 'Kingfisher'
   pod 'RxCocoa', '6.5.0'
   pod 'RxDataSources'
   pod 'RxSwift', '6.5.0'

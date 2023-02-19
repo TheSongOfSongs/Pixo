@@ -30,7 +30,6 @@ PODS:
     - GoogleUtilities/Environment
   - "GoogleUtilities/NSData+zlib (7.10.0)"
   - GTMSessionFetcher/Core (3.0.0)
-  - Kingfisher (7.5.0)
   - PromisesObjC (2.1.1)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -52,7 +51,6 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseUI/Storage
-  - Kingfisher
   - RxCocoa (= 6.5.0)
   - RxDataSources
   - RxSwift (= 6.5.0)
@@ -74,7 +72,6 @@ SPEC REPOS:
     - FirebaseUI
     - GoogleUtilities
     - GTMSessionFetcher
-    - Kingfisher
     - PromisesObjC
     - RxCocoa
     - RxDataSources
@@ -98,7 +95,6 @@ SPEC CHECKSUMS:
   FirebaseUI: e9a2dd42f5b593cd8b6e64c11d30ded38f30e48c
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
-  Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
@@ -109,6 +105,6 @@ SPEC CHECKSUMS:
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: a93f1c84b44d56fc010a775c5161dc3fa176bdd3
+PODFILE CHECKSUM: a8d226973c28c1f3ebf629e927e61a35d69d4d6a
 
 COCOAPODS: 1.11.3
