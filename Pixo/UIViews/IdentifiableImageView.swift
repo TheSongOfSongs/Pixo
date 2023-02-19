@@ -6,15 +6,12 @@
 //
 
 import UIKit
-import Kingfisher
+import SVGKit
 
 final class IdentifiableImageView: UIImageView {
     
     /// ReusableView에서 발생하는 이미지 깜빡임 이슈를 막기 위한 identifier
     var urlString: String?
-    
-    /// URL로부터 받아온 데이터를 svg 이미지로 가공하기 위한 processor
-    lazy var processor = SVGImgProcessor(identifier: urlString ?? "")
     
     /// 캐싱된 이미지가 있으면 사용하고, 없으면 URL로부터 데이터를 받아와 svg 이미지를 할당 후 캐싱처리합니다.
     func setSVGImage(with svgImage: SVGImage) async {
@@ -34,16 +31,23 @@ final class IdentifiableImageView: UIImageView {
             return
         }
         
-        // identifier로 원하는 이미지 뷰가 맞는지 확인 (cell 재사용으로 인한 깜빡임 이슈고려)
-        guard self.urlString == urlString else {
-            return
-        }
-        
-        kf.setImage(with: url, options: [.processor(processor)]) { result in
-            switch result {
-            case .success(let result):
-                ImageCacheManager.shared.setObject(result.image, forKey: NSString(string: urlString))
-            case .failure(let error):
+        Task {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                
+                guard let image = SVGKImage(data: data)?.uiImage else {
+                    return
+                }
+                
+                ImageCacheManager.shared.setObject(image, forKey: NSString(string: url.absoluteString))
+                
+                // identifier로 원하는 이미지 뷰가 맞는지 확인 (cell 재사용으로 인한 깜빡임 이슈고려)
+                guard self.urlString == url.absoluteString else {
+                    return
+                }
+                
+                self.image = image
+            } catch let error {
                 NSLog("❗️ error ==> \(error.localizedDescription)")
             }
         }

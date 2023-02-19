@@ -52,7 +52,6 @@
 		76A4952B29977A1200923CF9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952A29977A1200923CF9 /* Album.swift */; };
 		76A4952F2997B24800923CF9 /* AlbumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4952E2997B24800923CF9 /* AlbumSection.swift */; };
 		76A495312997BBBF00923CF9 /* AlbumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A495302997BBBF00923CF9 /* AlbumType.swift */; };
-		76B6260F299D02840091D981 /* SVGImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B6260E299D02840091D981 /* SVGImageProcessor.swift */; };
 		76B62611299D03E30091D981 /* IdentifiableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B62610299D03E30091D981 /* IdentifiableImageView.swift */; };
 		76B62619299E64540091D981 /* URLCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B62618299E64540091D981 /* URLCacheManager.swift */; };
 		76FC37422995F99000033A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC37412995F99000033A4B /* AppDelegate.swift */; };
@@ -142,7 +141,6 @@
 		76A4952A29977A1200923CF9 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		76A4952E2997B24800923CF9 /* AlbumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSection.swift; sourceTree = "<group>"; };
 		76A495302997BBBF00923CF9 /* AlbumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumType.swift; sourceTree = "<group>"; };
-		76B6260E299D02840091D981 /* SVGImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageProcessor.swift; sourceTree = "<group>"; };
 		76B62610299D03E30091D981 /* IdentifiableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableImageView.swift; sourceTree = "<group>"; };
 		76B62618299E64540091D981 /* URLCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCacheManager.swift; sourceTree = "<group>"; };
 		76FC373E2995F99000033A4B /* Pixo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,7 +425,6 @@
 				766EFCBA29A20ACA00D21021 /* ImageCacheManager.swift */,
 				76090BCE299B373F00F204B6 /* PhotosManager.swift */,
 				76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */,
-				76B6260E299D02840091D981 /* SVGImageProcessor.swift */,
 				76B62618299E64540091D981 /* URLCacheManager.swift */,
 				7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */,
 			);
@@ -714,7 +711,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				76090BD3299B58BE00F204B6 /* UIImageView+Extension.swift in Sources */,
-				76B6260F299D02840091D981 /* SVGImageProcessor.swift in Sources */,
 				7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */,
 				7697F1FD29A07EAC00BF8F54 /* ExportManager.swift in Sources */,
 				76090BA02997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift in Sources */,

@@ -9,7 +9,6 @@ import UIKit
 import Photos
 
 import FirebaseStorage
-import Kingfisher
 import RxCocoa
 import RxDataSources
 import RxSwift

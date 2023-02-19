@@ -9,7 +9,6 @@ import UIKit
 import Photos
 
 import RxCocoa
-import RxDataSources
 import RxSwift
 
 class ExportViewController: UIViewController {
