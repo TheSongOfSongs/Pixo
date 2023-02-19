@@ -16,16 +16,20 @@ class ExportViewController: UIViewController {
     
     // MARK: - properties
     let viewModel = ExportViewModel()
-    var imageMergingSources: ImageMergingSources
+    let imageMergingSources: ImageMergingSources
     var formats: [ExportSetting] = []
     var qualities: [ExportSetting] = []
-    var previewImage: UIImage?
-    var selectedFormat: ExportSetting?
-    var selectedQuality: ExportSetting?
     
     var phAsset: PHAsset {
         return imageMergingSources.phAsset
     }
+    
+    // MARK: - properties Rx
+    let setSelectedFormat = PublishRelay<ExportSetting>()
+    let setSelectedQuality = PublishRelay<ExportSetting>()
+    
+    lazy var selectedFormat = setSelectedFormat.share()
+    lazy var selectedQuality = setSelectedQuality.share()
     
     // MARK: - properties UI
     let phAssetImageView = UIImageView().then {
@@ -47,11 +51,11 @@ class ExportViewController: UIViewController {
     var disposeBag = DisposeBag()
 
     // MARK: - life cycle
-    init(imageMergingSources: ImageMergingSources) {
+    init(imageMergingSources: ImageMergingSources, previewImage: UIImage) {
         self.imageMergingSources = imageMergingSources
         self.exportSettingView = ExportSettingView(frame: .zero,
                                                    phAsset: imageMergingSources.phAsset)
-        
+        self.phAssetImageView.image = previewImage
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,7 +69,6 @@ class ExportViewController: UIViewController {
         bind()
         setupLayout()
         setupNavigationBar()
-        self.phAssetImageView.image = previewImage
     }
     
     override func loadView() {
@@ -87,15 +90,16 @@ class ExportViewController: UIViewController {
     // MARK: - helpers
     func bind() {
         let mergeAndExportImage = PublishSubject<ImageMergingSources>()
-        let exportOptions = PublishSubject<(Format?, Quality?)>()
         let output = viewModel.transform(input: ExportViewModel.Input(phAsset: phAsset,
                                                                       mergeAndExportImage: mergeAndExportImage.asObservable(),
-                                                                      exportOptions: exportOptions.asObservable()))
+                                                                      format: selectedFormat.map({ $0 as? Format }),
+                                                                      quality: selectedQuality.map({ $0 as? Quality })))
+        
+        formats = output.formats
+        qualities = output.qualities
         
         exportSettingView.showFixedBottomSheet
             .bind(with: self, onNext: { owner, type in
-                owner.bottomSheetView.type.accept(type)
-                
                 let settings: [ExportSetting] = {
                     switch type {
                     case .format:
@@ -106,6 +110,7 @@ class ExportViewController: UIViewController {
                 }()
                 
                 owner.bottomSheetView.exportSettings.accept(settings)
+                owner.bottomSheetView.type.accept(type)
                 owner.showBottomSheetView()
             })
             .disposed(by: disposeBag)
@@ -123,14 +128,10 @@ class ExportViewController: UIViewController {
                 
                 switch type {
                 case .format:
-                    owner.exportSettingView.selectedFormat.onNext(setting)
-                    owner.selectedFormat = setting as? Format
+                    owner.setSelectedFormat.accept(setting)
                 case .quality:
-                    owner.exportSettingView.selectedQuality.onNext(setting)
-                    owner.selectedQuality = setting as? Quality
+                    owner.setSelectedQuality.accept(setting)
                 }
-                
-                exportOptions.onNext((owner.selectedFormat as? Format, owner.selectedQuality as? Quality))
                 
                 owner.hideBottomSheetView()
             })
@@ -148,19 +149,17 @@ class ExportViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        selectedQuality
+            .bind(to: exportSettingView.selectedQuality)
+            .disposed(by: disposeBag)
         
-        self.formats = output.formats
-        self.qualities = output.qualities
+        selectedFormat
+            .bind(to: exportSettingView.selectedFormat)
+            .disposed(by: disposeBag)
         
         // 초기값 세팅
-        exportSettingView.selectedFormat
-            .onNext(formats[0])
-        
-        exportSettingView.selectedQuality
-            .onNext(qualities[1])
-        
-        self.selectedFormat = formats[0]
-        self.selectedQuality = qualities[1]
+        setSelectedFormat.accept(formats[0])
+        setSelectedQuality.accept(qualities[1])
     }
     
     func setupNavigationBar() {

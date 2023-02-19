@@ -100,7 +100,7 @@ class OverlayImageViewController: UIViewController {
         self.view = view
     }
     
-    // MARK: -
+    // MARK: - helpers
     func bind() {
         /// 추가 데이터 로딩 중인지 판별하는 flag 값
         var isFetchingMore = false
@@ -154,10 +154,8 @@ class OverlayImageViewController: UIViewController {
                                                   backgroundImageView: owner.phAssetImageView,
                                                   overlayImageViews: owner.overlayImageViews)
                 
-                let exportViewController = ExportViewController(imageMergingSources: sources).then {
-                    $0.previewImage = previewImage
-                }
-                
+                let exportViewController = ExportViewController(imageMergingSources: sources,
+                                                                previewImage: previewImage)
                 owner.navigationController?.pushViewController(exportViewController, animated: true)
             })
             .disposed(by: disposeBag)

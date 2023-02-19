@@ -11,8 +11,6 @@ import RxCocoa
 
 class ExportSettingBottmSheetView: UIView {
     
-    // MARK: - properties
-    
     // MARK: - properties Rx
     var disposeBag = DisposeBag()
     let type = BehaviorRelay<ExportSettingType>(value: .format)
@@ -35,13 +33,15 @@ class ExportSettingBottmSheetView: UIView {
         $0.isScrollEnabled = false
     }
     
+    // MARK: - life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        makeUpperCornerRounded(radius: 15)
         
+        makeUpperCornerRounded(radius: 15)
         exportSettingsTableView.dataSource = self
         exportSettingsTableView.delegate = self
         backgroundColor = .systemBackground
+        
         setupLayout()
         bind()
     }
