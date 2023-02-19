@@ -17,6 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         let navigationVC = UINavigationController(rootViewController: PhotoPickerViewController())
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationVC.navigationItem.backBarButtonItem = backBarButtonItem
         navigationVC.isNavigationBarHidden = true
         navigationVC.navigationBar.tintColor = .black
         window?.rootViewController = navigationVC

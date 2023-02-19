@@ -172,8 +172,6 @@ class OverlayImageViewController: UIViewController {
                     $0.previewImage = previewImage
                 }
                 
-                let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: owner, action: nil)
-                owner.navigationItem.backBarButtonItem = backBarButtonItem
                 owner.navigationController?.pushViewController(exportViewController, animated: true)
             })
             .disposed(by: disposeBag)
