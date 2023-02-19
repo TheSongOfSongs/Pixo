@@ -422,11 +422,11 @@
 			isa = PBXGroup;
 			children = (
 				76FC3792299649AF00033A4B /* AlbumsManager.swift */,
+				7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */,
 				766EFCBA29A20ACA00D21021 /* ImageCacheManager.swift */,
 				76090BCE299B373F00F204B6 /* PhotosManager.swift */,
 				76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */,
 				76B62618299E64540091D981 /* URLCacheManager.swift */,
-				7697F1FC29A07EAC00BF8F54 /* ExportManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
