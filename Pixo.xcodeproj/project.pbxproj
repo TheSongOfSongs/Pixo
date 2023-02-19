@@ -228,6 +228,73 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		766EFCBE29A2146200D21021 /* PhotoPickerTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */,
+				76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */,
+			);
+			path = PhotoPickerTitleView;
+			sourceTree = "<group>";
+		};
+		766EFCBF29A2147000D21021 /* ProgressCircleView */ = {
+			isa = PBXGroup;
+			children = (
+				7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */,
+				7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */,
+			);
+			path = ProgressCircleView;
+			sourceTree = "<group>";
+		};
+		766EFCC029A2148500D21021 /* ExportSettingBottomSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				766EFC9D29A1235600D21021 /* ExportSettingBottmSheetView.swift */,
+				766EFC9F29A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift */,
+				766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */,
+			);
+			path = ExportSettingBottomSheetView;
+			sourceTree = "<group>";
+		};
+		766EFCC129A2149400D21021 /* ExportSettingView */ = {
+			isa = PBXGroup;
+			children = (
+				7697F21229A0BB7500BF8F54 /* ExportSettingView.swift */,
+				7697F21E29A0F5C900BF8F54 /* ExportSettingView+SettingUpView.swift */,
+				7697F22029A0F5E600BF8F54 /* ExportSettingView+UITableView.swift */,
+			);
+			path = ExportSettingView;
+			sourceTree = "<group>";
+		};
+		766EFCC229A214A500D21021 /* ExportViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7697F20629A0ABC000BF8F54 /* ExportViewController.swift */,
+				7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */,
+			);
+			path = ExportViewController;
+			sourceTree = "<group>";
+		};
+		766EFCC329A214B100D21021 /* PhotoPickerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
+				76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */,
+				76090B9F2997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift */,
+				76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */,
+			);
+			path = PhotoPickerViewController;
+			sourceTree = "<group>";
+		};
+		766EFCC429A214CC00D21021 /* OverlayImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				76090BA9299A0B1000F204B6 /* OverlayImageViewController.swift */,
+				76090BAB299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift */,
+			);
+			path = OverlayImageViewController;
+			sourceTree = "<group>";
+		};
 		76A4952929977A0100923CF9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,19 +335,19 @@
 		76FC37402995F99000033A4B /* Pixo */ = {
 			isa = PBXGroup;
 			children = (
+				7697F20E29A0B45000BF8F54 /* Constants.swift */,
 				76FC37D729972B5200033A4B /* Enums */,
 				76FC377B29960A2000033A4B /* Extensions */,
 				76A4952929977A0100923CF9 /* Models */,
 				76FC37712996078C00033A4B /* Protocols */,
-				76FC3791299647E000033A4B /* Utils */,
 				76FC37DA29972C3E00033A4B /* UICollectionViewCells */,
 				76FC37DD29972C6100033A4B /* UITableViewCells */,
 				76FC37742996098300033A4B /* UIViews */,
 				76FC37882996430D00033A4B /* UIViewControllers */,
+				76FC3791299647E000033A4B /* Utils */,
 				76FC37D02996577D00033A4B /* ViewModels */,
 				76FC37412995F99000033A4B /* AppDelegate.swift */,
 				76FC37432995F99000033A4B /* SceneDelegate.swift */,
-				7697F20E29A0B45000BF8F54 /* Constants.swift */,
 				76FC374A2995F99100033A4B /* Assets.xcassets */,
 				76FC374C2995F99100033A4B /* LaunchScreen.storyboard */,
 				76FC374F2995F99100033A4B /* Info.plist */,
@@ -319,18 +386,12 @@
 		76FC37742996098300033A4B /* UIViews */ = {
 			isa = PBXGroup;
 			children = (
+				766EFCC129A2149400D21021 /* ExportSettingView */,
+				766EFCC029A2148500D21021 /* ExportSettingBottomSheetView */,
 				76B62610299D03E30091D981 /* IdentifiableImageView.swift */,
-				76FC3777299609CA00033A4B /* PhotoPickerTitleView.swift */,
-				76FC378629963BD400033A4B /* PhotoPickerTitleView+SettingUpView.swift */,
+				766EFCBE29A2146200D21021 /* PhotoPickerTitleView */,
 				7697F1FA299E983F00BF8F54 /* PieProgressView.swift */,
-				7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */,
-				7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */,
-				766EFC9D29A1235600D21021 /* ExportSettingBottmSheetView.swift */,
-				766EFC9F29A1236800D21021 /* ExportSettingBottomSheetView+SettingUpView.swift */,
-				766EFCA529A1354F00D21021 /* ExportSettingBottomSheetView+UITableView.swift */,
-				7697F21229A0BB7500BF8F54 /* ExportSettingView.swift */,
-				7697F21E29A0F5C900BF8F54 /* ExportSettingView+SettingUpView.swift */,
-				7697F22029A0F5E600BF8F54 /* ExportSettingView+UITableView.swift */,
+				766EFCBF29A2147000D21021 /* ProgressCircleView */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -352,14 +413,9 @@
 		76FC37882996430D00033A4B /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				7697F20629A0ABC000BF8F54 /* ExportViewController.swift */,
-				7697F20829A0ABCD00BF8F54 /* ExportViewController+SettingUpView.swift */,
-				76FC37452995F99000033A4B /* PhotoPickerViewController.swift */,
-				76FC37892996432500033A4B /* PhotoPickerViewController+SettingUpView.swift */,
-				76090B9F2997D2EC00F204B6 /* PhotoPickerViewController+UICollectionView.swift */,
-				76090BA32998FF5400F204B6 /* PhotoPickerViewController+PHPhotoLibraryChangeObserver.swift */,
-				76090BA9299A0B1000F204B6 /* OverlayImageViewController.swift */,
-				76090BAB299A0B3500F204B6 /* OverlayImageViewController+SettingUpView.swift */,
+				766EFCC229A214A500D21021 /* ExportViewController */,
+				766EFCC429A214CC00D21021 /* OverlayImageViewController */,
+				766EFCC329A214B100D21021 /* PhotoPickerViewController */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -382,8 +438,8 @@
 			isa = PBXGroup;
 			children = (
 				766EFCA129A12E0D00D21021 /* ExportViewModel.swift */,
-				76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */,
 				76090BC6299A878600F204B6 /* OverlayImageViewModel.swift */,
+				76FC37D12996579A00033A4B /* PhotoPickerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
