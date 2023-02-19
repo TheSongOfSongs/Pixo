@@ -37,6 +37,7 @@
 		766EFCB329A146C600D21021 /* ImageFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB229A146C600D21021 /* ImageFormatType.swift */; };
 		766EFCB529A14AAE00D21021 /* ImageMergingSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB429A14AAE00D21021 /* ImageMergingSources.swift */; };
 		766EFCB729A14E2C00D21021 /* ImageExportSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCB629A14E2C00D21021 /* ImageExportSources.swift */; };
+		766EFCBB29A20ACA00D21021 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EFCBA29A20ACA00D21021 /* ImageCacheManager.swift */; };
 		7697F1F7299E958700BF8F54 /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */; };
 		7697F1F9299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */; };
 		7697F1FB299E983F00BF8F54 /* PieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7697F1FA299E983F00BF8F54 /* PieProgressView.swift */; };
@@ -126,6 +127,7 @@
 		766EFCB229A146C600D21021 /* ImageFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormatType.swift; sourceTree = "<group>"; };
 		766EFCB429A14AAE00D21021 /* ImageMergingSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergingSources.swift; sourceTree = "<group>"; };
 		766EFCB629A14E2C00D21021 /* ImageExportSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExportSources.swift; sourceTree = "<group>"; };
+		766EFCBA29A20ACA00D21021 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		7697F1F6299E958700BF8F54 /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		7697F1F8299E95AF00BF8F54 /* ProgressCircleView+SettingUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressCircleView+SettingUpView.swift"; sourceTree = "<group>"; };
 		7697F1FA299E983F00BF8F54 /* PieProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressView.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				76FC3792299649AF00033A4B /* AlbumsManager.swift */,
+				766EFCBA29A20ACA00D21021 /* ImageCacheManager.swift */,
 				76090BCE299B373F00F204B6 /* PhotosManager.swift */,
 				76090BE0299CC0AA00F204B6 /* SVGImageManager.swift */,
 				76B6260E299D02840091D981 /* SVGImageProcessor.swift */,
@@ -686,6 +689,7 @@
 				76FC37D22996579A00033A4B /* PhotoPickerViewModel.swift in Sources */,
 				76FC3793299649AF00033A4B /* AlbumsManager.swift in Sources */,
 				766EFCB329A146C600D21021 /* ImageFormatType.swift in Sources */,
+				766EFCBB29A20ACA00D21021 /* ImageCacheManager.swift in Sources */,
 				76090BAA299A0B1000F204B6 /* OverlayImageViewController.swift in Sources */,
 				766EFCB529A14AAE00D21021 /* ImageMergingSources.swift in Sources */,
 				7697F20F29A0B45000BF8F54 /* Constants.swift in Sources */,
