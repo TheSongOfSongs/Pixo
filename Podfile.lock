@@ -51,10 +51,10 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseUI/Storage
-  - RxCocoa (= 6.5.0)
+  - RxCocoa
   - RxDataSources
-  - RxSwift (= 6.5.0)
-  - SnapKit (~> 5.6.0)
+  - RxSwift
+  - SnapKit
   - SVGKit
   - Then
 
@@ -105,6 +105,6 @@ SPEC CHECKSUMS:
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: a8d226973c28c1f3ebf629e927e61a35d69d4d6a
+PODFILE CHECKSUM: 1dc0213fad398496684c2d8951780a48341e9fbd
 
 COCOAPODS: 1.11.3

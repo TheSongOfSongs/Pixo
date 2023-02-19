@@ -7,11 +7,11 @@ target 'Pixo' do
 
   # Pods for Pixo
   pod 'FirebaseUI/Storage'
-  pod 'RxCocoa', '6.5.0'
+  pod 'RxCocoa'
   pod 'RxDataSources'
-  pod 'RxSwift', '6.5.0'
+  pod 'RxSwift'
   pod 'SVGKit'
-  pod 'SnapKit', '~> 5.6.0'
+  pod 'SnapKit'
   pod 'Then'
 
   target 'PixoTests' do
