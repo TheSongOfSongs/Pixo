@@ -15,14 +15,14 @@ extension ExportSettingView: SettingUpView {
     
     func setupConstriants() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(selectedExportSettingTableView.snp.top)
-            make.height.equalTo(30)
             make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(15)
+            make.height.equalTo(15)
         }
         
         selectedExportSettingTableView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(20)
             make.height.equalTo(160)
         }
     }
