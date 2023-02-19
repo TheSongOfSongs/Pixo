@@ -28,6 +28,6 @@ extension ExportSettingBottmSheetView: UITableViewDataSource {
 
 extension ExportSettingBottmSheetView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedExportSetting.accept((exportSettings.value[indexPath.row], type.value))
+        selectedExportSetting.accept((type: type.value, option: exportSettings.value[indexPath.row]))
     }
 }

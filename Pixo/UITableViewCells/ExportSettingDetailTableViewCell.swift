@@ -32,6 +32,7 @@ class ExportSettingDetailTableViewCell: UITableViewCell {
     }
 }
 
+
 // MARK: - SettingUpView
 extension ExportSettingDetailTableViewCell: SettingUpView {
     func addSubviews() {

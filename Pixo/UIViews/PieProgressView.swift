@@ -32,7 +32,7 @@ class PieProgressView: UIView {
     
     /// progress 진행 값으로 0~1 사이의 값
     var progress: Double = 0 {
-        didSet{
+        didSet {
             let path: Double = {
                 let value = progress - oldValue
                 return value < 0 ? -value : value

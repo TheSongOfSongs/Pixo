@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import SnapKit
+
 import RxCocoa
 import RxSwift
 import Then
 
 class PhotoPickerTitleView: UIView {
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     enum PhotoPicker {
         case albums
@@ -30,18 +30,16 @@ class PhotoPickerTitleView: UIView {
     }
     
     /// 현재 화면에 앨범 리스트를 띄우는지, 사진 리스트를 띄우는지 상태를 정해주는 프로퍼티
-    var photoPickerRelay = BehaviorRelay<PhotoPicker>(value: PhotoPicker.photos)
+    var setPhotoPicker = BehaviorRelay<PhotoPicker>(value: PhotoPicker.photos)
     
-    lazy var photoPickerDriver = photoPickerRelay.asDriver()
+    lazy var photoPicker = setPhotoPicker.asDriver()
     
     // MARK: - UI
     let titleLabel = UILabel().then {
         $0.font = .title
     }
     
-    lazy var arrowImageView = UIImageView().then {
-        $0.image = photoPickerRelay.value.arrowImage
-    }
+    let arrowImageView = UIImageView()
     
     let grayBottomBorderView = UIView().then {
         $0.backgroundColor = UIColor(r: 220, g: 220, b: 220)
@@ -61,17 +59,21 @@ class PhotoPickerTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        disposeBag = DisposeBag()
+    }
+    
     
     // MARK: -
     func bind() {
         albumButton.rx.tap
             .bind(with: self, onNext: { owner, _ in
-                let newValue: PhotoPicker = owner.photoPickerRelay.value == .photos ? .albums : .photos
-                owner.photoPickerRelay.accept(newValue)
+                let newValue: PhotoPicker = owner.setPhotoPicker.value == .photos ? .albums : .photos
+                owner.setPhotoPicker.accept(newValue)
             })
             .disposed(by: disposeBag)
         
-        photoPickerDriver
+        photoPicker
             .drive(with: self, onNext: { owner, photoPicker in
                 owner.arrowImageView.image = photoPicker.arrowImage
             })

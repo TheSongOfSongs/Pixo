@@ -26,6 +26,26 @@ class PhotoPickerViewController: UIViewController {
     let selectedPHAsset = PublishSubject<PHAsset>()
     let updateAlbums = PublishSubject<PHChange>()
     
+    var tableViewDataSource: RxTableViewSectionedReloadDataSource<AlbumSection> {
+        return RxTableViewSectionedReloadDataSource<AlbumSection>(configureCell: { [weak self] _, tableView, indexPath, album in
+            guard let self = self,
+                  let cell = tableView
+                .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.titleLabel.text = album.title
+            
+            if let previewAsset = album.previewPHAsset {
+                self.imageManager.requestImage(for: previewAsset, targetSize: self.previewSize, contentMode: .aspectFill, options: nil) { image, _ in
+                    cell.previewImageView.image = image
+                }
+            }
+            
+            return cell
+        })
+    }
+    
     // MARK: - properties
     let viewModel = PhotoPickerViewModel()
     let imageManager = PHCachingImageManager()
@@ -120,7 +140,7 @@ class PhotoPickerViewController: UIViewController {
             .albums
             .share()
         
-        titleView.photoPickerDriver
+        titleView.photoPicker
             .drive(with: self, onNext: { owner, photoPicker in
                 switch photoPicker {
                 case .photos:
@@ -138,7 +158,7 @@ class PhotoPickerViewController: UIViewController {
             .map({ $0.0 })
             .bind(with: self, onNext: { owner, album in
                 owner.albumDataSource.accept((album, true))
-                owner.titleView.photoPickerRelay.accept(.photos)
+                owner.titleView.setPhotoPicker.accept(.photos)
             })
             .disposed(by: disposeBag)
         
@@ -155,7 +175,7 @@ class PhotoPickerViewController: UIViewController {
             .disposed(by: disposeBag)
         
         albums
-            .bind(to: albumTableView.rx.items(dataSource: tableViewDataSource()))
+            .bind(to: albumTableView.rx.items(dataSource: tableViewDataSource))
             .disposed(by: disposeBag)
         
         // collection view의 default 아이템을 위해 위해 앨범 리스트 중 가장 첫번째 것을 선택하여 보여줌
@@ -202,28 +222,8 @@ class PhotoPickerViewController: UIViewController {
                 
                 // 화면 전환
                 let overlayImageVC = OverlayImageViewController(phAsset: result.0, phAssetImage: phAssetImage)
-                self.navigationController?.pushViewController(overlayImageVC, animated: false)
+                owner.navigationController?.pushViewController(overlayImageVC, animated: false)
             })
             .disposed(by: disposeBag)
-    }
-    
-    func tableViewDataSource() -> RxTableViewSectionedReloadDataSource<AlbumSection> {
-        return RxTableViewSectionedReloadDataSource<AlbumSection>(configureCell: { [weak self] _, tableView, indexPath, album in
-            guard let self = self,
-                  let cell = tableView
-                .dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier, for: indexPath) as? AlbumTableViewCell else {
-                return UITableViewCell()
-            }
-            
-            cell.titleLabel.text = album.title
-            
-            if let previewAsset = album.previewPHAsset {
-                self.imageManager.requestImage(for: previewAsset, targetSize: self.previewSize, contentMode: .aspectFill, options: nil) { image, _ in
-                    cell.previewImageView.image = image
-                }
-            }
-            
-            return cell
-        })
     }
 }

@@ -17,7 +17,11 @@ class ExportViewController: UIViewController {
     // MARK: - properties
     let viewModel = ExportViewModel()
     let imageMergingSources: ImageMergingSources
+    
+    /// bottomSheetView의 dataSource로 할당될 배열
     var formats: [ExportSetting] = []
+    
+    /// bottomSheetView의 dataSource로 할당될 배열
     var qualities: [ExportSetting] = []
     
     var phAsset: PHAsset {
@@ -37,7 +41,7 @@ class ExportViewController: UIViewController {
         $0.backgroundColor = .beige
     }
     
-    let exportSettingView: ExportSettingView
+    let exportSettingView: ExportSettingView = ExportSettingView(frame: .zero)
     
     let exportButton = UIButton().then {
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
@@ -53,8 +57,6 @@ class ExportViewController: UIViewController {
     // MARK: - life cycle
     init(imageMergingSources: ImageMergingSources, previewImage: UIImage) {
         self.imageMergingSources = imageMergingSources
-        self.exportSettingView = ExportSettingView(frame: .zero,
-                                                   phAsset: imageMergingSources.phAsset)
         self.phAssetImageView.image = previewImage
         super.init(nibName: nil, bundle: nil)
     }
@@ -123,14 +125,14 @@ class ExportViewController: UIViewController {
         
         bottomSheetView.selectedExportSetting
             .bind(with: self, onNext: { owner, result in
-                let setting = result.0
-                let type = result.1
+                let type = result.type
+                let option = result.option
                 
                 switch type {
                 case .format:
-                    owner.setSelectedFormat.accept(setting)
+                    owner.setSelectedFormat.accept(option)
                 case .quality:
-                    owner.setSelectedQuality.accept(setting)
+                    owner.setSelectedQuality.accept(option)
                 }
                 
                 owner.hideBottomSheetView()

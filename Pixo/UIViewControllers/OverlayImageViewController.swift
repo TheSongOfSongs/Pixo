@@ -164,13 +164,7 @@ class OverlayImageViewController: UIViewController {
                     return
                 }
                 
-                let sources = ImageMergingSources(phAsset: owner.phAsset,
-                                                  backgroundImageView: owner.phAssetImageView,
-                                                  overlayImageViews: owner.overlayImageViews)
-                
-                let exportViewController = ExportViewController(imageMergingSources: sources,
-                                                                previewImage: previewImage)
-                owner.navigationController?.pushViewController(exportViewController, animated: true)
+                owner.pushExportViewController(previewImage: previewImage)
             })
             .disposed(by: disposeBag)
         
@@ -183,16 +177,16 @@ class OverlayImageViewController: UIViewController {
         
         // 스크롤 끝에 닿기 전에 데이터 추가 요청
         Observable.combineLatest(svgImageSections, overlayImageCollectionView.rx.didScroll)
-            .filter({ _ in !isFetchingMore })
             .observe(on: MainScheduler.instance)
-            .subscribe(with: self, onNext: { owner, _ in
-                let offsetX = owner.overlayImageCollectionView.contentOffset.x
-                let contentWidth = owner.overlayImageCollectionView.contentSize.width
-                
-                if offsetX > contentWidth - owner.overlayImageCollectionView.frame.size.width - 50 {
-                    fetchSVGImageSections.onNext(())
-                    isFetchingMore = true
-                }
+            .filter({ _ in !isFetchingMore })
+            .filter({ _ in
+                let offsetX = self.overlayImageCollectionView.contentOffset.x
+                let contentWidth = self.overlayImageCollectionView.contentSize.width
+                return offsetX > contentWidth - self.overlayImageCollectionView.frame.size.width - 50
+            })
+            .subscribe(onNext: { _ in
+                fetchSVGImageSections.onNext(())
+                isFetchingMore = true
             })
             .disposed(by: disposeBag)
     }
@@ -236,8 +230,23 @@ class OverlayImageViewController: UIViewController {
         
         UIGraphicsBeginImageContextWithOptions(phAssetImageView.imageBounds.size, false, 0.0)
         phAssetImageView.drawHierarchy(in: imageRect, afterScreenUpdates: true)
+        
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
         return result
+    }
+    
+    func pushExportViewController(previewImage: UIImage) {
+        let sources = ImageMergingSources(phAsset: phAsset,
+                                          backgroundImageView: phAssetImageView,
+                                          overlayImageViews: overlayImageViews)
+        
+        let exportViewController = ExportViewController(imageMergingSources: sources,
+                                                        previewImage: previewImage)
+        
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
+        navigationController?.pushViewController(exportViewController, animated: true)
     }
 }

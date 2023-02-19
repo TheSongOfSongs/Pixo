@@ -16,13 +16,12 @@ import Then
 class ExportSettingView: UIView {
     
     // MARK: - properties
-    var disposeBag = DisposeBag()
-    let phAsset: PHAsset
     var formats: [ExportSetting] = []
     var qualities: [ExportSetting] = []
     var selectedSetting: [ExportSetting] = []
     
     // MARK: - properties Rx
+    var disposeBag = DisposeBag()
     let showFixedBottomSheet = PublishRelay<ExportSettingType>()
     let selectedFormat = PublishSubject<ExportSetting>()
     let selectedQuality = PublishSubject<ExportSetting>()
@@ -42,12 +41,10 @@ class ExportSettingView: UIView {
     }
     
     // MARK: - life cycle
-    init(frame: CGRect, phAsset: PHAsset) {
-        self.phAsset = phAsset
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
-        selectedExportSettingTableView.dataSource = self
-        selectedExportSettingTableView.delegate = self
+        setupTableView()
         setupLayout()
         bind()
     }
@@ -68,5 +65,10 @@ class ExportSettingView: UIView {
                 owner.selectedExportSettingTableView.reloadData()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func setupTableView() {
+        selectedExportSettingTableView.dataSource = self
+        selectedExportSettingTableView.delegate = self
     }
 }

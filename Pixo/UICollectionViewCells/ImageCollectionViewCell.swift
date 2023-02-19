@@ -13,7 +13,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     // MARK: properties UI
     let imageView = IdentifiableImageView()
     
-    // MARK: - life cycle
+    // MARK: life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
