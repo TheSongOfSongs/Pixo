@@ -11,11 +11,13 @@ import Photos
 import RxSwift
 import RxCocoa
 
+typealias FetchingPHAssetImageSource = (phAsset: PHAsset, targetSize: CGSize)
+
 /// 앨범 사진 관련된 작업을 담당하는 클래스입니다.
 final class PhotosManager {
     
     struct Input {
-        let requestImage: Observable<(PHAsset, CGSize)>
+        let fetchImage: Observable<FetchingPHAssetImageSource>
     }
     
     struct Output {
@@ -25,26 +27,35 @@ final class PhotosManager {
     }
     
     // MARK: - properties
+    var disposeBag = DisposeBag()
+    
     let manager = PHImageManager.default()
-    let disposeBag = DisposeBag()
-    private let progressRelay = PublishRelay<Double>()
-    private let phAssetImageRelay = PublishRelay<UIImage?>()
-    private let checkiCloudImageRelay = PublishRelay<Bool>()
+    
+    private let progress = PublishRelay<Double>()
+    private let phAssetImage = PublishRelay<UIImage?>()
+    private let checkiCloudImage = PublishRelay<Bool>()
+    
+    // MARK: - life cycle
+    deinit {
+        disposeBag = DisposeBag()
+    }
     
     // MARK: - helpers
     func transform(input: Input) -> Output {
-        input.requestImage
+        input.fetchImage
             .subscribe(with: self, onNext: { owner, result in
-                owner.fetchPhoto(of: result.0, targetSize: result.1)
+                owner.fetchPhoto(of: result)
             })
             .disposed(by: disposeBag)
         
-        return Output(progress: progressRelay.asDriver(onErrorJustReturn: 0),
-                      image: phAssetImageRelay.asDriver(onErrorJustReturn: nil),
-                      checkiCloudPHAssetImage: checkiCloudImageRelay.asDriver(onErrorJustReturn: false))
+        return Output(progress: progress.asDriver(onErrorJustReturn: 0),
+                      image: phAssetImage.asDriver(onErrorJustReturn: nil),
+                      checkiCloudPHAssetImage: checkiCloudImage.asDriver(onErrorJustReturn: false))
     }
     
-    func fetchPhoto(of phAsset: PHAsset, targetSize: CGSize) {
+    func fetchPhoto(of source: FetchingPHAssetImageSource) {
+        let phAsset = source.phAsset
+        
         let isLocalImage: Bool = {
             if let isLocalPHAsset = PHAssetResource
                 .assetResources(for: phAsset)
@@ -56,7 +67,7 @@ final class PhotosManager {
             }
         }()
         
-        checkiCloudImageRelay.accept(!isLocalImage)
+        checkiCloudImage.accept(!isLocalImage)
         
         // 사진 가져오는 작업 상태 프로그래스 관련 작업
         let options = PHImageRequestOptions().then {
@@ -66,16 +77,16 @@ final class PhotosManager {
             // iCloud에서 로딩해야 하는 경우
             guard !isLocalImage else { return }
             $0.progressHandler = { [weak self] progress, _, _, _ in
-                self?.progressRelay.accept(progress)
+                self?.progress.accept(progress)
             }
         }
         
         // 사진 요청
         manager.requestImage(for: phAsset,
-                             targetSize: targetSize,
+                             targetSize: source.targetSize,
                              contentMode: .aspectFit,
                              options: options) { [weak self] image, _ in
-            self?.phAssetImageRelay.accept(image)
+            self?.phAssetImage.accept(image)
         }
     }
 }

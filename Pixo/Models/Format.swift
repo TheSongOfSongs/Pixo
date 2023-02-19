@@ -11,8 +11,14 @@ import Foundation
 struct Format: ExportSetting {
     
     let type: ExportSettingType = .format
+    
+    /// 추출할 파일 타입에 대한 이름
     var title: String
+    
+    /// 파일 타입에 대한 설명
     var subtitle: String
+    
+    /// 파일 타입을 정의한 enum
     var imageType: ImageFormatType
     
     init(title: String, subtitle: String, format: ImageFormatType) {

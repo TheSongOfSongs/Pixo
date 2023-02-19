@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 
+/// 배경이미지와 오버레이 이미지를 추출하기 위해 필요한 정보입니다.
 struct ImageExportSources {
     /// 배경이미지. 합성할 이미지의 배경이 되는 이미지
     let backgroundImage: UIImage

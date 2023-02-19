@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Alert 창에 들어갈 문구와 버튼 타입을 정의합니다.
 enum AlertType {
     case successToSavePhoto
     case failToFetchFromStorage
@@ -29,12 +30,12 @@ enum AlertType {
                     cancel: nil)
         case .failToSavePhoto:
             return (title: "에러 발생",
-                    message: "사진을 저장할 수 없습니다 😢",
+                    message: "사진을 저장할 수 없습니다",
                     okay: "확인",
                     cancel: nil)
         case .failToLoadImage, .failToLoadPhoto:
             return (title: "에러 발생",
-                    message: "이미지를 사용할 수 없습니다 😢",
+                    message: "이미지를 사용할 수 없습니다",
                     okay: "확인",
                     cancel: nil)
         case .unknown:

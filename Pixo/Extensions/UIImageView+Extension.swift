@@ -8,6 +8,8 @@
 import UIKit
 
 extension UIImageView {
+    /// 이미지 뷰의 contentMode가 scaleAspectFit으로 정의되어 있을 때,
+    /// 이미지 뷰에서 실제 이미지가 차지하는 영역만큼의 넓이를 가져옵니다.
     var imageBounds: CGRect {
         guard let image = image else { return bounds }
         guard contentMode == .scaleAspectFit else { return bounds }

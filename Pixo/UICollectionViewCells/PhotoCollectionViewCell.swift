@@ -37,6 +37,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
 }
 
+
+// MARK: - SettingUpView
 extension PhotoCollectionViewCell: SettingUpView {
     func addSubviews() {
         addSubview(imageView)

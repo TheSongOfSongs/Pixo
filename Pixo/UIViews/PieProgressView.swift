@@ -25,14 +25,14 @@ class PieProgressView: UIView {
     var animationDuration = 0.2
     
     /// pie의 채워지는 부분과 테두리의 색
-    var progressColor = UIColor(r: 250, g: 120, b: 123)
+    var progressColor = UIColor.pink
     
     /// pie의 비어있는 부분을 채우는 색
     var trackColor = UIColor(r: 240, g: 239, b: 240)
     
     /// progress 진행 값으로 0~1 사이의 값
     var progress: Double = 0 {
-        didSet{
+        didSet {
             let path: Double = {
                 let value = progress - oldValue
                 return value < 0 ? -value : value

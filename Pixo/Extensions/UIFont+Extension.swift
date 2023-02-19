@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIFont {
+    // MARK: static constants
     static let title = UIFont.systemFont(ofSize: 16, weight: .medium)
     static let button = UIFont.systemFont(ofSize: 12)
 }

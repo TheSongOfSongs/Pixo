@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// TableView의 InexPath row를 구분하기 위한 타입
+/// 이미지 추출 옵션의 종류입니다.
 enum ExportSettingType: Int, CaseIterable {
     case format = 0
     case quality

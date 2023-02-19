@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// UIView, UIViewController에서 채택하여 view를 구성하는 동작을 정의합니다.
 protocol SettingUpView {
     func setupLayout()
     /// UIView Element를 추가해주는 함수
