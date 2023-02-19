@@ -30,8 +30,8 @@ class ExportSettingView: UIView {
     
     // MARK: - properties UI
     let titleLabel = UILabel().then {
+        $0.font = .title
         $0.text = "내보내기 설정"
-        $0.font = UIFont.systemFont(ofSize: 13)
     }
     
     let selectedExportSettingTableView = UITableView(frame: .zero, style: .insetGrouped).then {
